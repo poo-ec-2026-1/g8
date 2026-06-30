@@ -11,24 +11,26 @@ import java.util.stream.Collectors;
 
 /**
  * Controller + View da tela de Agenda / Prontuário.
- * - Aba "Agenda": filtra consultas por médico e exibe em tabela.
- * - Aba "Prontuário": usa Prontuario.verificarSenha() (novo método do modelo)
- *   para autenticar o médico antes de exibir o histórico do paciente.
+ * - Aba "Agenda": visível para Secretária e Médico.
+ * - Aba "Prontuário": visível apenas para Médico (conforme diagrama de casos de uso).
  */
 public class AgendaController {
 
     private final ConsultaRepository consultaRepo;
     private final MedicoRepository   medicoRepo;
     private final ClienteRepository  clienteRepo;
+    private final String             tipoUsuario;
 
     private BorderPane view;
 
     public AgendaController(ConsultaRepository consultaRepo,
                              MedicoRepository medicoRepo,
-                             ClienteRepository clienteRepo) {
+                             ClienteRepository clienteRepo,
+                             String tipoUsuario) {
         this.consultaRepo = consultaRepo;
         this.medicoRepo   = medicoRepo;
         this.clienteRepo  = clienteRepo;
+        this.tipoUsuario  = tipoUsuario;
         construirView();
     }
 
@@ -39,7 +41,7 @@ public class AgendaController {
         Button btnVoltar = new Button("← Voltar");
         btnVoltar.setStyle("-fx-background-color: transparent; -fx-text-fill: #2980b9;" +
                            "-fx-font-size: 13px; -fx-cursor: hand;");
-        btnVoltar.setOnAction(e -> MainApp.irParaDashboard("", ""));
+        btnVoltar.setOnAction(e -> MainApp.irParaDashboard());
 
         HBox cabecalho = new HBox(16, btnVoltar, titulo);
         cabecalho.setAlignment(Pos.CENTER_LEFT);
@@ -48,7 +50,12 @@ public class AgendaController {
 
         TabPane abas = new TabPane();
         abas.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
-        abas.getTabs().addAll(criarAbaAgenda(), criarAbaProntuario());
+        abas.getTabs().add(criarAbaAgenda());
+
+        // Aba de Prontuário apenas para Médico (diagrama de casos de uso)
+        if ("Médico".equals(tipoUsuario)) {
+            abas.getTabs().add(criarAbaProntuario());
+        }
 
         view = new BorderPane();
         view.setTop(cabecalho);

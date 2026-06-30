@@ -1,5 +1,3 @@
-package com.poo;
-
 import com.j256.ormlite.table.DatabaseTable;
 import com.j256.ormlite.field.DatabaseField;
 

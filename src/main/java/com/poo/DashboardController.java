@@ -6,8 +6,14 @@ import javafx.scene.text.*;
 
 /**
  * Controller + View do Dashboard principal.
- * Exibe boas-vindas e botões de navegação para as demais telas.
- * Não interage diretamente com repositórios, então não precisa tratar SQLException.
+ *
+ * Os botões exibidos variam de acordo com o perfil do usuário logado,
+ * seguindo o Diagrama de Casos de Uso do projeto:
+ *
+ *  Secretária → Cadastrar Paciente, Cancelar Consulta, Agendar Consulta,
+ *               Visualizar Agenda
+ *
+ *  Médico     → Visualizar Agenda, Acessar Prontuário, Registrar Atendimento
  */
 public class DashboardController {
 
@@ -23,12 +29,13 @@ public class DashboardController {
     }
 
     private void construirView() {
+        // ----- Cabeçalho -----
         Label titulo = new Label("Bem-vindo(a), " + nomeUsuario + "!");
         titulo.setFont(Font.font("SansSerif", FontWeight.BOLD, 24));
 
-        Label tipo = new Label("Perfil: " + tipoUsuario);
-        tipo.setFont(Font.font("SansSerif", 14));
-        tipo.setStyle("-fx-text-fill: #555;");
+        Label lblTipo = new Label("Perfil: " + tipoUsuario);
+        lblTipo.setFont(Font.font("SansSerif", 14));
+        lblTipo.setStyle("-fx-text-fill: #555;");
 
         Separator sep = new Separator();
         sep.setMaxWidth(500);
@@ -36,20 +43,43 @@ public class DashboardController {
         Label instrucao = new Label("O que deseja fazer?");
         instrucao.setFont(Font.font("SansSerif", 15));
 
-        Button btnCadastro    = criarBotao("👤  Cadastrar Cliente / Médico", "#27ae60");
-        Button btnAgendamento = criarBotao("📅  Agendar Consulta",          "#2980b9");
-        Button btnAgenda      = criarBotao("🗓  Ver Agenda / Prontuário",   "#8e44ad");
-        Button btnSair        = criarBotao("🚪  Sair",                       "#c0392b");
-
-        btnCadastro.setOnAction(e    -> MainApp.irParaCadastro());
-        btnAgendamento.setOnAction(e -> MainApp.irParaAgendamento());
-        btnAgenda.setOnAction(e      -> MainApp.irParaAgenda());
-        btnSair.setOnAction(e        -> MainApp.irParaLogin());
-
-        VBox botoes = new VBox(14, btnCadastro, btnAgendamento, btnAgenda, btnSair);
+        // ----- Botões por perfil -----
+        VBox botoes = new VBox(14);
         botoes.setAlignment(Pos.CENTER);
 
-        view = new VBox(18, titulo, tipo, sep, instrucao, botoes);
+        if ("Secretária".equals(tipoUsuario)) {
+            Button btnCadastro    = criarBotao("👤  Cadastrar Paciente",   "#27ae60");
+            Button btnAgendar     = criarBotao("📅  Agendar Consulta",     "#2980b9");
+            Button btnCancelar    = criarBotao("❌  Cancelar Consulta",    "#e74c3c");
+            Button btnAgenda      = criarBotao("🗓  Visualizar Agenda",    "#8e44ad");
+
+            btnCadastro.setOnAction(e -> MainApp.irParaCadastro());
+            btnAgendar.setOnAction(e  -> MainApp.irParaAgendamento());
+            btnCancelar.setOnAction(e -> MainApp.irParaCancelamento());
+            btnAgenda.setOnAction(e   -> MainApp.irParaAgenda(tipoUsuario));
+
+            botoes.getChildren().addAll(btnCadastro, btnAgendar, btnCancelar, btnAgenda);
+
+        } else if ("Médico".equals(tipoUsuario)) {
+            Button btnAgenda      = criarBotao("🗓  Visualizar Agenda",          "#2980b9");
+            Button btnProntuario  = criarBotao("📋  Acessar Prontuário",         "#8e44ad");
+            Button btnAtendimento = criarBotao("✏️  Registrar Atendimento",      "#27ae60");
+            Button btnAtualizarProntuario = criarBotao("📝  Atualizar Prontuário", "#16a085");
+
+            btnAgenda.setOnAction(e      -> MainApp.irParaAgenda(tipoUsuario));
+            btnProntuario.setOnAction(e  -> MainApp.irParaAgenda(tipoUsuario));   // abre na aba prontuário
+            btnAtendimento.setOnAction(e -> MainApp.irParaRegistroAtendimento());
+            btnAtualizarProntuario.setOnAction(e -> MainApp.irParaAtualizarProntuario());
+
+            botoes.getChildren().addAll(btnAgenda, btnProntuario, btnAtendimento, btnAtualizarProntuario);
+        }
+
+        // Botão Sair sempre visível
+        Button btnSair = criarBotao("🚪  Sair", "#7f8c8d");
+        btnSair.setOnAction(e -> MainApp.irParaLogin());
+        botoes.getChildren().add(btnSair);
+
+        view = new VBox(18, titulo, lblTipo, sep, instrucao, botoes);
         view.setAlignment(Pos.CENTER);
         view.setPadding(new Insets(40));
         view.setStyle("-fx-background-color: #f4f6f8;");

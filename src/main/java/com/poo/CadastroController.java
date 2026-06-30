@@ -15,21 +15,27 @@ import java.util.List;
  * (opcionalmente) já vincular um médico responsável ao Prontuário criado,
  * usando ProntuarioRepository.adicionarMedicoAoHistorico(), que persiste
  * o relacionamento muitos-para-muitos através da tabela ponte ProntuarioMedico.
+ *
+ * A aba de Secretária usa apenas SecretariaRepository.create(), pois o
+ * repositório atual não expõe update/delete para esse tipo.
  */
 public class CadastroController {
 
     private final ClienteRepository    clienteRepo;
     private final MedicoRepository     medicoRepo;
     private final ProntuarioRepository prontuarioRepo;
+    private final SecretariaRepository secretariaRepo;
 
     private BorderPane view;
 
     public CadastroController(ClienteRepository clienteRepo,
                                MedicoRepository medicoRepo,
-                               ProntuarioRepository prontuarioRepo) {
+                               ProntuarioRepository prontuarioRepo,
+                               SecretariaRepository secretariaRepo) {
         this.clienteRepo    = clienteRepo;
         this.medicoRepo     = medicoRepo;
         this.prontuarioRepo = prontuarioRepo;
+        this.secretariaRepo = secretariaRepo;
         construirView();
     }
 
@@ -40,7 +46,7 @@ public class CadastroController {
         Button btnVoltar = new Button("← Voltar");
         btnVoltar.setStyle("-fx-background-color: transparent; -fx-text-fill: #2980b9;" +
                            "-fx-font-size: 13px; -fx-cursor: hand;");
-        btnVoltar.setOnAction(e -> MainApp.irParaDashboard("", ""));
+        btnVoltar.setOnAction(e -> MainApp.irParaDashboard());
 
         HBox cabecalho = new HBox(16, btnVoltar, titulo);
         cabecalho.setAlignment(Pos.CENTER_LEFT);
@@ -49,7 +55,7 @@ public class CadastroController {
 
         TabPane abas = new TabPane();
         abas.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
-        abas.getTabs().addAll(criarAbaCliente(), criarAbaMedico());
+        abas.getTabs().addAll(criarAbaCliente(), criarAbaMedico(), criarAbaSecretaria());
 
         view = new BorderPane();
         view.setTop(cabecalho);
@@ -70,16 +76,13 @@ public class CadastroController {
         Label lblNasc  = new Label("Data de nascimento:");
         TextField fNasc = campo("DD/MM/AAAA");
 
-        Label lblDoenca  = new Label("Diagnóstico / Doença (prontuário):");
-        TextField fDoenca = campo("Ex: Hipertensão");
-
-        Label lblMedicoResp = new Label("Médico responsável (opcional):");
-        ComboBox<Medico> cbMedico = new ComboBox<>();
-        cbMedico.setPromptText("Nenhum médico vinculado");
-        cbMedico.setMaxWidth(350);
-        cbMedico.setCellFactory(lv -> celulaMedico());
-        cbMedico.setButtonCell(celulaMedico());
-        carregarMedicosNoCombo(cbMedico);
+        Label lblAviso = new Label(
+            "O prontuário do paciente é criado posteriormente, na tela " +
+            "\"Atualizar Prontuário\" (disponível para o médico)."
+        );
+        lblAviso.setWrapText(true);
+        lblAviso.setMaxWidth(380);
+        lblAviso.setStyle("-fx-text-fill: #7f8c8d; -fx-font-size: 12px;");
 
         Label lblStatus = new Label();
         lblStatus.setWrapText(true);
@@ -93,26 +96,17 @@ public class CadastroController {
                 return;
             }
             try {
-                Prontuario prontuario = new Prontuario(fDoenca.getText().trim());
-                prontuarioRepo.create(prontuario);
-
-                Medico medicoSelecionado = cbMedico.getValue();
-                if (medicoSelecionado != null) {
-                    prontuarioRepo.adicionarMedicoAoHistorico(prontuario, medicoSelecionado);
-                }
-
+                // Cliente é criado SEM prontuário vinculado (fica null).
+                // O prontuário é criado depois, na tela de Atualizar Prontuário.
                 Cliente cliente = new Cliente(
                     fNome.getText().trim(),
                     fCPF.getText().trim(),
-                    0,
-                    prontuario,
                     fNasc.getText().trim()
                 );
                 clienteRepo.create(cliente);
 
                 estilo(lblStatus, "✔ Cliente cadastrado com sucesso!", true);
-                fNome.clear(); fCPF.clear(); fNasc.clear(); fDoenca.clear();
-                cbMedico.setValue(null);
+                fNome.clear(); fCPF.clear(); fNasc.clear();
 
             } catch (SQLException ex) {
                 estilo(lblStatus, "Erro ao cadastrar cliente: " + ex.getMessage(), false);
@@ -123,8 +117,7 @@ public class CadastroController {
             lblNome, fNome,
             lblCPF, fCPF,
             lblNasc, fNasc,
-            lblDoenca, fDoenca,
-            lblMedicoResp, cbMedico,
+            lblAviso,
             btnSalvar, lblStatus
         );
         conteudo.setPadding(new Insets(24));
@@ -195,26 +188,71 @@ public class CadastroController {
     }
 
     // -------------------------------------------------------------------------
-    // Helpers
+    // Aba: Secretária
     // -------------------------------------------------------------------------
-    private void carregarMedicosNoCombo(ComboBox<Medico> cb) {
-        try {
-            List<Medico> medicos = medicoRepo.loadAll();
-            cb.setItems(FXCollections.observableArrayList(medicos));
-        } catch (SQLException e) {
-            // Se falhar ao carregar médicos, deixa o combo vazio mas não trava a tela.
-            MainApp.mostrarErroBanco(e);
-        }
+    private Tab criarAbaSecretaria() {
+        Label lblNome  = new Label("Nome completo:");
+        TextField fNome = campo("Ex: Ana Paula Ferreira");
+
+        Label lblCPF   = new Label("CPF:");
+        TextField fCPF  = campo("000.000.000-00");
+
+        Label lblSenha = new Label("Senha de acesso:");
+        PasswordField fSenha = new PasswordField();
+        fSenha.setPromptText("Crie uma senha");
+        fSenha.setMaxWidth(350);
+
+        Label lblConfirma = new Label("Confirmar senha:");
+        PasswordField fConfirma = new PasswordField();
+        fConfirma.setPromptText("Repita a senha");
+        fConfirma.setMaxWidth(350);
+
+        Label lblStatus = new Label();
+        lblStatus.setWrapText(true);
+        lblStatus.setMaxWidth(380);
+        lblStatus.setFont(Font.font("SansSerif", 13));
+
+        Button btnSalvar = botaoAcao("Cadastrar Secretária", "#e67e22");
+        btnSalvar.setOnAction(e -> {
+            String nome    = fNome.getText().trim();
+            String cpf     = fCPF.getText().trim();
+            String senha   = fSenha.getText();
+            String confirma = fConfirma.getText();
+
+            if (nome.isBlank() || cpf.isBlank() || senha.isBlank()) {
+                estilo(lblStatus, "Preencha Nome, CPF e Senha.", false);
+                return;
+            }
+            if (!senha.equals(confirma)) {
+                estilo(lblStatus, "As senhas não coincidem.", false);
+                return;
+            }
+            try {
+                Secretaria secretaria = new Secretaria(nome, cpf, senha);
+                secretariaRepo.create(secretaria);
+                estilo(lblStatus, "✔ Secretária cadastrada com sucesso!", true);
+                fNome.clear(); fCPF.clear(); fSenha.clear(); fConfirma.clear();
+            } catch (SQLException ex) {
+                estilo(lblStatus, "Erro ao cadastrar secretária: " + ex.getMessage(), false);
+            }
+        });
+
+        VBox conteudo = new VBox(10,
+            lblNome,     fNome,
+            lblCPF,      fCPF,
+            lblSenha,    fSenha,
+            lblConfirma, fConfirma,
+            btnSalvar,   lblStatus
+        );
+        conteudo.setPadding(new Insets(24));
+        conteudo.setMaxWidth(420);
+
+        return new Tab("🗂  Nova Secretária", conteudo);
     }
 
-    private ListCell<Medico> celulaMedico() {
-        return new ListCell<>() {
-            @Override protected void updateItem(Medico m, boolean empty) {
-                super.updateItem(m, empty);
-                setText(empty || m == null ? null : "Dr(a). " + m.getNome() + " — " + m.getEspecialidade());
-            }
-        };
-    }
+    // -------------------------------------------------------------------------
+    // Helpers
+    // -------------------------------------------------------------------------
 
     private TextField campo(String prompt) {
         TextField tf = new TextField();

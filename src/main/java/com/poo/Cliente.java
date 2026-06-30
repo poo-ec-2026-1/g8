@@ -1,5 +1,3 @@
-package com.poo;
-
 import com.j256.ormlite.table.DatabaseTable;
 import com.j256.ormlite.field.DatabaseField;
 
@@ -21,8 +19,23 @@ public class Cliente extends Usuario{
         this.aniverssario = aniverssario;
     }
     
+    /**
+     * Construtor sem Prontuario — usado no cadastro de Cliente, já que o
+     * prontuário agora é criado/vinculado posteriormente em uma tela
+     * dedicada de Atualizar Prontuário, e não mais no momento do cadastro.
+     */
+    public Cliente(String nome, String CPF, String aniverssario){
+        super(nome, CPF, 0);
+        this.prontuario = null;
+        this.aniverssario = aniverssario;
+    }
+    
     public Prontuario getProntuario(){
         return this.prontuario;
+    }
+    
+    public void setProntuario(Prontuario prontuario){
+        this.prontuario = prontuario;
     }
     
     public String getAniverssario(){

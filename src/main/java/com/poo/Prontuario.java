@@ -1,5 +1,3 @@
-package com.poo;
-
 import com.j256.ormlite.table.DatabaseTable;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.field.ForeignCollectionField;
@@ -26,6 +24,10 @@ public class Prontuario{
     
     public String getDoença(){
         return this.doença;
+    }
+    
+    public void setDoença(String doença){
+        this.doença = doença;
     }
     
     public int getId() {
@@ -63,4 +65,3 @@ public class Prontuario{
         }
     }
 }
-

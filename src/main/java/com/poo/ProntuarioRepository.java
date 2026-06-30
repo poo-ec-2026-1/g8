@@ -1,5 +1,3 @@
-package com.poo;
-
 import com.j256.ormlite.dao.DaoManager;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.table.TableUtils;
@@ -7,7 +5,8 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.ArrayList;
 
-public class ProntuarioRepository {
+public class ProntuarioRepository 
+{
     private static Database database;
     private static Dao<Prontuario, Integer> prontuarioDao;
     private static Dao<ProntuarioMedico, Integer> ponteDao; 
@@ -18,7 +17,8 @@ public class ProntuarioRepository {
         this.loadedProntuarios = new ArrayList<Prontuario>();
     }
     
-    public static void setDatabase(Database database) {
+    public static void setDatabase(Database database) 
+    {
         ProntuarioRepository.database = database;
         try {
             prontuarioDao = DaoManager.createDao(database.getConnection(), Prontuario.class);
@@ -31,7 +31,8 @@ public class ProntuarioRepository {
         }            
     }
     
-    public Prontuario create(Prontuario prontuario) throws SQLException {
+    public Prontuario create(Prontuario prontuario) throws SQLException 
+    {
         try {
             prontuarioDao.create(prontuario);
             this.loadedProntuarios.add(prontuario);
@@ -42,7 +43,8 @@ public class ProntuarioRepository {
         }
     }    
 
-    public void adicionarMedicoAoHistorico(Prontuario prontuario, Medico medico) throws SQLException {
+    public void adicionarMedicoAoHistorico(Prontuario prontuario, Medico medico) throws SQLException 
+    {
         try {
             ProntuarioMedico ligacao = new ProntuarioMedico(prontuario, medico);
             ponteDao.create(ligacao);
@@ -52,7 +54,8 @@ public class ProntuarioRepository {
         }
     }
 
-    public Prontuario loadFromId(int id) throws SQLException {
+    public Prontuario loadFromId(int id) throws SQLException 
+    {
         try {
             return prontuarioDao.queryForId(id);
         } catch (SQLException e) {
@@ -61,7 +64,8 @@ public class ProntuarioRepository {
         }
     }
     
-    public void update(Prontuario prontuario) throws SQLException {
+    public void update(Prontuario prontuario) throws SQLException 
+    {
         try {
             prontuarioDao.update(prontuario);
         } catch (SQLException e) {
@@ -70,7 +74,8 @@ public class ProntuarioRepository {
         }
     }
 
-    public void delete(Prontuario prontuario) throws SQLException {
+    public void delete(Prontuario prontuario) throws SQLException 
+    {
         try {
             prontuarioDao.delete(prontuario);
         } catch (SQLException e) {
