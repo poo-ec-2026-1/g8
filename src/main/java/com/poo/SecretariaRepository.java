@@ -25,12 +25,14 @@ public class SecretariaRepository {
             dao = DaoManager.createDao(database.getConnection(), Secretaria.class);
             TableUtils.createTableIfNotExists(database.getConnection(), Secretaria.class);
         } catch(SQLException e) {
-            
             throw new RuntimeException("Erro fatal ao inicializar o DAO de Secretaria", e);
         }            
     }
     
-    public Secretaria create(Secretaria secretaria) throws SQLException {
+    public Secretaria create(Secretaria secretaria) throws SQLException, IllegalArgumentException {
+        if (secretaria != null && !ValidadorUtils.isCpfValido(secretaria.getCPF())) {
+            throw new IllegalArgumentException("Impossível persistir: CPF da secretária é inválido.");
+        }
         try {
             int nrows = dao.create(secretaria);
             if (nrows == 0) {
