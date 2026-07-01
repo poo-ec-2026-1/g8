@@ -110,6 +110,8 @@ public class CadastroController {
                 estilo(lblStatus, "✔ Cliente cadastrado com sucesso!", true);
                 fNome.clear(); fCPF.clear(); fNasc.clear();
 
+            } catch (IllegalArgumentException ex) {
+                estilo(lblStatus, ex.getMessage(), false);
             } catch (SQLException ex) {
                 estilo(lblStatus, "Erro ao cadastrar cliente: " + ex.getMessage(), false);
             }
@@ -171,6 +173,8 @@ public class CadastroController {
                 medicoRepo.create(medico);
                 estilo(lblStatus, "✔ Médico cadastrado com sucesso!", true);
                 fNome.clear(); fCPF.clear(); fEsp.clear(); fSenha.clear();
+            } catch (IllegalArgumentException ex) {
+                estilo(lblStatus, ex.getMessage(), false);
             } catch (SQLException ex) {
                 estilo(lblStatus, "Erro ao cadastrar médico: " + ex.getMessage(), false);
             }
@@ -234,6 +238,8 @@ public class CadastroController {
                 secretariaRepo.create(secretaria);
                 estilo(lblStatus, "✔ Secretária cadastrada com sucesso!", true);
                 fNome.clear(); fCPF.clear(); fSenha.clear(); fConfirma.clear();
+            } catch (IllegalArgumentException ex) {
+                estilo(lblStatus, ex.getMessage(), false);
             } catch (SQLException ex) {
                 estilo(lblStatus, "Erro ao cadastrar secretária: " + ex.getMessage(), false);
             }

@@ -70,8 +70,8 @@ public class MainApp extends Application {
     private static void popularDadosIniciais() {
         try {
             if (secretariaRepo.loadAll().isEmpty()) {
-                secretariaRepo.create(new Secretaria("Secretária Admin", "000.000.000-00", "admin"));
-                System.out.println("Secretária inicial criada — CPF: 000.000.000-00");
+                secretariaRepo.create(new Secretaria("Secretária Admin", "111.444.777-35", "admin"));
+                System.out.println("Secretária inicial criada — CPF: 111.444.777-35");
             }
         } catch (SQLException e) {
             System.err.println("Falha ao popular dados iniciais: " + e.getMessage());
