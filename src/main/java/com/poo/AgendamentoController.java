@@ -26,8 +26,8 @@ public class AgendamentoController {
     private BorderPane view;
 
     public AgendamentoController(ConsultaRepository consultaRepo,
-                                  ClienteRepository clienteRepo,
-                                  MedicoRepository medicoRepo) {
+                                 ClienteRepository clienteRepo,
+                                 MedicoRepository medicoRepo) {
         this.consultaRepo = consultaRepo;
         this.clienteRepo  = clienteRepo;
         this.medicoRepo   = medicoRepo;
@@ -39,8 +39,9 @@ public class AgendamentoController {
         titulo.setFont(Font.font("SansSerif", FontWeight.BOLD, 22));
 
         Button btnVoltar = new Button("← Voltar");
+        btnVoltar.setId("btnVoltar");
         btnVoltar.setStyle("-fx-background-color: transparent; -fx-text-fill: #2980b9;" +
-                           "-fx-font-size: 13px; -fx-cursor: hand;");
+                "-fx-font-size: 13px; -fx-cursor: hand;");
         btnVoltar.setOnAction(e -> MainApp.irParaDashboard());
 
         HBox cabecalho = new HBox(16, btnVoltar, titulo);
@@ -50,6 +51,7 @@ public class AgendamentoController {
 
         Label lblMedico = new Label("Médico:");
         ComboBox<Medico> cbMedico = new ComboBox<>();
+        cbMedico.setId("cbMedico");
         cbMedico.setPromptText("Selecione o médico");
         cbMedico.setMaxWidth(380);
         cbMedico.setCellFactory(lv -> celulaMedico());
@@ -57,6 +59,7 @@ public class AgendamentoController {
 
         Label lblCliente = new Label("Paciente:");
         ComboBox<Cliente> cbCliente = new ComboBox<>();
+        cbCliente.setId("cbCliente");
         cbCliente.setPromptText("Selecione o paciente");
         cbCliente.setMaxWidth(380);
         cbCliente.setCellFactory(lv -> celulaCliente());
@@ -64,24 +67,28 @@ public class AgendamentoController {
 
         Label lblData = new Label("Data (DD/MM/AAAA):");
         TextField fData = new TextField();
+        fData.setId("fData");
         fData.setPromptText("Ex: 15/07/2026");
         fData.setMaxWidth(380);
 
         Label lblHorario = new Label("Horário (HH:MM):");
         TextField fHorario = new TextField();
+        fHorario.setId("fHorario");
         fHorario.setPromptText("Ex: 14:30");
         fHorario.setMaxWidth(380);
 
         Label lblStatus = new Label();
+        lblStatus.setId("lblStatus");
         lblStatus.setWrapText(true);
         lblStatus.setMaxWidth(400);
         lblStatus.setFont(Font.font("SansSerif", 13));
 
         Button btnSalvar = new Button("✔  Confirmar Agendamento");
+        btnSalvar.setId("btnSalvar");
         btnSalvar.setPrefWidth(260);
         btnSalvar.setPrefHeight(38);
         btnSalvar.setStyle("-fx-background-color: #2980b9; -fx-text-fill: white;" +
-                           "-fx-font-size: 14px; -fx-background-radius: 5; -fx-cursor: hand;");
+                "-fx-font-size: 14px; -fx-background-radius: 5; -fx-cursor: hand;");
 
         btnSalvar.setOnAction(e -> {
             Medico  medico  = cbMedico.getValue();
@@ -97,10 +104,10 @@ public class AgendamentoController {
             try {
                 List<Consulta> todas = consultaRepo.loadAll();
                 boolean conflito = todas.stream().anyMatch(c ->
-                    c.getMedico() != null &&
-                    c.getMedico().getId() == medico.getId() &&
-                    c.getData().equals(data) &&
-                    c.getHorario().equals(horario)
+                        c.getMedico() != null &&
+                                c.getMedico().getId() == medico.getId() &&
+                                c.getData().equals(data) &&
+                                c.getHorario().equals(horario)
                 );
 
                 if (conflito) {
@@ -123,11 +130,11 @@ public class AgendamentoController {
         });
 
         VBox form = new VBox(10,
-            lblMedico,  cbMedico,
-            lblCliente, cbCliente,
-            lblData,    fData,
-            lblHorario, fHorario,
-            btnSalvar,  lblStatus
+                lblMedico,  cbMedico,
+                lblCliente, cbCliente,
+                lblData,    fData,
+                lblHorario, fHorario,
+                btnSalvar,  lblStatus
         );
         form.setPadding(new Insets(28));
         form.setMaxWidth(440);

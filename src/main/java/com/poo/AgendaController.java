@@ -26,9 +26,9 @@ public class AgendaController {
     private BorderPane view;
 
     public AgendaController(ConsultaRepository consultaRepo,
-                             MedicoRepository medicoRepo,
-                             ClienteRepository clienteRepo,
-                             String tipoUsuario) {
+                            MedicoRepository medicoRepo,
+                            ClienteRepository clienteRepo,
+                            String tipoUsuario) {
         this.consultaRepo = consultaRepo;
         this.medicoRepo   = medicoRepo;
         this.clienteRepo  = clienteRepo;
@@ -41,8 +41,9 @@ public class AgendaController {
         titulo.setFont(Font.font("SansSerif", FontWeight.BOLD, 22));
 
         Button btnVoltar = new Button("← Voltar");
+        btnVoltar.setId("btnVoltar");
         btnVoltar.setStyle("-fx-background-color: transparent; -fx-text-fill: #2980b9;" +
-                           "-fx-font-size: 13px; -fx-cursor: hand;");
+                "-fx-font-size: 13px; -fx-cursor: hand;");
         btnVoltar.setOnAction(e -> MainApp.irParaDashboard());
 
         HBox cabecalho = new HBox(16, btnVoltar, titulo);
@@ -51,6 +52,7 @@ public class AgendaController {
         cabecalho.setStyle("-fx-background-color: #ecf0f1;");
 
         TabPane abas = new TabPane();
+        abas.setId("tabPaneAbas"); // (Para o robô mudar de aba)
         abas.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
         abas.getTabs().add(criarAbaAgenda());
 
@@ -71,16 +73,19 @@ public class AgendaController {
     private Tab criarAbaAgenda() {
         Label lblMedico = new Label("Filtrar por médico:");
         ComboBox<Medico> cbMedico = new ComboBox<>();
+        cbMedico.setId("cbMedico");
         cbMedico.setPromptText("Todos os médicos");
         cbMedico.setMaxWidth(340);
         cbMedico.setCellFactory(lv -> celulaMedico());
         cbMedico.setButtonCell(celulaMedico());
 
         Button btnFiltrar = new Button("🔍  Buscar");
+        btnFiltrar.setId("btnFiltrar");
         btnFiltrar.setStyle("-fx-background-color: #2980b9; -fx-text-fill: white;" +
-                            "-fx-background-radius: 5; -fx-cursor: hand;");
+                "-fx-background-radius: 5; -fx-cursor: hand;");
 
         Label lblErroFiltro = new Label();
+        lblErroFiltro.setId("lblErroFiltro");
         lblErroFiltro.setStyle("-fx-text-fill: #c0392b;");
 
         HBox filtro = new HBox(10, lblMedico, cbMedico, btnFiltrar, lblErroFiltro);
@@ -88,6 +93,7 @@ public class AgendaController {
         filtro.setPadding(new Insets(14, 14, 6, 14));
 
         TableView<Consulta> tabela = new TableView<>();
+        tabela.setId("tabelaConsultas");
         tabela.setPlaceholder(new Label("Nenhuma consulta encontrada."));
 
         TableColumn<Consulta, String> colData    = new TableColumn<>("Data");
@@ -101,13 +107,13 @@ public class AgendaController {
         colMedico.setCellValueFactory(cd -> {
             Medico m = cd.getValue().getMedico();
             return new javafx.beans.property.SimpleStringProperty(
-                m != null ? "Dr(a). " + m.getNome() : "—"
+                    m != null ? "Dr(a). " + m.getNome() : "—"
             );
         });
         colCliente.setCellValueFactory(cd -> {
             Cliente c = cd.getValue().getCliente();
             return new javafx.beans.property.SimpleStringProperty(
-                c != null ? c.getNome() : "—"
+                    c != null ? c.getNome() : "—"
             );
         });
 
@@ -124,9 +130,9 @@ public class AgendaController {
                 Medico filtroMedico = cbMedico.getValue();
                 if (filtroMedico != null) {
                     todas = todas.stream()
-                        .filter(c -> c.getMedico() != null &&
-                                     c.getMedico().getId() == filtroMedico.getId())
-                        .collect(Collectors.toList());
+                            .filter(c -> c.getMedico() != null &&
+                                    c.getMedico().getId() == filtroMedico.getId())
+                            .collect(Collectors.toList());
                 }
                 tabela.setItems(FXCollections.observableArrayList(todas));
                 lblErroFiltro.setText("");
@@ -146,7 +152,9 @@ public class AgendaController {
         VBox conteudo = new VBox(0, filtro, tabela);
         VBox.setVgrow(tabela, Priority.ALWAYS);
 
-        return new Tab("🗓  Agenda", conteudo);
+        Tab aba = new Tab("🗓  Agenda", conteudo);
+        aba.setId("abaAgenda");
+        return aba;
     }
 
     // -------------------------------------------------------------------------
@@ -159,28 +167,33 @@ public class AgendaController {
 
         Label lblCPF = new Label("CPF do paciente:");
         TextField fCPF = campo("000.000.000-00");
+        fCPF.setId("fCPF");
 
         Label lblSenha = new Label("Senha do médico:");
         PasswordField fSenha = new PasswordField();
+        fSenha.setId("fSenha");
         fSenha.setPromptText("Senha de acesso");
         fSenha.setMaxWidth(350);
 
         TextArea areaProntuario = new TextArea();
+        areaProntuario.setId("areaProntuario");
         areaProntuario.setEditable(false);
         areaProntuario.setPromptText("O prontuário aparecerá aqui...");
         areaProntuario.setPrefHeight(220);
         areaProntuario.setFont(Font.font("Monospaced", 13));
 
         Label lblStatus = new Label();
+        lblStatus.setId("lblStatus");
         lblStatus.setWrapText(true);
         lblStatus.setMaxWidth(420);
         lblStatus.setFont(Font.font("SansSerif", 13));
 
         Button btnConsultar = new Button("🔓  Acessar Prontuário");
+        btnConsultar.setId("btnConsultar");
         btnConsultar.setPrefWidth(220);
         btnConsultar.setPrefHeight(36);
         btnConsultar.setStyle("-fx-background-color: #8e44ad; -fx-text-fill: white;" +
-                              "-fx-background-radius: 5; -fx-cursor: hand;");
+                "-fx-background-radius: 5; -fx-cursor: hand;");
 
         btnConsultar.setOnAction(e -> {
             String cpf   = fCPF.getText().trim();
@@ -195,8 +208,8 @@ public class AgendaController {
             try {
                 // Busca o cliente pelo CPF
                 Cliente encontrado = clienteRepo.loadAll().stream()
-                    .filter(c -> c.getCPF().equals(cpf))
-                    .findFirst().orElse(null);
+                        .filter(c -> c.getCPF().equals(cpf))
+                        .findFirst().orElse(null);
 
                 if (encontrado == null) {
                     estilo(lblStatus, "Paciente não encontrado.", false);
@@ -247,12 +260,12 @@ public class AgendaController {
         });
 
         VBox conteudo = new VBox(10,
-            instrucao,
-            lblCPF, fCPF,
-            lblSenha, fSenha,
-            btnConsultar, lblStatus,
-            new Label("Prontuário:"),
-            areaProntuario
+                instrucao,
+                lblCPF, fCPF,
+                lblSenha, fSenha,
+                btnConsultar, lblStatus,
+                new Label("Prontuário:"),
+                areaProntuario
         );
         conteudo.setPadding(new Insets(20));
         conteudo.setMaxWidth(520);
@@ -261,7 +274,9 @@ public class AgendaController {
         scroll.setFitToWidth(true);
         scroll.setStyle("-fx-background-color: transparent;");
 
-        return new Tab("📋  Prontuário", scroll);
+        Tab aba = new Tab("📋  Prontuário", scroll);
+        aba.setId("abaProntuario");
+        return aba;
     }
 
     // -------------------------------------------------------------------------

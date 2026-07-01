@@ -31,9 +31,9 @@ public class CadastroController {
     private BorderPane view;
 
     public CadastroController(ClienteRepository clienteRepo,
-                               MedicoRepository medicoRepo,
-                               ProntuarioRepository prontuarioRepo,
-                               SecretariaRepository secretariaRepo) {
+                              MedicoRepository medicoRepo,
+                              ProntuarioRepository prontuarioRepo,
+                              SecretariaRepository secretariaRepo) {
         this.clienteRepo    = clienteRepo;
         this.medicoRepo     = medicoRepo;
         this.prontuarioRepo = prontuarioRepo;
@@ -46,8 +46,9 @@ public class CadastroController {
         titulo.setFont(Font.font("SansSerif", FontWeight.BOLD, 22));
 
         Button btnVoltar = new Button("← Voltar");
+        btnVoltar.setId("btnVoltar");
         btnVoltar.setStyle("-fx-background-color: transparent; -fx-text-fill: #2980b9;" +
-                           "-fx-font-size: 13px; -fx-cursor: hand;");
+                "-fx-font-size: 13px; -fx-cursor: hand;");
         btnVoltar.setOnAction(e -> MainApp.irParaDashboard());
 
         HBox cabecalho = new HBox(16, btnVoltar, titulo);
@@ -56,6 +57,7 @@ public class CadastroController {
         cabecalho.setStyle("-fx-background-color: #ecf0f1;");
 
         TabPane abas = new TabPane();
+        abas.setId("tabPaneCadastro");
         abas.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
         abas.getTabs().addAll(criarAbaCliente(), criarAbaMedico(), criarAbaSecretaria());
 
@@ -71,27 +73,32 @@ public class CadastroController {
     private Tab criarAbaCliente() {
         Label lblNome  = new Label("Nome completo:");
         TextField fNome = campo("Ex: Maria Silva");
+        fNome.setId("fNomeCliente");
 
         Label lblCPF   = new Label("CPF:");
         TextField fCPF  = campo("000.000.000-00");
+        fCPF.setId("fCpfCliente");
 
         Label lblNasc  = new Label("Data de nascimento:");
         TextField fNasc = campo("DD/MM/AAAA");
+        fNasc.setId("fNascCliente");
 
         Label lblAviso = new Label(
-            "O prontuário do paciente é criado posteriormente, na tela " +
-            "\"Atualizar Prontuário\" (disponível para o médico)."
+                "O prontuário do paciente é criado posteriormente, na tela " +
+                        "\"Atualizar Prontuário\" (disponível para o médico)."
         );
         lblAviso.setWrapText(true);
         lblAviso.setMaxWidth(380);
         lblAviso.setStyle("-fx-text-fill: #7f8c8d; -fx-font-size: 12px;");
 
         Label lblStatus = new Label();
+        lblStatus.setId("lblStatusCliente");
         lblStatus.setWrapText(true);
         lblStatus.setMaxWidth(380);
         lblStatus.setFont(Font.font("SansSerif", 13));
 
         Button btnSalvar = botaoAcao("Cadastrar Cliente", "#27ae60");
+        btnSalvar.setId("btnSalvarCliente");
         btnSalvar.setOnAction(e -> {
             if (fNome.getText().isBlank() || fCPF.getText().isBlank()) {
                 estilo(lblStatus, "Preencha Nome e CPF.", false);
@@ -101,9 +108,9 @@ public class CadastroController {
                 // Cliente é criado SEM prontuário vinculado (fica null).
                 // O prontuário é criado depois, na tela de Atualizar Prontuário.
                 Cliente cliente = new Cliente(
-                    fNome.getText().trim(),
-                    fCPF.getText().trim(),
-                    fNasc.getText().trim()
+                        fNome.getText().trim(),
+                        fCPF.getText().trim(),
+                        fNasc.getText().trim()
                 );
                 clienteRepo.create(cliente);
 
@@ -118,11 +125,11 @@ public class CadastroController {
         });
 
         VBox conteudo = new VBox(10,
-            lblNome, fNome,
-            lblCPF, fCPF,
-            lblNasc, fNasc,
-            lblAviso,
-            btnSalvar, lblStatus
+                lblNome, fNome,
+                lblCPF, fCPF,
+                lblNasc, fNasc,
+                lblAviso,
+                btnSalvar, lblStatus
         );
         conteudo.setPadding(new Insets(24));
         conteudo.setMaxWidth(420);
@@ -131,7 +138,9 @@ public class CadastroController {
         scroll.setFitToWidth(true);
         scroll.setStyle("-fx-background-color: transparent;");
 
-        return new Tab("👤  Novo Cliente", scroll);
+        Tab aba = new Tab("👤  Novo Cliente", scroll);
+        aba.setId("abaCliente");
+        return aba;
     }
 
     // -------------------------------------------------------------------------
@@ -140,24 +149,30 @@ public class CadastroController {
     private Tab criarAbaMedico() {
         Label lblNome  = new Label("Nome completo:");
         TextField fNome = campo("Ex: Dr. João Souza");
+        fNome.setId("fNomeMedico");
 
         Label lblCPF   = new Label("CPF:");
         TextField fCPF  = campo("000.000.000-00");
+        fCPF.setId("fCpfMedico");
 
         Label lblEsp   = new Label("Especialidade:");
         TextField fEsp  = campo("Ex: Cardiologia");
+        fEsp.setId("fEspMedico");
 
         Label lblSenha = new Label("Senha de acesso:");
         PasswordField fSenha = new PasswordField();
+        fSenha.setId("fSenhaMedico");
         fSenha.setPromptText("Crie uma senha");
         fSenha.setMaxWidth(350);
 
         Label lblStatus = new Label();
+        lblStatus.setId("lblStatusMedico");
         lblStatus.setWrapText(true);
         lblStatus.setMaxWidth(380);
         lblStatus.setFont(Font.font("SansSerif", 13));
 
         Button btnSalvar = botaoAcao("Cadastrar Médico", "#2980b9");
+        btnSalvar.setId("btnSalvarMedico");
         btnSalvar.setOnAction(e -> {
             if (fNome.getText().isBlank() || fCPF.getText().isBlank() || fSenha.getText().isBlank()) {
                 estilo(lblStatus, "Preencha Nome, CPF e Senha.", false);
@@ -165,10 +180,10 @@ public class CadastroController {
             }
             try {
                 Medico medico = new Medico(
-                    fNome.getText().trim(),
-                    fCPF.getText().trim(),
-                    fEsp.getText().trim(),
-                    fSenha.getText()
+                        fNome.getText().trim(),
+                        fCPF.getText().trim(),
+                        fEsp.getText().trim(),
+                        fSenha.getText()
                 );
                 medicoRepo.create(medico);
                 estilo(lblStatus, "✔ Médico cadastrado com sucesso!", true);
@@ -181,16 +196,18 @@ public class CadastroController {
         });
 
         VBox conteudo = new VBox(10,
-            lblNome, fNome,
-            lblCPF, fCPF,
-            lblEsp, fEsp,
-            lblSenha, fSenha,
-            btnSalvar, lblStatus
+                lblNome, fNome,
+                lblCPF, fCPF,
+                lblEsp, fEsp,
+                lblSenha, fSenha,
+                btnSalvar, lblStatus
         );
         conteudo.setPadding(new Insets(24));
         conteudo.setMaxWidth(420);
 
-        return new Tab("🩺  Novo Médico", conteudo);
+        Tab aba = new Tab("🩺  Novo Médico", conteudo);
+        aba.setId("abaMedico");
+        return aba;
     }
 
     // -------------------------------------------------------------------------
@@ -199,26 +216,32 @@ public class CadastroController {
     private Tab criarAbaSecretaria() {
         Label lblNome  = new Label("Nome completo:");
         TextField fNome = campo("Ex: Ana Paula Ferreira");
+        fNome.setId("fNomeSecretaria");
 
         Label lblCPF   = new Label("CPF:");
         TextField fCPF  = campo("000.000.000-00");
+        fCPF.setId("fCpfSecretaria");
 
         Label lblSenha = new Label("Senha de acesso:");
         PasswordField fSenha = new PasswordField();
+        fSenha.setId("fSenhaSecretaria");
         fSenha.setPromptText("Crie uma senha");
         fSenha.setMaxWidth(350);
 
         Label lblConfirma = new Label("Confirmar senha:");
         PasswordField fConfirma = new PasswordField();
+        fConfirma.setId("fConfirmaSecretaria");
         fConfirma.setPromptText("Repita a senha");
         fConfirma.setMaxWidth(350);
 
         Label lblStatus = new Label();
+        lblStatus.setId("lblStatusSecretaria");
         lblStatus.setWrapText(true);
         lblStatus.setMaxWidth(380);
         lblStatus.setFont(Font.font("SansSerif", 13));
 
         Button btnSalvar = botaoAcao("Cadastrar Secretária", "#e67e22");
+        btnSalvar.setId("btnSalvarSecretaria");
         btnSalvar.setOnAction(e -> {
             String nome    = fNome.getText().trim();
             String cpf     = fCPF.getText().trim();
@@ -246,16 +269,18 @@ public class CadastroController {
         });
 
         VBox conteudo = new VBox(10,
-            lblNome,     fNome,
-            lblCPF,      fCPF,
-            lblSenha,    fSenha,
-            lblConfirma, fConfirma,
-            btnSalvar,   lblStatus
+                lblNome,     fNome,
+                lblCPF,      fCPF,
+                lblSenha,    fSenha,
+                lblConfirma, fConfirma,
+                btnSalvar,   lblStatus
         );
         conteudo.setPadding(new Insets(24));
         conteudo.setMaxWidth(420);
 
-        return new Tab("🗂  Nova Secretária", conteudo);
+        Tab aba = new Tab("🗂  Nova Secretária", conteudo);
+        aba.setId("abaSecretaria");
+        return aba;
     }
 
     // -------------------------------------------------------------------------
@@ -274,7 +299,7 @@ public class CadastroController {
         btn.setPrefWidth(220);
         btn.setPrefHeight(36);
         btn.setStyle("-fx-background-color: " + cor + "; -fx-text-fill: white;" +
-                     "-fx-font-size: 13px; -fx-background-radius: 5; -fx-cursor: hand;");
+                "-fx-font-size: 13px; -fx-background-radius: 5; -fx-cursor: hand;");
         return btn;
     }
 

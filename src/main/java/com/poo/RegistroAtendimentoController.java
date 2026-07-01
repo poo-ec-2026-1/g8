@@ -14,10 +14,10 @@ import java.util.List;
  * Exclusivo para o perfil Médico (conforme diagrama de casos de uso).
  *
  * Fluxo:
- *  1. Médico seleciona uma de suas consultas agendadas via ComboBox.
- *  2. Informa observações / diagnóstico do atendimento.
- *  3. Ao confirmar, o médico é adicionado ao histórico do Prontuário
- *     do paciente via ProntuarioRepository.adicionarMedicoAoHistorico().
+ * 1. Médico seleciona uma de suas consultas agendadas via ComboBox.
+ * 2. Informa observações / diagnóstico do atendimento.
+ * 3. Ao confirmar, o médico é adicionado ao histórico do Prontuário
+ * do paciente via ProntuarioRepository.adicionarMedicoAoHistorico().
  */
 public class RegistroAtendimentoController {
 
@@ -29,9 +29,9 @@ public class RegistroAtendimentoController {
     private BorderPane view;
 
     public RegistroAtendimentoController(ConsultaRepository consultaRepo,
-                                          ClienteRepository clienteRepo,
-                                          MedicoRepository medicoRepo,
-                                          ProntuarioRepository prontuarioRepo) {
+                                         ClienteRepository clienteRepo,
+                                         MedicoRepository medicoRepo,
+                                         ProntuarioRepository prontuarioRepo) {
         this.consultaRepo   = consultaRepo;
         this.clienteRepo    = clienteRepo;
         this.medicoRepo     = medicoRepo;
@@ -45,8 +45,9 @@ public class RegistroAtendimentoController {
         titulo.setFont(Font.font("SansSerif", FontWeight.BOLD, 22));
 
         Button btnVoltar = new Button("← Voltar");
+        btnVoltar.setId("btnVoltar");
         btnVoltar.setStyle("-fx-background-color: transparent; -fx-text-fill: #2980b9;" +
-                           "-fx-font-size: 13px; -fx-cursor: hand;");
+                "-fx-font-size: 13px; -fx-cursor: hand;");
         btnVoltar.setOnAction(e -> MainApp.irParaDashboard());
 
         HBox cabecalho = new HBox(16, btnVoltar, titulo);
@@ -57,6 +58,7 @@ public class RegistroAtendimentoController {
         // ----- Formulário -----
         Label lblConsulta = new Label("Selecione a consulta realizada:");
         ComboBox<Consulta> cbConsulta = new ComboBox<>();
+        cbConsulta.setId("cbConsulta");
         cbConsulta.setPromptText("Escolha uma consulta");
         cbConsulta.setMaxWidth(460);
         cbConsulta.setCellFactory(lv -> celulaConsulta());
@@ -64,6 +66,7 @@ public class RegistroAtendimentoController {
 
         // Painel de informações do paciente (preenchido ao selecionar consulta)
         Label lblInfoPaciente = new Label();
+        lblInfoPaciente.setId("lblInfoPaciente");
         lblInfoPaciente.setStyle("-fx-text-fill: #2c3e50; -fx-font-size: 13px;");
         lblInfoPaciente.setWrapText(true);
 
@@ -72,9 +75,9 @@ public class RegistroAtendimentoController {
             if (c != null && c.getCliente() != null) {
                 Cliente cl = c.getCliente();
                 lblInfoPaciente.setText(
-                    "Paciente: " + cl.getNome() +
-                    "   |   CPF: " + cl.getCPF() +
-                    "   |   Nasc.: " + cl.getAniverssario()
+                        "Paciente: " + cl.getNome() +
+                                "   |   CPF: " + cl.getCPF() +
+                                "   |   Nasc.: " + cl.getAniverssario()
                 );
             } else {
                 lblInfoPaciente.setText("");
@@ -83,21 +86,24 @@ public class RegistroAtendimentoController {
 
         Label lblObs = new Label("Observações / diagnóstico do atendimento:");
         TextArea fObs = new TextArea();
+        fObs.setId("fObs");
         fObs.setPromptText("Descreva o atendimento, evolução do quadro, prescrições, etc.");
         fObs.setPrefHeight(130);
         fObs.setMaxWidth(460);
         fObs.setWrapText(true);
 
         Label lblStatus = new Label();
+        lblStatus.setId("lblStatus");
         lblStatus.setFont(Font.font("SansSerif", 13));
         lblStatus.setWrapText(true);
         lblStatus.setMaxWidth(460);
 
         Button btnRegistrar = new Button("✔  Confirmar Atendimento");
+        btnRegistrar.setId("btnRegistrar");
         btnRegistrar.setPrefWidth(240);
         btnRegistrar.setPrefHeight(38);
         btnRegistrar.setStyle("-fx-background-color: #27ae60; -fx-text-fill: white;" +
-                              "-fx-font-size: 14px; -fx-background-radius: 5; -fx-cursor: hand;");
+                "-fx-font-size: 14px; -fx-background-radius: 5; -fx-cursor: hand;");
 
         btnRegistrar.setOnAction(e -> {
             Consulta consultaSelecionada = cbConsulta.getValue();
@@ -118,8 +124,8 @@ public class RegistroAtendimentoController {
             Prontuario prontuario = paciente.getProntuario();
             if (prontuario == null) {
                 estilo(lblStatus,
-                    "Este paciente ainda não possui prontuário. Crie um na tela " +
-                    "\"Atualizar Prontuário\" antes de registrar o atendimento.", false);
+                        "Este paciente ainda não possui prontuário. Crie um na tela " +
+                                "\"Atualizar Prontuário\" antes de registrar o atendimento.", false);
                 return;
             }
 
@@ -127,7 +133,7 @@ public class RegistroAtendimentoController {
             // Se "id aninhado" aparecer como 0, confirma que o objeto Prontuario
             // vindo de Consulta->Cliente->Prontuario está incompleto.
             System.out.println("[DEBUG] id do prontuário aninhado (Consulta->Cliente->Prontuario): "
-                + prontuario.getId());
+                    + prontuario.getId());
 
             try {
                 // CORREÇÃO: o objeto `prontuario` aqui vem aninhado de
@@ -142,8 +148,8 @@ public class RegistroAtendimentoController {
                 Prontuario prontuarioReal = prontuarioRepo.loadFromId(prontuario.getId());
                 if (prontuarioReal == null) {
                     estilo(lblStatus,
-                        "Erro: prontuário com id=" + prontuario.getId() +
-                        " não foi encontrado no banco.", false);
+                            "Erro: prontuário com id=" + prontuario.getId() +
+                                    " não foi encontrado no banco.", false);
                     return;
                 }
                 prontuario = prontuarioReal;
@@ -156,15 +162,15 @@ public class RegistroAtendimentoController {
                 if (!obs.isBlank()) {
                     String diagnosticoAtual = prontuario.getDoença();
                     String novoTexto = (diagnosticoAtual == null || diagnosticoAtual.isBlank())
-                        ? obs
-                        : diagnosticoAtual + "\n\n[Atendimento registrado]\n" + obs;
+                            ? obs
+                            : diagnosticoAtual + "\n\n[Atendimento registrado]\n" + obs;
                     prontuario.setDoença(novoTexto);
                     prontuarioRepo.update(prontuario);
                 }
 
                 estilo(lblStatus,
-                    "✔ Atendimento registrado! Médico adicionado ao histórico do prontuário de "
-                    + paciente.getNome() + ".", true);
+                        "✔ Atendimento registrado! Médico adicionado ao histórico do prontuário de "
+                                + paciente.getNome() + ".", true);
 
                 cbConsulta.setValue(null);
                 lblInfoPaciente.setText("");
@@ -176,10 +182,10 @@ public class RegistroAtendimentoController {
         });
 
         VBox form = new VBox(12,
-            lblConsulta,  cbConsulta,
-            lblInfoPaciente,
-            lblObs,       fObs,
-            btnRegistrar, lblStatus
+                lblConsulta,  cbConsulta,
+                lblInfoPaciente,
+                lblObs,       fObs,
+                btnRegistrar, lblStatus
         );
         form.setPadding(new Insets(24));
         form.setMaxWidth(500);
