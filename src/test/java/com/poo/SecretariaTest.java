@@ -7,19 +7,22 @@ public class SecretariaTest {
 
     @Test
     public void deveCriarSecretariaEValidarHeranca() {
-        // AJUSTE DO QA: O construtor original não exige ID, o que é um erro crítico de herança.
-        Secretaria sec = new Secretaria("Ana Clara Souza", "123.456.789-00", "senha123");
+        Secretaria sec = new Secretaria("Ana Clara Souza", "529.982.247-25", "senha123");
 
         assertEquals("Ana Clara Souza", sec.getNome());
-        assertEquals("123.456.789-00", sec.getCPF());
+        assertEquals("529.982.247-25", sec.getCPF());
+    }
 
-        // BUG: Comentei a linha de baixo porque falta o metodo getSenha().
-        // Se descomentar, o projeto não compila!!!
-        // assertEquals("senha123", sec.getSenha(), "BUG: Metodo getSenha() inexistente");
+    @Test
+    public void deveBloquearSecretariaComCpfInvalido() {
+        // Fica verde, validando a correção feita
+        assertThrows(IllegalArgumentException.class, () -> {
+            new Secretaria("Ana Clara Souza", "111.111.111-11", "senha123");
+        }, "O sistema deve bloquear a criação de secretária com CPF falso");
     }
 
     @Test
     public void devePossuirConstrutorVazioParaO_ORMLite() {
-        assertDoesNotThrow(() -> new Secretaria(), "BUG: Falta o construtor vazio exigido pelo banco ORMLite na classe Secretaria.");
+        assertDoesNotThrow(() -> new Secretaria(), "O ORMLite exige um construtor vazio.");
     }
 }
