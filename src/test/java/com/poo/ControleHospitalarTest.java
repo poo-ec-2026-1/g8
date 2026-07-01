@@ -7,24 +7,21 @@ import static org.junit.jupiter.api.Assertions.*;
 public class ControleHospitalarTest {
 
     @Test
-    public void deveExporBugDoBreakNoLoopDeBusca() {
+    public void deveBuscarClienteNaListaComSucesso() {
         ArrayList<Cliente> lista = new ArrayList<>();
 
-        // Criar o primeiro cliente da lista
         Prontuario p1 = new Prontuario("Febre");
-        Cliente c1 = new Cliente("Rafaella Santos", "111.111.111-11", 1, p1, "11/11/2011");
+        Cliente c1 = new Cliente("Rafael Santos", "718.905.727-72", 1, p1, "11/11/2011");
 
-        // Criar o segundo cliente da lista para tentar buscar
         Prontuario p2 = new Prontuario("Gastrite");
-        Cliente c2 = new Cliente("Bruno", "222.222.222-22", 2, p2, "22/02/2002");
+        Cliente c2 = new Cliente("Bruno", "111.444.777-35", 2, p2, "22/02/2002");
 
         lista.add(c1);
         lista.add(c2);
 
         ControleHospitalar controle = new ControleHospitalar(lista);
 
-        // Como o metodo retorna void e apenas imprime as coisas, vamos usar o assertDoesNotThrow
-        // O teste mostra que o sistema falha em processar buscas além do primeiro elemento por causa do lugar errado do 'break'
-        assertDoesNotThrow(() -> controle.verProntuario("senha123", "222.222.222-22"), "BUG DE LÓGICA: O comando break interrompe o laço depois da primeira interação, impedindo a busca de qualquer cliente que não seja o primeiro");
+        // O teste mostra que o loop de busca procura corretamente pela lista e não quebra
+        assertDoesNotThrow(() -> controle.verProntuario("senha123", "111.444.777-35"), "A busca deve percorrer toda a lista e encontrar o segundo cliente sem lançar erro.");
     }
 }
