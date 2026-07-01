@@ -34,8 +34,17 @@ public class ClienteRepository
         }            
     }
     
-    public Cliente create(Cliente cliente) throws SQLException 
+    public Cliente create(Cliente cliente) throws SQLException, IllegalArgumentException
     {
+        if (cliente != null) {
+            if (!ValidadorUtils.isCpfValido(cliente.getCPF())) {
+                throw new IllegalArgumentException("Impossível persistir: CPF do cliente é inválido.");
+            }
+            if (!ValidadorUtils.isDataValida(cliente.getAniverssario())) {
+                throw new IllegalArgumentException("Impossível persistir: A data de aniversário informada é inválida.");
+            }
+        }
+
         int nrows = 0;
         try 
         {
@@ -88,9 +97,17 @@ public class ClienteRepository
         }
     }
 
-    public void update(Cliente cliente) throws SQLException 
+    public void update(Cliente cliente) throws SQLException, IllegalArgumentException
     {
-        try 
+        if (cliente != null) {
+            if (!ValidadorUtils.isCpfValido(cliente.getCPF())) {
+                throw new IllegalArgumentException("Impossível atualizar: CPF do cliente é inválido.");
+            }
+            if (!ValidadorUtils.isDataValida(cliente.getAniverssario())) {
+                throw new IllegalArgumentException("Impossível atualizar: A data de aniversário informada é inválida.");
+            }
+        }
+        try
         {
             dao.update(cliente);
         } catch (SQLException e) 

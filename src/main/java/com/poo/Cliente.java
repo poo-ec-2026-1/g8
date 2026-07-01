@@ -17,6 +17,14 @@ public class Cliente extends Usuario{
     
     public Cliente(String nome, String CPF, int id, Prontuario prontuario, String aniverssario){
         super(nome, CPF, 0);
+
+        if (!ValidadorUtils.isCpfValido(CPF)) {
+            throw new IllegalArgumentException("Não foi possível criar o Cliente: O CPF informado é inválido.");
+        }
+        if (!ValidadorUtils.isDataValida(aniverssario)) {
+            throw new IllegalArgumentException("Não foi possível criar o Cliente: A data de aniversário informada é inválida.");
+        }
+
         this.prontuario = prontuario;
         this.aniverssario = aniverssario;
     }
@@ -28,6 +36,14 @@ public class Cliente extends Usuario{
      */
     public Cliente(String nome, String CPF, String aniverssario){
         super(nome, CPF, 0);
+
+        if (!ValidadorUtils.isCpfValido(CPF)) {
+            throw new IllegalArgumentException("Não foi possível criar o Cliente: O CPF informado é inválido.");
+        }
+        if (!ValidadorUtils.isDataValida(aniverssario)) {
+            throw new IllegalArgumentException("Não foi possível criar o Cliente: A data de aniversário informada é inválida.");
+        }
+
         this.prontuario = null;
         this.aniverssario = aniverssario;
     }
