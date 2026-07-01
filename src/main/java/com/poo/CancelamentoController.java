@@ -1,3 +1,5 @@
+package com.poo;
+
 import javafx.collections.FXCollections;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;

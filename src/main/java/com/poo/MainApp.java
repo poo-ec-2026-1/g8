@@ -1,3 +1,5 @@
+package com.poo;
+
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -49,12 +51,31 @@ public class MainApp extends Application {
             return;
         }
 
+        popularDadosIniciais();
+
         primaryStage.setTitle("Sistema Hospitalar");
         primaryStage.setMinWidth(720);
         primaryStage.setMinHeight(520);
 
         irParaLogin();
         primaryStage.show();
+    }
+
+    /**
+     * Cria uma secretária inicial apenas se não houver nenhuma no banco.
+     * Idempotente: roda toda inicialização, mas só insere na primeira vez.
+     * Serve para destravar o primeiro acesso — a partir dela, dá para
+     * cadastrar médicos e outras secretárias pela tela de Cadastro.
+     */
+    private static void popularDadosIniciais() {
+        try {
+            if (secretariaRepo.loadAll().isEmpty()) {
+                secretariaRepo.create(new Secretaria("Secretária Admin", "000.000.000-00", "admin"));
+                System.out.println("Secretária inicial criada — CPF: 000.000.000-00");
+            }
+        } catch (SQLException e) {
+            System.err.println("Falha ao popular dados iniciais: " + e.getMessage());
+        }
     }
 
     // -------------------------------------------------------------------------
