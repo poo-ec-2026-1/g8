@@ -1,3 +1,5 @@
+package com.poo;
+
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -17,6 +19,11 @@ import java.sql.SQLException;
 public class MainApp extends Application {
 
     private static Stage primaryStage;
+
+    // Estado de sessão do usuário logado — evita perder nome/perfil
+    // ao navegar entre telas e voltar ao Dashboard.
+    private static String usuarioLogadoNome;
+    private static String usuarioLogadoTipo;
 
     // Instâncias dos repositórios compartilhadas por toda a aplicação
     private static Database database;
@@ -44,6 +51,8 @@ public class MainApp extends Application {
             return;
         }
 
+        popularDadosIniciais();
+
         primaryStage.setTitle("Sistema Hospitalar");
         primaryStage.setMinWidth(720);
         primaryStage.setMinHeight(520);
@@ -52,22 +61,61 @@ public class MainApp extends Application {
         primaryStage.show();
     }
 
+    /**
+     * Cria uma secretária inicial apenas se não houver nenhuma no banco.
+     * Idempotente: roda toda inicialização, mas só insere na primeira vez.
+     * Serve para destravar o primeiro acesso — a partir dela, dá para
+     * cadastrar médicos e outras secretárias pela tela de Cadastro.
+     */
+    private static void popularDadosIniciais() {
+        try {
+            if (secretariaRepo.loadAll().isEmpty()) {
+                secretariaRepo.create(new Secretaria("Secretária Admin", "000.000.000-00", "admin"));
+                System.out.println("Secretária inicial criada — CPF: 000.000.000-00");
+            }
+        } catch (SQLException e) {
+            System.err.println("Falha ao popular dados iniciais: " + e.getMessage());
+        }
+    }
+
     // -------------------------------------------------------------------------
     // Métodos de navegação — chamados pelos Controllers
     // -------------------------------------------------------------------------
 
     public static void irParaLogin() {
+        // Limpa a sessão ao deslogar
+        usuarioLogadoNome = null;
+        usuarioLogadoTipo = null;
         LoginController login = new LoginController(secretariaRepo, medicoRepo);
         primaryStage.setScene(new Scene(login.getView(), 720, 520));
     }
 
+    /**
+     * Usado no login (e em qualquer fluxo que precise definir explicitamente
+     * o usuário). Guarda nome e perfil na sessão para que telas internas
+     * possam "voltar" sem perder essa informação.
+     */
     public static void irParaDashboard(String nomeUsuario, String tipoUsuario) {
+        usuarioLogadoNome = nomeUsuario;
+        usuarioLogadoTipo = tipoUsuario;
         DashboardController dash = new DashboardController(nomeUsuario, tipoUsuario);
         primaryStage.setScene(new Scene(dash.getView(), 720, 520));
     }
 
+    /**
+     * Usado pelos botões "← Voltar" das telas internas. Reaproveita o
+     * nome/perfil já guardados na sessão em vez de passar strings vazias.
+     */
+    public static void irParaDashboard() {
+        irParaDashboard(usuarioLogadoNome, usuarioLogadoTipo);
+    }
+
+    public static String getUsuarioLogadoTipo() {
+        return usuarioLogadoTipo;
+    }
+
     public static void irParaCadastro() {
-        CadastroController cad = new CadastroController(clienteRepo, medicoRepo, prontuarioRepo);
+        CadastroController cad = new CadastroController(clienteRepo, medicoRepo, prontuarioRepo, secretariaRepo);
         primaryStage.setScene(new Scene(cad.getView(), 760, 600));
     }
 
@@ -76,9 +124,26 @@ public class MainApp extends Application {
         primaryStage.setScene(new Scene(ag.getView(), 760, 540));
     }
 
-    public static void irParaAgenda() {
-        AgendaController agenda = new AgendaController(consultaRepo, medicoRepo, clienteRepo);
+    public static void irParaCancelamento() {
+        CancelamentoController cc = new CancelamentoController(consultaRepo, clienteRepo, medicoRepo);
+        primaryStage.setScene(new Scene(cc.getView(), 760, 500));
+    }
+
+    public static void irParaAgenda(String tipoUsuario) {
+        AgendaController agenda = new AgendaController(consultaRepo, medicoRepo, clienteRepo, tipoUsuario);
         primaryStage.setScene(new Scene(agenda.getView(), 820, 580));
+    }
+
+    public static void irParaRegistroAtendimento() {
+        RegistroAtendimentoController ra = new RegistroAtendimentoController(
+            consultaRepo, clienteRepo, medicoRepo, prontuarioRepo);
+        primaryStage.setScene(new Scene(ra.getView(), 760, 560));
+    }
+
+    public static void irParaAtualizarProntuario() {
+        AtualizarProntuarioController ap = new AtualizarProntuarioController(
+            clienteRepo, prontuarioRepo, medicoRepo);
+        primaryStage.setScene(new Scene(ap.getView(), 760, 600));
     }
 
     // -------------------------------------------------------------------------

@@ -220,17 +220,17 @@ git clone https://github.com/poo-ec-2026-1/g8.git
 cd g8
 ```
 
-**2. Instale as dependências via Maven:**
+**2. Compile o projeto via Maven:**
 ```bash
-mvn install
+mvn clean install
 ```
 
-**3. Execute o projeto:**
+**3. Execute a interface JavaFX:**
 ```bash
-mvn exec:java
+mvn javafx:run
 ```
 
-Ou, se preferir pelo VS Code: abra a pasta do projeto, localize `Main.java` em `src/main/java/com/poo/` e clique em **Run**.
+Ou, pelo VS Code: abra a pasta do projeto e, com o Maven já tendo baixado as dependências, clique em **Run** acima do método `main` em `MainApp.java` (`src/main/java/com/poo/MainApp.java`).
 
 ### Observações
 

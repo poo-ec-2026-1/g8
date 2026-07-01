@@ -7,3 +7,7 @@ package.bluej
 .settings/
 .classpath
 .project
+
+# Banco local (recriado pelo seed no primeiro run)
+hospital.db
+

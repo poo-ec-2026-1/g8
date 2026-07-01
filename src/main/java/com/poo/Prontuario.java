@@ -28,6 +28,10 @@ public class Prontuario{
         return this.doença;
     }
     
+    public void setDoença(String doença){
+        this.doença = doença;
+    }
+    
     public int getId() {
         return this.id;
     }
@@ -63,4 +67,3 @@ public class Prontuario{
         }
     }
 }
-
