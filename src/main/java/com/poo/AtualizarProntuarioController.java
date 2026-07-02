@@ -65,6 +65,7 @@ public class AtualizarProntuarioController {
         Label lblCPF = new Label("CPF do paciente:");
         TextField fCPF = campo("000.000.000-00");
         fCPF.setId("campoBuscaCpf");
+        MascaraCpf.aplicar(fCPF);
 
         Label lblBuscaStatus = new Label();
         lblBuscaStatus.setId("lblBuscaStatus");
@@ -124,7 +125,7 @@ public class AtualizarProntuarioController {
             }
             try {
                 Cliente encontrado = clienteRepo.loadAll().stream()
-                        .filter(c -> c.getCPF().equals(cpf))
+                        .filter(c -> ValidadorUtils.normalizarCpf(c.getCPF()).equals(ValidadorUtils.normalizarCpf(cpf)))
                         .findFirst().orElse(null);
 
                 if (encontrado == null) {

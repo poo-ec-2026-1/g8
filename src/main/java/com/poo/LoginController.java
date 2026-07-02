@@ -45,6 +45,7 @@ public class LoginController {
         Label lblCPF = new Label("CPF:");
         campoCPF = new TextField();
         campoCPF.setId("campoCPF");
+        MascaraCpf.aplicar(campoCPF);
         campoCPF.setPromptText("000.000.000-00");
         campoCPF.setMaxWidth(300);
 
@@ -94,7 +95,7 @@ public class LoginController {
             // Tenta autenticar como Médico primeiro (CPF + senha)
             List<Medico> medicos = medicoRepo.loadAll();
             for (Medico m : medicos) {
-                if (m.getCPF().equals(cpf)) {
+                if (ValidadorUtils.normalizarCpf(m.getCPF()).equals(ValidadorUtils.normalizarCpf(cpf))) {
                     if (m.getSenha().equals(senha)) {
                         MainApp.irParaDashboard(m.getNome(), "Médico");
                         return;
@@ -110,7 +111,7 @@ public class LoginController {
             // não expõe senha de Secretaria via getter público)
             List<Secretaria> secretarias = secretariaRepo.loadAll();
             for (Secretaria s : secretarias) {
-                if (s.getCPF().equals(cpf)) {
+                if (ValidadorUtils.normalizarCpf(s.getCPF()).equals(ValidadorUtils.normalizarCpf(cpf))) {
                     MainApp.irParaDashboard(s.getNome(), "Secretária");
                     return;
                 }

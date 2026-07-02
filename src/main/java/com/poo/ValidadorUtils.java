@@ -63,6 +63,13 @@ public class ValidadorUtils {
         return !dataConsulta.isBefore(LocalDate.now());
     }
 
+    //Normaliza o CPF removendo tudo que não for dígito (para comparação e busca,
+    //permitindo que o usuário informe o CPF com ou sem pontuação)
+    public static String normalizarCpf(String cpf) {
+        if (cpf == null) return "";
+        return cpf.replaceAll("\\D", "");
+    }
+
     //Validar horário no formato HH:mm (00:00 a 23:59)
     public static boolean isHorarioValido(String horario) {
         if (horario == null) return false;
