@@ -12,3 +12,4 @@ package.bluej
 # Banco local (recriado pelo seed no primeiro run)
 hospital.db
 
+banco_inexistente.db
