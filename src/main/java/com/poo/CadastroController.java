@@ -78,6 +78,7 @@ public class CadastroController {
         Label lblCPF   = new Label("CPF:");
         TextField fCPF  = campo("000.000.000-00");
         fCPF.setId("fCpfCliente");
+        MascaraCpf.aplicar(fCPF);
 
         Label lblNasc  = new Label("Data de nascimento:");
         TextField fNasc = campo("DD/MM/AAAA");
@@ -154,6 +155,7 @@ public class CadastroController {
         Label lblCPF   = new Label("CPF:");
         TextField fCPF  = campo("000.000.000-00");
         fCPF.setId("fCpfMedico");
+        MascaraCpf.aplicar(fCPF);
 
         Label lblEsp   = new Label("Especialidade:");
         TextField fEsp  = campo("Ex: Cardiologia");
@@ -221,6 +223,7 @@ public class CadastroController {
         Label lblCPF   = new Label("CPF:");
         TextField fCPF  = campo("000.000.000-00");
         fCPF.setId("fCpfSecretaria");
+        MascaraCpf.aplicar(fCPF);
 
         Label lblSenha = new Label("Senha de acesso:");
         PasswordField fSenha = new PasswordField();
