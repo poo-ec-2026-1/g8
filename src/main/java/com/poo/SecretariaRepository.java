@@ -34,9 +34,12 @@ public class SecretariaRepository
         }            
     }
     
-    public Secretaria create(Secretaria secretaria) throws SQLException 
+    public Secretaria create(Secretaria secretaria) throws SQLException, IllegalArgumentException
     {
-        try 
+        if (secretaria != null && !ValidadorUtils.isCpfValido(secretaria.getCPF())) {
+            throw new IllegalArgumentException("Impossível persistir: CPF da secretária é inválido.");
+        }
+        try
         {
             int nrows = dao.create(secretaria);
             if (nrows == 0) 

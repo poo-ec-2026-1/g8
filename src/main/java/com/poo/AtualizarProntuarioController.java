@@ -18,12 +18,12 @@ import java.util.List;
  * médico durante ou após o atendimento.
  *
  * Fluxo:
- *  1. Busca o Cliente pelo CPF.
- *  2. Se o cliente não tem prontuário ainda → cria um novo (Prontuario.create)
- *     e vincula ao cliente via ClienteRepository.update().
- *  3. Se já tem prontuário → atualiza o texto da doença/diagnóstico
- *     (Prontuario.setDoença + ProntuarioRepository.update).
- *  4. Opcionalmente vincula um médico responsável ao histórico.
+ * 1. Busca o Cliente pelo CPF.
+ * 2. Se o cliente não tem prontuário ainda → cria um novo (Prontuario.create)
+ * e vincula ao cliente via ClienteRepository.update().
+ * 3. Se já tem prontuário → atualiza o texto da doença/diagnóstico
+ * (Prontuario.setDoença + ProntuarioRepository.update).
+ * 4. Opcionalmente vincula um médico responsável ao histórico.
  */
 public class AtualizarProntuarioController {
 
@@ -37,8 +37,8 @@ public class AtualizarProntuarioController {
     private Cliente clienteCarregado;
 
     public AtualizarProntuarioController(ClienteRepository clienteRepo,
-                                          ProntuarioRepository prontuarioRepo,
-                                          MedicoRepository medicoRepo) {
+                                         ProntuarioRepository prontuarioRepo,
+                                         MedicoRepository medicoRepo) {
         this.clienteRepo    = clienteRepo;
         this.prontuarioRepo = prontuarioRepo;
         this.medicoRepo     = medicoRepo;
@@ -51,8 +51,9 @@ public class AtualizarProntuarioController {
         titulo.setFont(Font.font("SansSerif", FontWeight.BOLD, 22));
 
         Button btnVoltar = new Button("← Voltar");
+        btnVoltar.setId("btnVoltar");
         btnVoltar.setStyle("-fx-background-color: transparent; -fx-text-fill: #2980b9;" +
-                           "-fx-font-size: 13px; -fx-cursor: hand;");
+                "-fx-font-size: 13px; -fx-cursor: hand;");
         btnVoltar.setOnAction(e -> MainApp.irParaDashboard());
 
         HBox cabecalho = new HBox(16, btnVoltar, titulo);
@@ -63,23 +64,28 @@ public class AtualizarProntuarioController {
         // ----- Busca por CPF -----
         Label lblCPF = new Label("CPF do paciente:");
         TextField fCPF = campo("000.000.000-00");
+        fCPF.setId("campoBuscaCpf");
 
         Label lblBuscaStatus = new Label();
+        lblBuscaStatus.setId("lblBuscaStatus");
         lblBuscaStatus.setWrapText(true);
         lblBuscaStatus.setMaxWidth(420);
         lblBuscaStatus.setFont(Font.font("SansSerif", 13));
 
         Button btnBuscar = new Button("🔍  Buscar Paciente");
+        btnBuscar.setId("btnBuscar");
         btnBuscar.setStyle("-fx-background-color: #2980b9; -fx-text-fill: white;" +
-                           "-fx-background-radius: 5; -fx-cursor: hand;");
+                "-fx-background-radius: 5; -fx-cursor: hand;");
 
         // ----- Painel do prontuário (preenchido após a busca) -----
         Label lblPacienteInfo = new Label();
+        lblPacienteInfo.setId("lblPacienteInfo");
         lblPacienteInfo.setStyle("-fx-text-fill: #2c3e50; -fx-font-size: 13px;");
         lblPacienteInfo.setWrapText(true);
 
         Label lblDoenca = new Label("Diagnóstico / Doença:");
         TextArea fDoenca = new TextArea();
+        fDoenca.setId("campoDoenca");
         fDoenca.setPromptText("Descreva o diagnóstico ou histórico clínico do paciente...");
         fDoenca.setPrefHeight(130);
         fDoenca.setMaxWidth(460);
@@ -88,6 +94,7 @@ public class AtualizarProntuarioController {
 
         Label lblMedicoResp = new Label("Vincular médico responsável (opcional):");
         ComboBox<Medico> cbMedico = new ComboBox<>();
+        cbMedico.setId("cbMedico");
         cbMedico.setPromptText("Nenhum médico selecionado");
         cbMedico.setMaxWidth(460);
         cbMedico.setCellFactory(lv -> celulaMedico());
@@ -95,15 +102,17 @@ public class AtualizarProntuarioController {
         cbMedico.setDisable(true);
 
         Label lblSalvarStatus = new Label();
+        lblSalvarStatus.setId("lblSalvarStatus");
         lblSalvarStatus.setWrapText(true);
         lblSalvarStatus.setMaxWidth(460);
         lblSalvarStatus.setFont(Font.font("SansSerif", 13));
 
         Button btnSalvar = new Button("💾  Salvar Prontuário");
+        btnSalvar.setId("btnSalvar");
         btnSalvar.setPrefWidth(220);
         btnSalvar.setPrefHeight(38);
         btnSalvar.setStyle("-fx-background-color: #27ae60; -fx-text-fill: white;" +
-                           "-fx-font-size: 14px; -fx-background-radius: 5; -fx-cursor: hand;");
+                "-fx-font-size: 14px; -fx-background-radius: 5; -fx-cursor: hand;");
         btnSalvar.setDisable(true);
 
         // ----- Ação: Buscar -----
@@ -115,8 +124,8 @@ public class AtualizarProntuarioController {
             }
             try {
                 Cliente encontrado = clienteRepo.loadAll().stream()
-                    .filter(c -> c.getCPF().equals(cpf))
-                    .findFirst().orElse(null);
+                        .filter(c -> c.getCPF().equals(cpf))
+                        .findFirst().orElse(null);
 
                 if (encontrado == null) {
                     estilo(lblBuscaStatus, "Paciente não encontrado.", false);
@@ -131,8 +140,8 @@ public class AtualizarProntuarioController {
 
                 clienteCarregado = encontrado;
                 lblPacienteInfo.setText(
-                    "Paciente: " + encontrado.getNome() +
-                    "   |   Nasc.: " + encontrado.getAniverssario()
+                        "Paciente: " + encontrado.getNome() +
+                                "   |   Nasc.: " + encontrado.getAniverssario()
                 );
 
                 Prontuario prontuario = encontrado.getProntuario();
@@ -187,6 +196,8 @@ public class AtualizarProntuarioController {
                     cbMedico.setValue(null);
                 }
 
+            } catch (IllegalArgumentException ex) {
+                estilo(lblSalvarStatus, ex.getMessage(), false);
             } catch (SQLException ex) {
                 estilo(lblSalvarStatus, "Erro ao salvar prontuário: " + ex.getMessage(), false);
             }
@@ -201,10 +212,10 @@ public class AtualizarProntuarioController {
         sep.setMaxWidth(460);
 
         VBox prontuarioBox = new VBox(10,
-            lblPacienteInfo,
-            lblDoenca, fDoenca,
-            lblMedicoResp, cbMedico,
-            btnSalvar, lblSalvarStatus
+                lblPacienteInfo,
+                lblDoenca, fDoenca,
+                lblMedicoResp, cbMedico,
+                btnSalvar, lblSalvarStatus
         );
 
         VBox form = new VBox(16, buscaBox, sep, prontuarioBox);

@@ -12,10 +12,10 @@ import javafx.scene.text.*;
  * Os botões exibidos variam de acordo com o perfil do usuário logado,
  * seguindo o Diagrama de Casos de Uso do projeto:
  *
- *  Secretária → Cadastrar Paciente, Cancelar Consulta, Agendar Consulta,
- *               Visualizar Agenda
+ * Secretária → Cadastrar Paciente, Cancelar Consulta, Agendar Consulta,
+ * Visualizar Agenda
  *
- *  Médico     → Visualizar Agenda, Acessar Prontuário, Registrar Atendimento
+ * Médico     → Visualizar Agenda, Acessar Prontuário, Registrar Atendimento
  */
 public class DashboardController {
 
@@ -33,9 +33,11 @@ public class DashboardController {
     private void construirView() {
         // ----- Cabeçalho -----
         Label titulo = new Label("Bem-vindo(a), " + nomeUsuario + "!");
+        titulo.setId("lblTitulo");
         titulo.setFont(Font.font("SansSerif", FontWeight.BOLD, 24));
 
         Label lblTipo = new Label("Perfil: " + tipoUsuario);
+        lblTipo.setId("lblTipo");
         lblTipo.setFont(Font.font("SansSerif", 14));
         lblTipo.setStyle("-fx-text-fill: #555;");
 
@@ -51,9 +53,16 @@ public class DashboardController {
 
         if ("Secretária".equals(tipoUsuario)) {
             Button btnCadastro    = criarBotao("👤  Cadastrar Paciente",   "#27ae60");
+            btnCadastro.setId("btnCadastro");
+
             Button btnAgendar     = criarBotao("📅  Agendar Consulta",     "#2980b9");
+            btnAgendar.setId("btnAgendar");
+
             Button btnCancelar    = criarBotao("❌  Cancelar Consulta",    "#e74c3c");
+            btnCancelar.setId("btnCancelar");
+
             Button btnAgenda      = criarBotao("🗓  Visualizar Agenda",    "#8e44ad");
+            btnAgenda.setId("btnAgendaSecretaria");
 
             btnCadastro.setOnAction(e -> MainApp.irParaCadastro());
             btnAgendar.setOnAction(e  -> MainApp.irParaAgendamento());
@@ -64,9 +73,16 @@ public class DashboardController {
 
         } else if ("Médico".equals(tipoUsuario)) {
             Button btnAgenda      = criarBotao("🗓  Visualizar Agenda",          "#2980b9");
+            btnAgenda.setId("btnAgendaMedico");
+
             Button btnProntuario  = criarBotao("📋  Acessar Prontuário",         "#8e44ad");
+            btnProntuario.setId("btnProntuario");
+
             Button btnAtendimento = criarBotao("✏️  Registrar Atendimento",      "#27ae60");
+            btnAtendimento.setId("btnAtendimento");
+
             Button btnAtualizarProntuario = criarBotao("📝  Atualizar Prontuário", "#16a085");
+            btnAtualizarProntuario.setId("btnAtualizarProntuario");
 
             btnAgenda.setOnAction(e      -> MainApp.irParaAgenda(tipoUsuario));
             btnProntuario.setOnAction(e  -> MainApp.irParaAgenda(tipoUsuario));   // abre na aba prontuário
@@ -78,6 +94,8 @@ public class DashboardController {
 
         // Botão Sair sempre visível
         Button btnSair = criarBotao("🚪  Sair", "#7f8c8d");
+        btnSair.setId("btnSair");
+
         btnSair.setOnAction(e -> MainApp.irParaLogin());
         botoes.getChildren().add(btnSair);
 
@@ -93,16 +111,16 @@ public class DashboardController {
         btn.setPrefHeight(42);
         btn.setFont(Font.font("SansSerif", 14));
         btn.setStyle(
-            "-fx-background-color: " + cor + "; -fx-text-fill: white;" +
-            "-fx-background-radius: 6; -fx-cursor: hand;"
+                "-fx-background-color: " + cor + "; -fx-text-fill: white;" +
+                        "-fx-background-radius: 6; -fx-cursor: hand;"
         );
         btn.setOnMouseEntered(e -> btn.setStyle(
-            "-fx-background-color: derive(" + cor + ", -15%);" +
-            "-fx-text-fill: white; -fx-background-radius: 6; -fx-cursor: hand;"
+                "-fx-background-color: derive(" + cor + ", -15%);" +
+                        "-fx-text-fill: white; -fx-background-radius: 6; -fx-cursor: hand;"
         ));
         btn.setOnMouseExited(e -> btn.setStyle(
-            "-fx-background-color: " + cor + ";" +
-            "-fx-text-fill: white; -fx-background-radius: 6; -fx-cursor: hand;"
+                "-fx-background-color: " + cor + ";" +
+                        "-fx-text-fill: white; -fx-background-radius: 6; -fx-cursor: hand;"
         ));
         return btn;
     }

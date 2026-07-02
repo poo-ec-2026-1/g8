@@ -10,7 +10,7 @@ public class DatabaseTest {
     public void deveLancarUmaExcecaoSeOBancoDeDadosForNulo(){
         Database database = new Database(null);
 
-        // Quando o banco for nulo, a conexão falha. Foi certo em deixar o SQLException estourar
-        assertThrows(SQLException.class, database::getConnection, "O sistema deve lançar uma SQLException ao tentar conectar num banco nulo como esse.");
+        // Vai ficar VERDE, pois a Exception correta é lançada.
+        assertThrows(SQLException.class, database::getConnection, "O sistema deve lançar uma SQLException ao tentar conectar num banco nulo.");
     }
 }

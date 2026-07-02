@@ -44,21 +44,25 @@ public class LoginController {
 
         Label lblCPF = new Label("CPF:");
         campoCPF = new TextField();
+        campoCPF.setId("campoCPF");
         campoCPF.setPromptText("000.000.000-00");
         campoCPF.setMaxWidth(300);
 
         Label lblSenha = new Label("Senha:");
         campoSenha = new PasswordField();
+        campoSenha.setId("campoSenha");
         campoSenha.setPromptText("Sua senha (médicos) ou deixe em branco (secretárias)");
         campoSenha.setMaxWidth(300);
         campoSenha.setOnAction(e -> tentarLogin());
 
         labelErro = new Label();
+        labelErro.setId("labelErro");
         labelErro.setStyle("-fx-text-fill: #c0392b;");
         labelErro.setWrapText(true);
         labelErro.setMaxWidth(300);
 
         Button btnLogin = new Button("Entrar");
+        btnLogin.setId("btnLogin");
         btnLogin.setPrefWidth(300);
         btnLogin.setPrefHeight(38);
         btnLogin.setStyle(

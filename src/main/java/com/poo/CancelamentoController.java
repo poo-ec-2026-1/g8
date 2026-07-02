@@ -15,9 +15,9 @@ import java.util.List;
  * Exclusivo para o perfil Secretária (conforme diagrama de casos de uso).
  *
  * Fluxo:
- *  1. Lista todas as consultas agendadas em uma TableView.
- *  2. Secretária seleciona uma linha e clica em "Cancelar Consulta".
- *  3. Uma confirmação é exibida antes de deletar do banco.
+ * 1. Lista todas as consultas agendadas em uma TableView.
+ * 2. Secretária seleciona uma linha e clica em "Cancelar Consulta".
+ * 3. Uma confirmação é exibida antes de deletar do banco.
  */
 public class CancelamentoController {
 
@@ -28,8 +28,8 @@ public class CancelamentoController {
     private BorderPane view;
 
     public CancelamentoController(ConsultaRepository consultaRepo,
-                                   ClienteRepository clienteRepo,
-                                   MedicoRepository medicoRepo) {
+                                  ClienteRepository clienteRepo,
+                                  MedicoRepository medicoRepo) {
         this.consultaRepo = consultaRepo;
         this.clienteRepo  = clienteRepo;
         this.medicoRepo   = medicoRepo;
@@ -42,8 +42,9 @@ public class CancelamentoController {
         titulo.setFont(Font.font("SansSerif", FontWeight.BOLD, 22));
 
         Button btnVoltar = new Button("← Voltar");
+        btnVoltar.setId("btnVoltar");
         btnVoltar.setStyle("-fx-background-color: transparent; -fx-text-fill: #2980b9;" +
-                           "-fx-font-size: 13px; -fx-cursor: hand;");
+                "-fx-font-size: 13px; -fx-cursor: hand;");
         btnVoltar.setOnAction(e -> MainApp.irParaDashboard());
 
         HBox cabecalho = new HBox(16, btnVoltar, titulo);
@@ -58,6 +59,7 @@ public class CancelamentoController {
 
         // ----- Tabela -----
         TableView<Consulta> tabela = new TableView<>();
+        tabela.setId("tabelaConsultas");
         tabela.setPlaceholder(new Label("Nenhuma consulta agendada."));
 
         TableColumn<Consulta, String> colData    = new TableColumn<>("Data");
@@ -70,12 +72,12 @@ public class CancelamentoController {
         colMedico.setCellValueFactory(cd -> {
             Medico m = cd.getValue().getMedico();
             return new javafx.beans.property.SimpleStringProperty(
-                m != null ? "Dr(a). " + m.getNome() : "—");
+                    m != null ? "Dr(a). " + m.getNome() : "—");
         });
         colCliente.setCellValueFactory(cd -> {
             Cliente c = cd.getValue().getCliente();
             return new javafx.beans.property.SimpleStringProperty(
-                c != null ? c.getNome() : "—");
+                    c != null ? c.getNome() : "—");
         });
 
         colData.setPrefWidth(100);
@@ -88,13 +90,15 @@ public class CancelamentoController {
 
         // ----- Rodapé com status e botão -----
         Label lblStatus = new Label();
+        lblStatus.setId("lblStatus");
         lblStatus.setFont(Font.font("SansSerif", 13));
         lblStatus.setWrapText(true);
 
         Button btnCancelar = new Button("❌  Cancelar Consulta Selecionada");
+        btnCancelar.setId("btnCancelar");
         btnCancelar.setPrefHeight(38);
         btnCancelar.setStyle("-fx-background-color: #e74c3c; -fx-text-fill: white;" +
-                             "-fx-font-size: 13px; -fx-background-radius: 5; -fx-cursor: hand;");
+                "-fx-font-size: 13px; -fx-background-radius: 5; -fx-cursor: hand;");
 
         btnCancelar.setOnAction(e -> {
             Consulta selecionada = tabela.getSelectionModel().getSelectedItem();
@@ -108,7 +112,7 @@ public class CancelamentoController {
             confirmacao.setTitle("Confirmar cancelamento");
             confirmacao.setHeaderText("Tem certeza que deseja cancelar esta consulta?");
             String info = "Data: " + selecionada.getData() +
-                          "\nHorário: " + selecionada.getHorario();
+                    "\nHorário: " + selecionada.getHorario();
             if (selecionada.getMedico() != null)
                 info += "\nMédico: Dr(a). " + selecionada.getMedico().getNome();
             if (selecionada.getCliente() != null)
@@ -129,8 +133,9 @@ public class CancelamentoController {
         });
 
         Button btnAtualizar = new Button("🔄  Atualizar lista");
+        btnAtualizar.setId("btnAtualizar");
         btnAtualizar.setStyle("-fx-background-color: #7f8c8d; -fx-text-fill: white;" +
-                              "-fx-background-radius: 5; -fx-cursor: hand;");
+                "-fx-background-radius: 5; -fx-cursor: hand;");
         btnAtualizar.setOnAction(e -> carregarConsultas(tabela, lblStatus));
 
         HBox rodape = new HBox(12, btnCancelar, btnAtualizar, lblStatus);

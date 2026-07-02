@@ -34,9 +34,12 @@ public class MedicoRepository
         }            
     }
     
-    public Medico create(Medico medico) throws SQLException 
+    public Medico create(Medico medico) throws SQLException, IllegalArgumentException
     {
-        try 
+        if (medico != null && !ValidadorUtils.isCpfValido(medico.getCPF())) {
+            throw new IllegalArgumentException("Impossível persistir: CPF do médico é inválido.");
+        }
+        try
         {
             int nrows = dao.create(medico);
             if (nrows == 0) 
@@ -87,9 +90,12 @@ public class MedicoRepository
         }
     }
     
-    public void update(Medico medico) throws SQLException 
+    public void update(Medico medico) throws SQLException, IllegalArgumentException
     {
-        try 
+        if (medico != null && !ValidadorUtils.isCpfValido(medico.getCPF())) {
+            throw new IllegalArgumentException("Impossível atualizar: CPF do médico é inválido.");
+        }
+        try
         {
             dao.update(medico);
         } catch (SQLException e) 

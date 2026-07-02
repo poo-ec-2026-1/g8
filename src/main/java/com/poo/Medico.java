@@ -13,11 +13,22 @@ public class Medico extends Usuario{
     private String senha;
     
     public Medico(){
-        super(null, null, 0);
+        super();
     }
     
     public Medico(String nome, String CPF, String especialidade, String senha){
         super(nome, CPF, 0);
+
+        if (!ValidadorUtils.isCpfValido(CPF)) {
+            throw new IllegalArgumentException("Não foi possível criar o Médico: O CPF informado é inválido.");
+        }
+        if (especialidade == null || especialidade.isBlank()) {
+            throw new IllegalArgumentException("Não foi possível criar o Médico: a especialidade não pode ser vazia.");
+        }
+        if (senha == null || senha.isBlank()) {
+            throw new IllegalArgumentException("Não foi possível criar o Médico: a senha não pode ser vazia.");
+        }
+
         this.especialidade = especialidade;
         this.senha = senha;
     }
