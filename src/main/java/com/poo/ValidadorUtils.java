@@ -1,6 +1,7 @@
 package com.poo;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
@@ -60,5 +61,17 @@ public class ValidadorUtils {
         if (dataConsulta == null) return false;
 
         return !dataConsulta.isBefore(LocalDate.now());
+    }
+
+    //Validar horário no formato HH:mm (00:00 a 23:59)
+    public static boolean isHorarioValido(String horario) {
+        if (horario == null) return false;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
+        try {
+            LocalTime.parse(horario, formatter);
+            return true;
+        } catch (DateTimeParseException e) {
+            return false;
+        }
     }
 }

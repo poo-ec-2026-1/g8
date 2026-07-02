@@ -124,6 +124,8 @@ public class AgendamentoController {
                 fData.clear();
                 fHorario.clear();
 
+            } catch (IllegalArgumentException ex) {
+                estilo(lblStatus, ex.getMessage(), false);
             } catch (SQLException ex) {
                 estilo(lblStatus, "Erro ao agendar consulta: " + ex.getMessage(), false);
             }

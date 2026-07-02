@@ -20,6 +20,9 @@ public class Prontuario{
     }
     
     public Prontuario(String doença){
+        if (doença == null || doença.isBlank()) {
+            throw new IllegalArgumentException("Não foi possível criar o Prontuário: a doença não pode ser vazia.");
+        }
         this.doença = doença;
         this.id = 0;
     }
@@ -37,6 +40,9 @@ public class Prontuario{
     }
     
     public void setId(int id) {
+        if (id < 0) {
+            throw new IllegalArgumentException("O ID do prontuário não pode ser negativo.");
+        }
         this.id = id;
     }
     

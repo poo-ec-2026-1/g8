@@ -9,7 +9,7 @@ public class Secretaria extends Usuario{
     private String senha;
     
     public Secretaria(){
-        super(null, null, 0);
+        super();
     }
     
     public Secretaria(String nome, String CPF, String senha){

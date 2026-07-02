@@ -23,7 +23,16 @@ public class Consulta{
     }
     
     public Consulta(int id, String data, String horario, Medico medico, Cliente cliente){
-        this.id = 0;
+        if (medico == null || cliente == null) {
+            throw new IllegalArgumentException("Não foi possível criar a Consulta: médico e cliente são obrigatórios.");
+        }
+        if (!ValidadorUtils.isHorarioValido(horario)) {
+            throw new IllegalArgumentException("Não foi possível criar a Consulta: o horário informado é inválido.");
+        }
+
+        // O ID é mantido em memória; na persistência o ORMLite (generatedId)
+        // gera o valor definitivo — os fluxos que salvam passam 0.
+        this.id = id;
         this.data = data;
         this.horario = horario;
         this.medico = medico;

@@ -196,6 +196,8 @@ public class AtualizarProntuarioController {
                     cbMedico.setValue(null);
                 }
 
+            } catch (IllegalArgumentException ex) {
+                estilo(lblSalvarStatus, ex.getMessage(), false);
             } catch (SQLException ex) {
                 estilo(lblSalvarStatus, "Erro ao salvar prontuário: " + ex.getMessage(), false);
             }

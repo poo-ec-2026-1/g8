@@ -20,8 +20,7 @@ public class Agenda
                 c.getMedico().equals(nova.getMedico())) 
                 {
                 
-                System.out.printf("O horário requisitado está ocupado.%n");
-                return; 
+                throw new IllegalStateException("O horário requisitado está ocupado.");
             }
         }
         
@@ -33,8 +32,7 @@ public class Agenda
     {
         if (!medico.getSenha().equals(senha)) 
         {
-            System.out.printf("Senha incorreta.%n");
-            return; 
+            throw new SecurityException("Senha incorreta.");
         }
         
         for (Consulta c : consultas) 

@@ -12,7 +12,21 @@ public class Usuario{
     @DatabaseField(generatedId = true)
     protected int id;
     
+    // Construtor vazio exigido pelo ORMLite e usado pelos construtores vazios
+    // das subclasses. Não valida, pois o ORM instancia o objeto sem dados.
+    public Usuario(){
+    }
+
     public Usuario(String nome, String CPF, int id){
+        if (nome == null || nome.isBlank()) {
+            throw new IllegalArgumentException("Usuário inválido: o nome não pode ser nulo ou vazio.");
+        }
+        if (CPF == null || CPF.isBlank()) {
+            throw new IllegalArgumentException("Usuário inválido: o CPF não pode ser nulo ou vazio.");
+        }
+        if (id < 0) {
+            throw new IllegalArgumentException("Usuário inválido: o ID não pode ser negativo.");
+        }
         this.nome = nome;
         this.CPF = CPF;
         this.id = id;

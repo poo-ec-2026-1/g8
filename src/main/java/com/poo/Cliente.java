@@ -12,17 +12,20 @@ public class Cliente extends Usuario{
     private String aniverssario;
     
     public Cliente(){
-        super(null, null, 0);
+        super();
     }
     
     public Cliente(String nome, String CPF, int id, Prontuario prontuario, String aniverssario){
-        super(nome, CPF, 0);
+        super(nome, CPF, id);
 
         if (!ValidadorUtils.isCpfValido(CPF)) {
             throw new IllegalArgumentException("Não foi possível criar o Cliente: O CPF informado é inválido.");
         }
         if (!ValidadorUtils.isDataValida(aniverssario)) {
             throw new IllegalArgumentException("Não foi possível criar o Cliente: A data de aniversário informada é inválida.");
+        }
+        if (prontuario == null) {
+            throw new IllegalArgumentException("Não foi possível criar o Cliente: o prontuário não pode ser nulo neste construtor (use o construtor sem prontuário para o cadastro).");
         }
 
         this.prontuario = prontuario;
