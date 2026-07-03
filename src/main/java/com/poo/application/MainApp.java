@@ -79,6 +79,7 @@ public class MainApp extends Application {
 
         LoginController login = new LoginController(secretariaRepo, medicoRepo);
         scene = new Scene(login.getView(), 720, 520);
+        scene.getStylesheets().add(getClass().getResource("/styles.css").toExternalForm());
         primaryStage.setScene(scene);
 
         primaryStage.show();
