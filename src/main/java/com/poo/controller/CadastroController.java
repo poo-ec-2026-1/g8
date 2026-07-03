@@ -11,6 +11,8 @@ import com.poo.repository.SecretariaRepository;
 import com.poo.util.MascaraCpf;
 
 import javafx.collections.FXCollections;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
@@ -110,7 +112,11 @@ public class CadastroController {
 
         Button btnSalvar = botaoAcao("Cadastrar Cliente", "#27ae60");
         btnSalvar.setId("btnSalvarCliente");
-        btnSalvar.setOnAction(e -> {
+
+        // Extraído numa variável para reaproveitar em fNome/fCPF/fNasc —
+        // assim Enter em qualquer campo da aba confirma o cadastro, igual
+        // ao clique no botão.
+        EventHandler<ActionEvent> acaoCadastrarCliente = e -> {
             if (fNome.getText().isBlank() || fCPF.getText().isBlank()) {
                 estilo(lblStatus, "Preencha Nome e CPF.", false);
                 return;
@@ -133,7 +139,13 @@ public class CadastroController {
             } catch (SQLException ex) {
                 estilo(lblStatus, "Erro ao cadastrar cliente: " + ex.getMessage(), false);
             }
-        });
+        };
+
+        btnSalvar.setOnAction(acaoCadastrarCliente);
+        btnSalvar.setDefaultButton(true);
+        fNome.setOnAction(acaoCadastrarCliente);
+        fCPF.setOnAction(acaoCadastrarCliente);
+        fNasc.setOnAction(acaoCadastrarCliente);
 
         VBox conteudo = new VBox(10,
                 lblNome, fNome,

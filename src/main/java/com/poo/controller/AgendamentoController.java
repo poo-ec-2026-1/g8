@@ -9,6 +9,8 @@ import com.poo.repository.ConsultaRepository;
 import com.poo.repository.MedicoRepository;
 
 import javafx.collections.FXCollections;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
@@ -98,7 +100,10 @@ public class AgendamentoController {
         btnSalvar.setStyle("-fx-background-color: #2980b9; -fx-text-fill: white;" +
                 "-fx-font-size: 14px; -fx-background-radius: 5; -fx-cursor: hand;");
 
-        btnSalvar.setOnAction(e -> {
+        // Extraído numa variável (em vez de lambda direta no setOnAction) para
+        // poder ser reaproveitado pelos campos de texto — assim Enter em
+        // fData/fHorario confirma o agendamento igual ao clique no botão.
+        EventHandler<ActionEvent> acaoConfirmarAgendamento = e -> {
             Medico  medico  = cbMedico.getValue();
             Cliente cliente = cbCliente.getValue();
             String  data    = fData.getText().trim();
@@ -137,7 +142,12 @@ public class AgendamentoController {
             } catch (SQLException ex) {
                 estilo(lblStatus, "Erro ao agendar consulta: " + ex.getMessage(), false);
             }
-        });
+        };
+
+        btnSalvar.setOnAction(acaoConfirmarAgendamento);
+        btnSalvar.setDefaultButton(true);
+        fData.setOnAction(acaoConfirmarAgendamento);
+        fHorario.setOnAction(acaoConfirmarAgendamento);
 
         VBox form = new VBox(10,
                 lblMedico,  cbMedico,

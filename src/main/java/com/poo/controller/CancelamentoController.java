@@ -9,10 +9,13 @@ import com.poo.repository.ConsultaRepository;
 import com.poo.repository.MedicoRepository;
 
 import javafx.collections.FXCollections;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.*;
 import javafx.scene.text.*;
 import java.sql.SQLException;
@@ -108,7 +111,9 @@ public class CancelamentoController {
         btnCancelar.setStyle("-fx-background-color: #e74c3c; -fx-text-fill: white;" +
                 "-fx-font-size: 13px; -fx-background-radius: 5; -fx-cursor: hand;");
 
-        btnCancelar.setOnAction(e -> {
+        // Extraído numa variável para poder ser disparado tanto pelo clique
+        // no botão quanto pelo Enter com uma linha selecionada na tabela.
+        EventHandler<ActionEvent> acaoCancelar = e -> {
             Consulta selecionada = tabela.getSelectionModel().getSelectedItem();
             if (selecionada == null) {
                 estilo(lblStatus, "Selecione uma consulta na tabela.", false);
@@ -138,6 +143,16 @@ public class CancelamentoController {
                     }
                 }
             });
+        };
+
+        btnCancelar.setOnAction(acaoCancelar);
+
+        // Enter com uma linha selecionada na tabela abre a mesma confirmação
+        // do botão (não há campo de texto nesta tela para prender o Enter).
+        tabela.setOnKeyPressed(keyEvent -> {
+            if (keyEvent.getCode() == KeyCode.ENTER) {
+                acaoCancelar.handle(new ActionEvent());
+            }
         });
 
         Button btnAtualizar = new Button("🔄  Atualizar lista");
