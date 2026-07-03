@@ -35,6 +35,11 @@ public class MainApp extends Application {
 
     private static Stage primaryStage;
 
+    // Única Scene da aplicação — trocamos apenas o root ao navegar entre
+    // telas (em vez de criar um novo Scene a cada tela), para não resetar
+    // o tamanho da janela nem sair do modo tela cheia a cada navegação.
+    private static Scene scene;
+
     // Estado de sessão do usuário logado — evita perder nome/perfil
     // ao navegar entre telas e voltar ao Dashboard.
     private static String usuarioLogadoNome;
@@ -72,12 +77,19 @@ public class MainApp extends Application {
         primaryStage.setMinWidth(720);
         primaryStage.setMinHeight(520);
 
-        irParaLogin();
+        LoginController login = new LoginController(secretariaRepo, medicoRepo);
+        scene = new Scene(login.getView(), 720, 520);
+        primaryStage.setScene(scene);
+
         primaryStage.show();
     }
 
     // -------------------------------------------------------------------------
     // Métodos de navegação — chamados pelos Controllers
+    //
+    // Todas trocam apenas o root da Scene única (scene.setRoot(...)) em vez
+    // de criar "new Scene(...)" a cada tela — é isso que preserva o tamanho
+    // da janela (e o modo tela cheia) entre navegações.
     // -------------------------------------------------------------------------
 
     public static void irParaLogin() {
@@ -85,7 +97,7 @@ public class MainApp extends Application {
         usuarioLogadoNome = null;
         usuarioLogadoTipo = null;
         LoginController login = new LoginController(secretariaRepo, medicoRepo);
-        primaryStage.setScene(new Scene(login.getView(), 720, 520));
+        scene.setRoot(login.getView());
     }
 
     /**
@@ -97,7 +109,7 @@ public class MainApp extends Application {
         usuarioLogadoNome = nomeUsuario;
         usuarioLogadoTipo = tipoUsuario;
         DashboardController dash = new DashboardController(nomeUsuario, tipoUsuario);
-        primaryStage.setScene(new Scene(dash.getView(), 720, 520));
+        scene.setRoot(dash.getView());
     }
 
     /**
@@ -114,34 +126,34 @@ public class MainApp extends Application {
 
     public static void irParaCadastro() {
         CadastroController cad = new CadastroController(clienteRepo, medicoRepo, prontuarioRepo, secretariaRepo);
-        primaryStage.setScene(new Scene(cad.getView(), 760, 600));
+        scene.setRoot(cad.getView());
     }
 
     public static void irParaAgendamento() {
         AgendamentoController ag = new AgendamentoController(consultaRepo, clienteRepo, medicoRepo);
-        primaryStage.setScene(new Scene(ag.getView(), 760, 540));
+        scene.setRoot(ag.getView());
     }
 
     public static void irParaCancelamento() {
         CancelamentoController cc = new CancelamentoController(consultaRepo, clienteRepo, medicoRepo);
-        primaryStage.setScene(new Scene(cc.getView(), 760, 500));
+        scene.setRoot(cc.getView());
     }
 
     public static void irParaAgenda(String tipoUsuario) {
         AgendaController agenda = new AgendaController(consultaRepo, medicoRepo, clienteRepo, tipoUsuario);
-        primaryStage.setScene(new Scene(agenda.getView(), 820, 580));
+        scene.setRoot(agenda.getView());
     }
 
     public static void irParaRegistroAtendimento() {
         RegistroAtendimentoController ra = new RegistroAtendimentoController(
             consultaRepo, clienteRepo, medicoRepo, prontuarioRepo);
-        primaryStage.setScene(new Scene(ra.getView(), 760, 560));
+        scene.setRoot(ra.getView());
     }
 
     public static void irParaAtualizarProntuario() {
         AtualizarProntuarioController ap = new AtualizarProntuarioController(
             clienteRepo, prontuarioRepo, medicoRepo);
-        primaryStage.setScene(new Scene(ap.getView(), 760, 600));
+        scene.setRoot(ap.getView());
     }
 
     // -------------------------------------------------------------------------
