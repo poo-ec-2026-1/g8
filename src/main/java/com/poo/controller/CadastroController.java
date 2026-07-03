@@ -9,6 +9,7 @@ import com.poo.repository.MedicoRepository;
 import com.poo.repository.ProntuarioRepository;
 import com.poo.repository.SecretariaRepository;
 import com.poo.util.MascaraCpf;
+import com.poo.util.MascaraData;
 
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
@@ -95,6 +96,7 @@ public class CadastroController {
         Label lblNasc  = new Label("Data de nascimento:");
         TextField fNasc = campo("DD/MM/AAAA");
         fNasc.setId("fNascCliente");
+        MascaraData.aplicar(fNasc);
 
         Label lblAviso = new Label(
                 "O prontuário do paciente é criado posteriormente, na tela " +

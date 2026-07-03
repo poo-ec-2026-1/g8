@@ -7,6 +7,7 @@ import com.poo.model.Medico;
 import com.poo.repository.ClienteRepository;
 import com.poo.repository.ConsultaRepository;
 import com.poo.repository.MedicoRepository;
+import com.poo.util.MascaraData;
 
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
@@ -80,6 +81,7 @@ public class AgendamentoController {
         fData.setId("fData");
         fData.setPromptText("Ex: 15/07/2026");
         fData.setMaxWidth(380);
+        MascaraData.aplicar(fData);
 
         Label lblHorario = new Label("Horário (HH:MM):");
         TextField fHorario = new TextField();
