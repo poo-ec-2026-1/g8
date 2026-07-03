@@ -1,0 +1,67 @@
+@startuml pacotes
+
+' Diagrama de Pacotes — Sistema de Agendamento de Clínica (G8)
+' Reflete a estrutura pós-merge do PR #27 (refactor/pacotes-mvc).
+' Fonte de verdade: src/main/java/com/poo/**
+
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+package "com.poo.application" as application {
+  class MainApp
+  class DatabaseSeeder
+}
+
+package "com.poo.controller" as controller {
+  class LoginController
+  class DashboardController
+  class CadastroController
+  class AgendamentoController
+  class AgendaController
+  class CancelamentoController
+  class RegistroAtendimentoController
+  class AtualizarProntuarioController
+}
+
+package "com.poo.model" as model {
+  class Usuario
+  class Cliente
+  class Medico
+  class Secretaria
+  class Consulta
+  class Prontuario
+  class ProntuarioMedico
+  class Agenda
+  class ControleHospitalar
+}
+
+package "com.poo.repository" as repository {
+  class Database
+  class ClienteRepository
+  class MedicoRepository
+  class SecretariaRepository
+  class ConsultaRepository
+  class ProntuarioRepository
+}
+
+package "com.poo.util" as util {
+  class ValidadorUtils
+  class MascaraCpf
+}
+
+application ..> controller : constrói telas e navega\n(primaryStage.setScene)
+application ..> repository : cria e injeta (DI por construtor)
+application ..> model : injeta SecretariaRepository\nno DatabaseSeeder
+controller ..> repository : persiste / consulta
+controller ..> util : valida CPF, datas e horário
+controller ..> model : instancia entidades
+repository ..> model : mapeia via ORMLite\n(@DatabaseTable/@DatabaseField)
+model ..> util : valida invariantes no construtor
+
+note bottom of controller
+  View ainda construída em código dentro do Controller
+  (sem FXML) — por isso não há pacote "view" próprio.
+  Split via FXML está no backlog (ver ESTADO_ATUAL.md).
+end note
+
+@enduml
