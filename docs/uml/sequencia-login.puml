@@ -1,0 +1,44 @@
+@startuml sequencia-login
+
+' Login (Médico ou Secretária) — com.poo.controller.LoginController
+' Fonte: LoginController.tentarLogin()
+
+actor Usuario
+participant "LoginController" as LC
+participant "MedicoRepository" as MR
+participant "SecretariaRepository" as SR
+participant "ValidadorUtils" as VU
+participant "MainApp" as MA
+
+Usuario -> LC : informa CPF (+ senha, se for médico)
+LC -> MR : loadAll()
+MR --> LC : List<Medico>
+
+loop para cada médico
+  LC -> VU : normalizarCpf(cpf)
+end
+
+alt CPF corresponde a um médico
+  alt senha confere
+    LC -> MA : irParaDashboard(nome, "Médico")
+  else senha incorreta
+    LC --> Usuario : "Senha incorreta para este médico."
+  end
+else não é médico
+  LC -> SR : loadAll()
+  SR --> LC : List<Secretaria>
+  alt CPF corresponde a uma secretária
+    LC -> MA : irParaDashboard(nome, "Secretária")
+  else CPF não encontrado
+    LC --> Usuario : "CPF não encontrado."
+  end
+end
+
+note right of LC
+  Login de Secretária valida só o CPF: o model
+  Secretaria tem campo "senha", mas o Controller
+  não expõe getter público para checá-la aqui
+  (comentário no próprio código confirma isso).
+end note
+
+@enduml

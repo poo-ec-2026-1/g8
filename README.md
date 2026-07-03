@@ -63,43 +63,61 @@ Isabela Campos | Documentação, diagramas UML, README e relatórios
 
 ## Seção 4 — Modelagem
 
-### 4.1 Diagrama de Classes
+> Cada diagrama tem fonte **PlantUML (`.puml`)** versionada em [`docs/uml/`](docs/uml/) e uma imagem **`.svg`** renderizada a partir dela (gerada localmente, sem depender de URL externa do plantuml.com como antes — o diagrama antigo tinha ficado desatualizado assim que o código foi reorganizado em pacotes). Editem o `.puml` e regenerem o `.svg` quando o código mudar.
 
-![Diagrama de Classes](https://www.plantuml.com/plantuml/png/fLLDZzCm4BtdLrWzBQ2koW4E4QfsLP1saLWX2ZzWOazRQrDFP4yuyF7VSHmxSP8M2N5gyjxu-StuERrp39RRSrsuPsqQi70MPp8aJvREADYsc36o1kVkcQskMiP7IMQlVw3OP2M653fin9iSj62UE_3jfYYWScn1SYyclhaMh2Rnin1YBRGgXJOSdeqtK8gztymS0o2Rm-ITiSO3cRpebJWYFwgR5qac04zUgOEcPRlci0I_HiqPuw98xibNV2Uj4Z-izBRc9R-BekzsLsiqZB7RnfBXq7ufFW_FoSg8T6Pcl9lmJSulDls4IiiqONGDIWsrLg2cutLeJZ2VnuUyV3ckVRTc1eEFXc4jmTvC97rLHLGZcD7Q7gL5dq0DqTv54_-xopYR2p6J_P6KwMm2UDAEoVgfUPZg6YLhCkz6dNwaswk9YreTEie6vY4f1-vlsXViJquoR-9gajRY7DQKCGK1Ki3m1O_UYQL91C0GWoHqynEuJyJoNemKN8yz6TVM31USTruc7ava-pxoQ39mkp3rtYzTHlAXNtyXgq5asK34ftiiMkWsgy2bgwlYwnFCFr9aJ7-afVYeAhaRtlVKMZdaOCGxHrShPKqkn2YvOVABJsY3Z_GvMQz_RTENrCCn9ZCqksiJneicdTNhbUUsuJUBKNP_XehDxUtBrIAQnIAhiJ2fnh8X4Fz6fxjKtA5H_a_h3m)
+### 4.1 Diagrama de Pacotes
 
----
+![Diagrama de Pacotes](docs/uml/pacotes.svg)
+
+Fonte: [`docs/uml/pacotes.puml`](docs/uml/pacotes.puml).
+
+### 4.1.1 Diagrama de Classes de Domínio
+
+![Diagrama de Classes](docs/uml/classes-dominio.svg)
+
+Fonte: [`docs/uml/classes-dominio.puml`](docs/uml/classes-dominio.puml) — classes de `com.poo.model` (herança `Usuario`/`Cliente`/`Medico`/`Secretaria`, relacionamentos com `Consulta`, `Prontuario` e `ProntuarioMedico`), com notas sobre `Agenda` e `ControleHospitalar` não estarem mais em uso pelos Controllers.
+
+Para editar: abra o `.puml` no VS Code com a extensão **PlantUML** (`Alt+D`) ou renderize com `plantuml.jar`.
 
 ### 4.2 Diagramas de Sequência
 
-#### Fazer Login (Médico)
+Revisados contra o código real dos Controllers (substituem as imagens antigas, que tinham fluxos desatualizados/incorretos).
 
-![Diagrama de Sequência - Login](https://www.plantuml.com/plantuml/png/TP5DQWCn38NtFeN8AeM6xcTHmcGefBGGakO06bkJ61nhy4zeRrzv79h9eXk3hUyzFSdhc32aV74ATU80dsIiPZNAezLsH9zWyKKEF_Xa_G8mmd7xMAsAFOqShJZyJ52vFc8T9kmnqbJkMgMg3bQlujY0zGE72y9czmO4aVmPIo9xnKIbvN5Ro6BRG9-Znh3ZS2ZOKe_3SrKytILJW78KMTSsSAAqOUz90FRB6IbPkXPMV-xlfjTtyi0vQ5A6vdprlIM_pV42FZit1wS8w19WJkHb4sXO0PH9H5fb3T2txGaCndFF68mY5ma6T3B_Foo5m8gycVUI3QtbIVxn5m)
+#### Fazer Login (Médico ou Secretária)
 
----
-
-#### Agendar Consulta (Secretaria)
-
-![Diagrama de Sequência - Agendar Consulta](https://www.plantuml.com/plantuml/png/bLFDQiCm3BxdAKHFAQGla4Ff60nos6LR7q3OocQmus2xWRrzbRzQ2MMmc_DPtuyavn8JXdHpja2LV81FKe4OCbZqV66KwR5BSFWYYo_Vr6bqr2L_08nmRROrhxwBDvlmWteV3QlzJcKItXBUIHlbT-KPtAbRmywq5yzeKUJmS3fpl1eYMLB6TmXkagr0pOGAD2O4WXyVcE37zis0YSQkhit8pq5gi1xrM_2kqUKirEXZfeZ8-GYd9SCC5PgUrSzMeekDrn9sOoOx5kU7tO99FqbP3CLEQXWecDOe30otbeTRhjCQXrIjCv8Xv4xbnoD6YpOIb94Sg4NrkCaa5Pw5ubLoNRc2_p9VGOXe1_pJbXdvsTHJLXCSAlIW2J0_UQd2R-J25_pRt04)
-
----
-
-#### Acessar Prontuário (Médico)
-
-![Diagrama de Sequência - Prontuário](https://www.plantuml.com/plantuml/png/RP71QiCm44Jl-eebf-GGUlUX1Di4KYY4Dlc0jRIq0bih9BcqVv-LdKGsz6IncZSx6XzYmf36eLUe4mTu9sCrAoz3gwr7bs1peHxFWLqQCLZU04QudjQISlr1dgCLgxz9c2_oQ2rlCM67aIP9MoirhuNzgpXNq8rH8tZKbbmYy9BByK0lpVcOOzeVbAb4k9uoyLXHGSzeZe67ff_0hPw_km8zupmEsQ2jA_YYrB1p949ssmKXwTeQzgizRwRJHVt9Oz2a32sPudz_Ksa8D0_mRQDqbAjUSCzq-M72pQrKGB-sangA0_tFIoK7SaR-vWq)
-
----
+![Sequência - Login](docs/uml/sequencia-login.svg)
 
 #### Cadastrar Paciente (Secretaria)
 
-![Diagrama de Sequência - Cadastro](https://www.plantuml.com/plantuml/png/RP51QWCn34NtSmgHLGl91R88WO52Tg5f3Y1iXGeyqc1x1dhxoEbax9JkXFI_tfTzJ1bZdeRGeSiQuK8kahKOkz46x7X4oR3vee0zUamvwWOmmVNqAkW3asJwf54JswQVXwhflihFKILFnj4_ZZ9uoBiQ1NO7u-rXZ4JYlWb41zf2V_xOGgP0DnKg-Nd6J2NPzLGi3NmFjik6RqlllShRY4qDkmMwz21XcBNpzA_n5_ZCljBgbGrmlV1PhAWgjmMCNe5WPd5JiBf5hoiAryprgGojSkCue4C5J-2MJsljza974c-_VWS)
+![Sequência - Cadastrar Paciente](docs/uml/sequencia-cadastro-paciente.svg)
 
----
+#### Agendar Consulta (Secretaria)
+
+![Sequência - Agendar Consulta](docs/uml/sequencia-agendar-consulta.svg)
+
+#### Cancelar Consulta (Secretaria)
+
+![Sequência - Cancelar Consulta](docs/uml/sequencia-cancelar-consulta.svg)
+
+#### Acessar Prontuário (Médico)
+
+![Sequência - Acessar Prontuário](docs/uml/sequencia-acessar-prontuario.svg)
+
+#### Atualizar Prontuário (Médico) — fluxo que não estava documentado antes
+
+![Sequência - Atualizar Prontuário](docs/uml/sequencia-atualizar-prontuario.svg)
+
+#### Registrar Atendimento (Médico)
+
+![Sequência - Registrar Atendimento](docs/uml/sequencia-registrar-atendimento.svg)
+
+Fontes: [`docs/uml/sequencia-login.puml`](docs/uml/sequencia-login.puml) · [`sequencia-cadastro-paciente.puml`](docs/uml/sequencia-cadastro-paciente.puml) · [`sequencia-agendar-consulta.puml`](docs/uml/sequencia-agendar-consulta.puml) · [`sequencia-cancelar-consulta.puml`](docs/uml/sequencia-cancelar-consulta.puml) · [`sequencia-acessar-prontuario.puml`](docs/uml/sequencia-acessar-prontuario.puml) · [`sequencia-atualizar-prontuario.puml`](docs/uml/sequencia-atualizar-prontuario.puml) · [`sequencia-registrar-atendimento.puml`](docs/uml/sequencia-registrar-atendimento.puml)
 
 ### 4.3 Diagrama de Casos de Uso
 
-![Diagrama de Casos de Uso](https://www.plantuml.com/plantuml/png/TP9DQyCm38Rl-XKYznxMxzDe2OmTMXWhsrquMYfmRB3bIyV--zp4RCd2ZdhrwCElV8XAGLDdmVA7edeCqbuL6mbiLBm3Cke3NjW4pgXG4SxSYF4bgAsmKmQu5v5hBMDraQZS4JQCnvPTGrr6VAchy1CGKsH3CRDFTEE09z-Agv0YljKFutHD3KKD5F25J3-fKCinDKp9otWNarKgp6hQoHcsSsWzXjub9h9oozZGiq2RoJJ3CTut2jvfoiRuGct7r2ktCcn-rDn9UWyAkFjdvdEkyA4tgUVsy0Nmwpyk5e-zGJDfEPTMSsazbpOmNEMdzIJyazrEmnsKuvTu3uVyqFoXlW4)
+![Diagrama de Casos de Uso](docs/uml/casos-de-uso.svg)
 
----
+Fonte: [`docs/uml/casos-de-uso.puml`](docs/uml/casos-de-uso.puml) — reconstruído a partir do `DashboardController` (fonte real de quais telas cada perfil acessa). Inclui **Visualizar Agenda** e **Atualizar Prontuário**, que existem no app mas não constavam no diagrama antigo.
 
 ### 4.4 Casos de Uso Detalhados
 
@@ -114,6 +132,8 @@ Campo | Descrição
 **Pós-condições** | O usuário é autenticado e redirecionado ao seu dashboard.
 **Fluxo Principal** | 1. O usuário informa CPF e senha. 2. O sistema consulta o repositório correspondente. 3. As credenciais são validadas. 4. O sistema exibe o dashboard do usuário.
 **Alternativas** | 3a. Se as credenciais forem inválidas, o sistema exibe mensagem de erro e solicita nova tentativa.
+
+> **Nota de implementação:** o login de Secretária hoje valida só o CPF — o `Controller` não checa a senha dela (o model `Secretaria` tem o campo, mas não expõe getter para isso). Ver `docs/uml/sequencia-login.puml`.
 
 ---
 
@@ -153,9 +173,27 @@ Campo | Descrição
 **Ator** | Secretaria
 **Descrição** | A secretaria cancela uma consulta previamente agendada.
 **Pré-condições** | A consulta existe e está com status "Agendada".
-**Pós-condições** | O status da consulta é alterado para "Cancelada" e o horário fica disponível.
-**Fluxo Principal** | 1. A secretaria localiza a consulta. 2. Confirma o cancelamento. 3. O sistema atualiza o status para "Cancelada". 4. O sistema confirma a operação.
+**Pós-condições** | O registro da consulta é removido; o horário fica disponível.
+**Fluxo Principal** | 1. A secretaria localiza a consulta. 2. Confirma o cancelamento. 3. O sistema **exclui** o registro da consulta (`ConsultaRepository.delete`). 4. O sistema confirma a operação.
 **Alternativas** | 1a. Se a consulta não for encontrada, o sistema informa o erro.
+
+> **Nota de implementação:** `Consulta` não tem campo de status — não existe transição "Agendada → Cancelada" no modelo atual. Cancelar hoje é um `DELETE` definitivo do registro. Se o grupo quiser manter histórico de cancelamentos, é preciso adicionar um campo de status à entidade (mudança de domínio, exige re-atualizar o UML).
+
+---
+
+#### Visualizar Agenda
+
+Campo | Descrição
+--- | ---
+**Nome** | visualizarAgenda
+**Atores** | Médico, Secretaria
+**Descrição** | Lista as consultas agendadas, filtráveis por médico.
+**Pré-condições** | O usuário está autenticado.
+**Pós-condições** | A tabela de consultas é exibida.
+**Fluxo Principal** | 1. O usuário abre a tela de agenda. 2. O sistema carrega médicos e consultas (`MedicoRepository`/`ConsultaRepository`). 3. O usuário filtra por médico, se quiser.
+**Alternativas** | —
+
+> Caso de uso que não constava na documentação anterior — existe como tela própria (`AgendaController`), acessível pelos dois perfis no Dashboard.
 
 ---
 
@@ -165,11 +203,27 @@ Campo | Descrição
 --- | ---
 **Nome** | acessarProntuario
 **Ator** | Médico
-**Descrição** | O médico consulta o prontuário eletrônico de um paciente, incluindo histórico de atendimentos.
+**Descrição** | O médico consulta o prontuário eletrônico de um paciente (aba dentro da tela de Agenda), incluindo histórico de médicos que o atenderam.
 **Pré-condições** | O médico está autenticado; o paciente possui prontuário cadastrado.
-**Pós-condições** | O prontuário e o histórico de atendimentos são exibidos.
-**Fluxo Principal** | 1. O médico busca o paciente por nome ou CPF. 2. O sistema carrega o prontuário vinculado. 3. O histórico de atendimentos (`ProntuarioMedico`) é exibido em ordem cronológica.
-**Alternativas** | 1a. Se o paciente não for encontrado, o sistema informa que não há registro.
+**Pós-condições** | A doença e o histórico de médicos do prontuário são exibidos.
+**Fluxo Principal** | 1. O médico informa o CPF do paciente e uma senha. 2. O sistema busca o paciente (`ClienteRepository`). 3. A senha é validada contra a senha de algum médico do histórico (`Prontuario.verificarSenha`). 4. Se válida, exibe doença + histórico (`Prontuario.getHistorico`).
+**Alternativas** | 2a. Paciente não encontrado. 2b. Paciente sem prontuário. 3a. Senha não confere com nenhum médico do histórico.
+
+---
+
+#### Atualizar Prontuário
+
+Campo | Descrição
+--- | ---
+**Nome** | atualizarProntuario
+**Ator** | Médico
+**Descrição** | O médico busca um paciente por CPF e cria (se não existir) ou edita o prontuário — e o próprio médico é adicionado ao histórico de atendimentos do paciente.
+**Pré-condições** | O médico está autenticado.
+**Pós-condições** | O `Prontuario` é criado/atualizado e vinculado ao `Cliente`; o médico logado passa a constar no histórico (`ProntuarioMedico`).
+**Fluxo Principal** | 1. O médico busca o paciente por CPF. 2. Se o paciente não tem prontuário, informa a doença e o sistema cria um `Prontuario` novo. 3. Se já existe, o médico edita a doença. 4. O sistema adiciona o médico ao histórico (`ProntuarioRepository.adicionarMedicoAoHistorico`).
+**Alternativas** | 1a. Paciente não encontrado.
+
+> Caso de uso que não constava na documentação anterior — existe como tela própria (`AtualizarProntuarioController`), com botão dedicado no Dashboard do Médico.
 
 ---
 
@@ -185,13 +239,15 @@ Campo | Descrição
 **Fluxo Principal** | 1. O médico acessa o prontuário do paciente. 2. Insere as anotações do atendimento. 3. O sistema cria um `ProntuarioMedico` com data, médico e anotações. 4. O sistema confirma o registro.
 **Alternativas** | 2a. Se o campo de anotações estiver vazio, o sistema solicita preenchimento antes de salvar.
 
+> **Nota de implementação:** hoje `ProntuarioMedico` só persiste o vínculo médico↔prontuário — não há campos de data/anotações no modelo. As observações digitadas na tela não são salvas; o fluxo acima descreve o comportamento pretendido, não o implementado. Ver `docs/uml/sequencia-registrar-atendimento.puml`.
+
 ---
 
 ## Seção 5 — Arquitetura e Padrões de Projeto
 
 Para garantir que o sistema seja modular, escalável e de fácil manutenção, foram adotados os seguintes padrões:
 
-- **OOP / Herança e Polimorfismo:** `Usuario` é uma classe abstrata mãe. `Cliente`, `Medico` e `Secretaria` a estendem com comportamentos específicos.
+- **OOP / Herança e Polimorfismo:** `Cliente`, `Medico` e `Secretaria` estendem `Usuario`, reaproveitando nome/CPF/id e especializando comportamento próprio.
 - **Data Access Object (DAO) / Repository:** Camada de persistência isolada da lógica de negócio. Cada entidade possui seu repositório dedicado com operações CRUD.
 - **ORM com ORMLite:** Mapeamento objeto-relacional automatizado, lendo metadados das classes Java para criar e gerenciar as tabelas no banco.
 
@@ -230,7 +286,7 @@ mvn clean install
 mvn javafx:run
 ```
 
-Ou, pelo VS Code: abra a pasta do projeto e, com o Maven já tendo baixado as dependências, clique em **Run** acima do método `main` em `MainApp.java` (`src/main/java/com/poo/MainApp.java`).
+Ou, pelo VS Code: abra a pasta do projeto e, com o Maven já tendo baixado as dependências, clique em **Run** acima do método `main` em `MainApp.java` (`src/main/java/com/poo/application/MainApp.java`).
 
 ### Observações
 
@@ -245,29 +301,61 @@ Ou, pelo VS Code: abra a pasta do projeto e, com o Maven já tendo baixado as de
 ```
 g8/
 ├── src/
-│   └── main/
-│       └── java/
-│           └── com/poo/
-│               ├── model/
-│               │   ├── Usuario.java
-│               │   ├── Cliente.java
-│               │   ├── Medico.java
-│               │   ├── Secretaria.java
-│               │   ├── Prontuario.java
-│               │   ├── ProntuarioMedico.java
-│               │   └── Consulta.java
-│               ├── repository/
-│               │   ├── Database.java
-│               │   ├── ClienteRepository.java
-│               │   ├── MedicoRepository.java
-│               │   ├── SecretariaRepository.java
-│               │   ├── ProntuarioRepository.java
-│               │   └── ConsultaRepository.java
-│               └── Main.java
-├── Plano_de_Testes_Inicial.md
+│   ├── main/java/com/poo/
+│   │   ├── application/
+│   │   │   ├── MainApp.java
+│   │   │   └── DatabaseSeeder.java
+│   │   ├── controller/
+│   │   │   ├── LoginController.java
+│   │   │   ├── DashboardController.java
+│   │   │   ├── CadastroController.java
+│   │   │   ├── AgendamentoController.java
+│   │   │   ├── AgendaController.java
+│   │   │   ├── CancelamentoController.java
+│   │   │   ├── RegistroAtendimentoController.java
+│   │   │   └── AtualizarProntuarioController.java
+│   │   ├── model/
+│   │   │   ├── Usuario.java
+│   │   │   ├── Cliente.java
+│   │   │   ├── Medico.java
+│   │   │   ├── Secretaria.java
+│   │   │   ├── Consulta.java
+│   │   │   ├── Prontuario.java
+│   │   │   ├── ProntuarioMedico.java
+│   │   │   ├── Agenda.java
+│   │   │   └── ControleHospitalar.java
+│   │   ├── repository/
+│   │   │   ├── Database.java
+│   │   │   ├── ClienteRepository.java
+│   │   │   ├── MedicoRepository.java
+│   │   │   ├── SecretariaRepository.java
+│   │   │   ├── ConsultaRepository.java
+│   │   │   └── ProntuarioRepository.java
+│   │   └── util/
+│   │       ├── ValidadorUtils.java
+│   │       └── MascaraCpf.java
+│   └── test/java/com/poo/
+│       ├── controller/   (testes de UI — TestFX)
+│       ├── model/
+│       └── repository/
+├── docs/
+│   └── uml/
+│       ├── pacotes.puml            + pacotes.svg
+│       ├── classes-dominio.puml    + classes-dominio.svg
+│       ├── casos-de-uso.puml       + casos-de-uso.svg
+│       ├── sequencia-login.puml    + sequencia-login.svg
+│       ├── sequencia-cadastro-paciente.puml    + .svg
+│       ├── sequencia-agendar-consulta.puml     + .svg
+│       ├── sequencia-cancelar-consulta.puml    + .svg
+│       ├── sequencia-acessar-prontuario.puml   + .svg
+│       ├── sequencia-atualizar-prontuario.puml + .svg
+│       └── sequencia-registrar-atendimento.puml + .svg
+├── ESTADO_ATUAL.md
 ├── pom.xml
 └── README.md
 ```
+
+O `mainClass` do `pom.xml` aponta para **`com.poo.application.MainApp`**.
 
 ---
 

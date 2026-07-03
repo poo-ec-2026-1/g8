@@ -1,0 +1,30 @@
+@startuml sequencia-atualizar-prontuario
+
+' Atualizar Prontuário (Médico) — com.poo.controller.AtualizarProntuarioController
+' Não constava na documentação anterior; existe como botão dedicado no
+' Dashboard do Médico (DashboardController.btnAtualizarProntuario).
+
+actor Medico
+participant "AtualizarProntuarioController" as APC
+participant "ClienteRepository" as ClienteRepo
+participant "ProntuarioRepository" as ProntuarioRepo
+
+Medico -> APC : busca paciente por CPF
+APC -> ClienteRepo : loadAll()
+ClienteRepo --> APC : List<Cliente>
+APC -> APC : filtra pelo CPF informado
+
+alt paciente ainda sem prontuário
+  Medico -> APC : informa a doença
+  APC -> ProntuarioRepo : create(new Prontuario(doenca))
+  APC -> ClienteRepo : update(clienteComProntuario)
+else paciente já tem prontuário
+  Medico -> APC : edita a doença
+  APC -> ProntuarioRepo : update(prontuario)
+end
+
+APC -> ProntuarioRepo : adicionarMedicoAoHistorico(prontuario, medicoLogado)
+ProntuarioRepo --> APC : OK
+APC --> Medico : confirma atualização
+
+@enduml

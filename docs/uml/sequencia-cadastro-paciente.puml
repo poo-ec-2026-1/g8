@@ -1,0 +1,29 @@
+@startuml sequencia-cadastro-paciente
+
+' Cadastrar Paciente (Secretaria) — com.poo.controller.CadastroController (aba Cliente)
+
+actor Secretaria
+participant "CadastroController" as CC
+participant "Cliente" as ClienteModel
+participant "ClienteRepository" as ClienteRepo
+
+Secretaria -> CC : preenche nome, CPF e data de aniversário
+CC -> ClienteModel : new Cliente(nome, CPF, aniversario)
+ClienteModel -> ClienteModel : valida CPF e data (ValidadorUtils)
+
+alt dados inválidos
+  ClienteModel --> CC : IllegalArgumentException
+  CC --> Secretaria : exibe mensagem de erro
+else dados válidos
+  CC -> ClienteRepo : create(cliente)
+  ClienteRepo --> CC : OK
+  CC --> Secretaria : confirma cadastro
+end
+
+note right of CC
+  O Prontuario NÃO é criado neste fluxo — fica a
+  cargo da tela "Atualizar Prontuário" (Médico),
+  ver sequencia-atualizar-prontuario.puml.
+end note
+
+@enduml

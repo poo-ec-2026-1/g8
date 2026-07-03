@@ -1,0 +1,42 @@
+@startuml casos-de-uso
+
+' Diagrama de Casos de Uso — reconstruído a partir do DashboardController
+' (os botões exibidos por perfil SÃO a fonte de verdade dos casos de uso reais).
+
+left to right direction
+
+actor Secretaria
+actor Medico
+
+rectangle "Sistema de Agendamento de Clínica" {
+  usecase "Fazer Login" as UC1
+  usecase "Cadastrar Paciente" as UC2
+  usecase "Agendar Consulta" as UC3
+  usecase "Cancelar Consulta" as UC4
+  usecase "Visualizar Agenda" as UC5
+  usecase "Acessar Prontuário" as UC6
+  usecase "Atualizar Prontuário" as UC7
+  usecase "Registrar Atendimento" as UC8
+}
+
+Secretaria --> UC1
+Secretaria --> UC2
+Secretaria --> UC3
+Secretaria --> UC4
+Secretaria --> UC5
+
+Medico --> UC1
+Medico --> UC5
+Medico --> UC6
+Medico --> UC7
+Medico --> UC8
+
+note bottom
+  "Visualizar Agenda" e "Atualizar Prontuário" não
+  constavam no diagrama/documentação anterior, mas
+  já são telas reais do Dashboard (ver
+  DashboardController: btnAgenda* e
+  btnAtualizarProntuario).
+end note
+
+@enduml

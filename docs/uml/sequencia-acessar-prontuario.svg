@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1050" height="992" viewBox="0 0 1050 992" font-family="Segoe UI, Helvetica, Arial, sans-serif">
+<rect x="0" y="0" width="1050" height="992" fill="white"/>
+<text x="525.0" y="30" text-anchor="middle" font-size="18" font-weight="bold" fill="#2c3e50">Acessar Prontuário (Médico)</text>
+<line x1="110" y1="112" x2="110" y2="972" stroke="#34495e" stroke-width="1.5" stroke-dasharray="5,4"/>
+<circle cx="110" cy="60" r="9" fill="none" stroke="#2c3e50" stroke-width="2"/>
+<line x1="110" y1="69" x2="110" y2="92" stroke="#2c3e50" stroke-width="2"/>
+<line x1="97" y1="77" x2="123" y2="77" stroke="#2c3e50" stroke-width="2"/>
+<line x1="110" y1="92" x2="99" y2="108" stroke="#2c3e50" stroke-width="2"/>
+<line x1="110" y1="92" x2="121" y2="108" stroke="#2c3e50" stroke-width="2"/>
+<text x="110" y="104" text-anchor="middle" font-size="12.5" font-weight="600" fill="#2c3e50">Médico</text>
+<line x1="300" y1="112" x2="300" y2="972" stroke="#34495e" stroke-width="1.5" stroke-dasharray="5,4"/>
+<rect x="229.2" y="51" width="141.6" height="41" rx="5" fill="#eaf1f8" stroke="#2c3e50" stroke-width="1.3"/>
+<text x="300" y="69" text-anchor="middle" font-size="12" font-weight="600" fill="#2c3e50">AgendaController</text>
+<line x1="490" y1="112" x2="490" y2="972" stroke="#34495e" stroke-width="1.5" stroke-dasharray="5,4"/>
+<rect x="415.4" y="51" width="149.2" height="41" rx="5" fill="#eaf1f8" stroke="#2c3e50" stroke-width="1.3"/>
+<text x="490" y="69" text-anchor="middle" font-size="12" font-weight="600" fill="#2c3e50">ClienteRepository</text>
+<line x1="680" y1="112" x2="680" y2="972" stroke="#34495e" stroke-width="1.5" stroke-dasharray="5,4"/>
+<rect x="622.5" y="51" width="115" height="41" rx="5" fill="#eaf1f8" stroke="#2c3e50" stroke-width="1.3"/>
+<text x="680" y="69" text-anchor="middle" font-size="12" font-weight="600" fill="#2c3e50">Prontuario</text>
+<line x1="110" y1="154" x2="300" y2="154" stroke="#1b1b1b" stroke-width="1.4"/>
+<polygon points="291,150 291,158 300,154" fill="#1b1b1b"/>
+<text x="205.0" y="146" text-anchor="middle" font-size="11.5" fill="#1b1b1b">informa CPF do paciente + senha</text>
+<line x1="300" y1="196" x2="490" y2="196" stroke="#1b1b1b" stroke-width="1.4"/>
+<polygon points="481,192 481,200 490,196" fill="#1b1b1b"/>
+<text x="395.0" y="188" text-anchor="middle" font-size="11.5" fill="#1b1b1b">loadAll()</text>
+<line x1="490" y1="238" x2="300" y2="238" stroke="#1b1b1b" stroke-width="1.4" stroke-dasharray="6,4"/>
+<polygon points="309,234 309,242 300,238" fill="#1b1b1b"/>
+<text x="395.0" y="230" text-anchor="middle" font-size="11.5" fill="#1b1b1b">List&lt;Cliente&gt;</text>
+<path d="M 304 266 H 370 V 280 H 304" fill="none" stroke="#1b1b1b" stroke-width="1.4"/>
+<polygon points="313,276 313,284 304,280" fill="#1b1b1b"/>
+<text x="312" y="262" font-size="11.5" fill="#1b1b1b">busca cliente pelo CPF informado</text>
+<line x1="300" y1="364" x2="110" y2="364" stroke="#1b1b1b" stroke-width="1.4" stroke-dasharray="6,4"/>
+<polygon points="119,360 119,368 110,364" fill="#1b1b1b"/>
+<text x="205.0" y="356" text-anchor="middle" font-size="11.5" fill="#1b1b1b">&quot;Paciente não encontrado.&quot;</text>
+<line x1="300" y1="448" x2="110" y2="448" stroke="#1b1b1b" stroke-width="1.4" stroke-dasharray="6,4"/>
+<polygon points="119,444 119,452 110,448" fill="#1b1b1b"/>
+<text x="205.0" y="440" text-anchor="middle" font-size="11.5" fill="#1b1b1b">&quot;Este paciente não possui prontuário.&quot;</text>
+<line x1="300" y1="532" x2="680" y2="532" stroke="#1b1b1b" stroke-width="1.4"/>
+<polygon points="671,528 671,536 680,532" fill="#1b1b1b"/>
+<text x="490.0" y="524" text-anchor="middle" font-size="11.5" fill="#1b1b1b">verificarSenha(senha)</text>
+<line x1="680" y1="616" x2="300" y2="616" stroke="#1b1b1b" stroke-width="1.4" stroke-dasharray="6,4"/>
+<polygon points="309,612 309,620 300,616" fill="#1b1b1b"/>
+<text x="490.0" y="608" text-anchor="middle" font-size="11.5" fill="#1b1b1b">false</text>
+<line x1="300" y1="658" x2="110" y2="658" stroke="#1b1b1b" stroke-width="1.4" stroke-dasharray="6,4"/>
+<polygon points="119,654 119,662 110,658" fill="#1b1b1b"/>
+<text x="205.0" y="650" text-anchor="middle" font-size="11.5" fill="#1b1b1b">&quot;Senha incorreta! Acesso negado.&quot;</text>
+<line x1="680" y1="742" x2="300" y2="742" stroke="#1b1b1b" stroke-width="1.4" stroke-dasharray="6,4"/>
+<polygon points="309,738 309,746 300,742" fill="#1b1b1b"/>
+<text x="490.0" y="734" text-anchor="middle" font-size="11.5" fill="#1b1b1b">true</text>
+<line x1="300" y1="784" x2="680" y2="784" stroke="#1b1b1b" stroke-width="1.4"/>
+<polygon points="671,780 671,788 680,784" fill="#1b1b1b"/>
+<text x="490.0" y="776" text-anchor="middle" font-size="11.5" fill="#1b1b1b">getHistorico()</text>
+<line x1="300" y1="826" x2="110" y2="826" stroke="#1b1b1b" stroke-width="1.4" stroke-dasharray="6,4"/>
+<polygon points="119,822 119,830 110,826" fill="#1b1b1b"/>
+<text x="205.0" y="818" text-anchor="middle" font-size="11.5" fill="#1b1b1b">exibe doença + histórico de médicos</text>
+<rect x="46.5" y="552" width="735.0" height="328" fill="none" stroke="#8e8e8e" stroke-width="1.2" stroke-dasharray="4,3"/>
+<path d="M 46.5 552 h 151 v 14 l -8,8 h -143 z" fill="#e8e8e8" stroke="#8e8e8e" stroke-width="1"/>
+<text x="52.5" y="565" font-size="11" font-weight="bold" fill="#333">alt [senha não confere]</text>
+<line x1="46.5" y1="680" x2="781.5" y2="680" stroke="#8e8e8e" stroke-width="1" stroke-dasharray="4,3"/>
+<text x="52.5" y="692" font-size="10.5" font-style="italic" fill="#555">[senha confere]</text>
+<rect x="24.5" y="300" width="779.0" height="622" fill="none" stroke="#8e8e8e" stroke-width="1.2" stroke-dasharray="4,3"/>
+<path d="M 24.5 300 h 199 v 14 l -8,8 h -191 z" fill="#e8e8e8" stroke="#8e8e8e" stroke-width="1"/>
+<text x="30.5" y="313" font-size="11" font-weight="bold" fill="#333">alt [paciente não encontrado]</text>
+<line x1="24.5" y1="386" x2="803.5" y2="386" stroke="#8e8e8e" stroke-width="1" stroke-dasharray="4,3"/>
+<text x="30.5" y="398" font-size="10.5" font-style="italic" fill="#555">[sem prontuário]</text>
+<line x1="24.5" y1="470" x2="803.5" y2="470" stroke="#8e8e8e" stroke-width="1" stroke-dasharray="4,3"/>
+<text x="30.5" y="482" font-size="10.5" font-style="italic" fill="#555">[com prontuário]</text>
+</svg>

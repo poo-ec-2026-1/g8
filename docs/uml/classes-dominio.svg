@@ -1,0 +1,120 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="760" viewBox="0 0 1080 760" font-family="Segoe UI, Helvetica, Arial, sans-serif">
+<rect x="0" y="0" width="1080" height="760" fill="white"/>
+<text x="540.0" y="26" text-anchor="middle" font-size="18" font-weight="bold" fill="#2c3e50">Diagrama de Classes — com.poo.model</text>
+<rect x="445" y="40" width="200" height="126" fill="#eaf1f8" stroke="#2c3e50" stroke-width="1.4"/>
+<line x1="445" y1="64" x2="645" y2="64" stroke="#2c3e50" stroke-width="1"/>
+<line x1="445" y1="115" x2="645" y2="115" stroke="#2c3e50" stroke-width="1"/>
+<text x="545.0" y="56" text-anchor="middle" font-size="12.5" font-weight="700" fill="#2c3e50">Usuario</text>
+<text x="453" y="77" font-size="10.5" fill="#2c3e50"># nome : String</text>
+<text x="453" y="92" font-size="10.5" fill="#2c3e50"># CPF : String</text>
+<text x="453" y="107" font-size="10.5" fill="#2c3e50"># id : int</text>
+<text x="453" y="128" font-size="10.5" fill="#2c3e50">+ getNome() : String</text>
+<text x="453" y="143" font-size="10.5" fill="#2c3e50">+ getCPF() : String</text>
+<text x="453" y="158" font-size="10.5" fill="#2c3e50">+ getId() : int</text>
+<rect x="90" y="230" width="195" height="111" fill="#eaf1f8" stroke="#2c3e50" stroke-width="1.4"/>
+<line x1="90" y1="254" x2="285" y2="254" stroke="#2c3e50" stroke-width="1"/>
+<line x1="90" y1="290" x2="285" y2="290" stroke="#2c3e50" stroke-width="1"/>
+<text x="187.5" y="246" text-anchor="middle" font-size="12.5" font-weight="700" fill="#2c3e50">Cliente</text>
+<text x="98" y="267" font-size="10.5" fill="#2c3e50">- prontuario : Prontuario</text>
+<text x="98" y="282" font-size="10.5" fill="#2c3e50">- aniverssario : String</text>
+<text x="98" y="303" font-size="10.5" fill="#2c3e50">+ getProntuario()</text>
+<text x="98" y="318" font-size="10.5" fill="#2c3e50">+ setProntuario(p)</text>
+<text x="98" y="333" font-size="10.5" fill="#2c3e50">+ getAniverssario()</text>
+<rect x="445" y="230" width="190" height="96" fill="#eaf1f8" stroke="#2c3e50" stroke-width="1.4"/>
+<line x1="445" y1="254" x2="635" y2="254" stroke="#2c3e50" stroke-width="1"/>
+<line x1="445" y1="290" x2="635" y2="290" stroke="#2c3e50" stroke-width="1"/>
+<text x="540.0" y="246" text-anchor="middle" font-size="12.5" font-weight="700" fill="#2c3e50">Medico</text>
+<text x="453" y="267" font-size="10.5" fill="#2c3e50">- especialidade : String</text>
+<text x="453" y="282" font-size="10.5" fill="#2c3e50">- senha : String</text>
+<text x="453" y="303" font-size="10.5" fill="#2c3e50">+ getEspecialidade()</text>
+<text x="453" y="318" font-size="10.5" fill="#2c3e50">+ getSenha()</text>
+<rect x="760" y="230" width="170" height="66" fill="#eaf1f8" stroke="#2c3e50" stroke-width="1.4"/>
+<line x1="760" y1="254" x2="930" y2="254" stroke="#2c3e50" stroke-width="1"/>
+<line x1="760" y1="275" x2="930" y2="275" stroke="#2c3e50" stroke-width="1"/>
+<text x="845.0" y="246" text-anchor="middle" font-size="12.5" font-weight="700" fill="#2c3e50">Secretaria</text>
+<text x="768" y="267" font-size="10.5" fill="#2c3e50">- senha : String</text>
+<text x="768" y="288" font-size="10.5" fill="#2c3e50">(sem metodos extra)</text>
+<rect x="90" y="40" width="210" height="126" fill="#eaf1f8" stroke="#2c3e50" stroke-width="1.4"/>
+<line x1="90" y1="64" x2="300" y2="64" stroke="#2c3e50" stroke-width="1"/>
+<line x1="90" y1="130" x2="300" y2="130" stroke="#2c3e50" stroke-width="1"/>
+<text x="195.0" y="56" text-anchor="middle" font-size="12.5" font-weight="700" fill="#2c3e50">Consulta</text>
+<text x="98" y="77" font-size="10.5" fill="#2c3e50">- id : int</text>
+<text x="98" y="92" font-size="10.5" fill="#2c3e50">- data, horario : String</text>
+<text x="98" y="107" font-size="10.5" fill="#2c3e50">- medico : Medico</text>
+<text x="98" y="122" font-size="10.5" fill="#2c3e50">- cliente : Cliente</text>
+<text x="98" y="143" font-size="10.5" fill="#2c3e50">+ getData/getHorario()</text>
+<text x="98" y="158" font-size="10.5" fill="#2c3e50">+ getMedico/getCliente()</text>
+<rect x="90" y="430" width="250" height="126" fill="#eaf1f8" stroke="#2c3e50" stroke-width="1.4"/>
+<line x1="90" y1="454" x2="340" y2="454" stroke="#2c3e50" stroke-width="1"/>
+<line x1="90" y1="505" x2="340" y2="505" stroke="#2c3e50" stroke-width="1"/>
+<text x="215.0" y="446" text-anchor="middle" font-size="12.5" font-weight="700" fill="#2c3e50">Prontuario</text>
+<text x="98" y="467" font-size="10.5" fill="#2c3e50">- id : int</text>
+<text x="98" y="482" font-size="10.5" fill="#2c3e50">- doença : String</text>
+<text x="98" y="497" font-size="10.5" fill="#2c3e50">- historico : ForeignCollection&lt;ProntuarioMedico&gt;</text>
+<text x="98" y="518" font-size="10.5" fill="#2c3e50">+ getHistorico() : List&lt;Medico&gt;</text>
+<text x="98" y="533" font-size="10.5" fill="#2c3e50">+ verificarSenha(senha)</text>
+<text x="98" y="548" font-size="10.5" fill="#2c3e50">+ exibirProntuario()</text>
+<rect x="400" y="430" width="200" height="96" fill="#eaf1f8" stroke="#2c3e50" stroke-width="1.4"/>
+<line x1="400" y1="454" x2="600" y2="454" stroke="#2c3e50" stroke-width="1"/>
+<line x1="400" y1="505" x2="600" y2="505" stroke="#2c3e50" stroke-width="1"/>
+<text x="500.0" y="446" text-anchor="middle" font-size="12.5" font-weight="700" fill="#2c3e50">ProntuarioMedico</text>
+<text x="408" y="467" font-size="10.5" fill="#2c3e50">- id : int</text>
+<text x="408" y="482" font-size="10.5" fill="#2c3e50">- prontuario : Prontuario</text>
+<text x="408" y="497" font-size="10.5" fill="#2c3e50">- medico : Medico</text>
+<rect x="700" y="430" width="190" height="81" fill="#eaf1f8" stroke="#2c3e50" stroke-width="1.4"/>
+<line x1="700" y1="454" x2="890" y2="454" stroke="#2c3e50" stroke-width="1"/>
+<line x1="700" y1="475" x2="890" y2="475" stroke="#2c3e50" stroke-width="1"/>
+<text x="795.0" y="446" text-anchor="middle" font-size="12.5" font-weight="700" fill="#2c3e50">Agenda</text>
+<text x="708" y="467" font-size="10.5" fill="#2c3e50">- consultas : List&lt;Consulta&gt;</text>
+<text x="708" y="488" font-size="10.5" fill="#2c3e50">+ novaConsulta(c)</text>
+<text x="708" y="503" font-size="10.5" fill="#2c3e50">+ exibirAgenda(medico, senha)</text>
+<rect x="700" y="590" width="210" height="81" fill="#eaf1f8" stroke="#2c3e50" stroke-width="1.4"/>
+<line x1="700" y1="614" x2="910" y2="614" stroke="#2c3e50" stroke-width="1"/>
+<line x1="700" y1="635" x2="910" y2="635" stroke="#2c3e50" stroke-width="1"/>
+<text x="805.0" y="606" text-anchor="middle" font-size="12.5" font-weight="700" fill="#2c3e50">ControleHospitalar</text>
+<text x="708" y="627" font-size="10.5" fill="#2c3e50">- listaClientes : List&lt;Cliente&gt;</text>
+<text x="708" y="648" font-size="10.5" fill="#2c3e50">+ cadastrarCliente(c)</text>
+<text x="708" y="663" font-size="10.5" fill="#2c3e50">+ verProntuario(senha, cpf)</text>
+<line x1="285" y1="285.5" x2="445" y2="103.0" stroke="#2c3e50" stroke-width="1.2"/>
+<polygon points="445,103.0 439.2939233125626,115.78439239217427 433.0719607472821,110.32952110206536" fill="white" stroke="#2c3e50" stroke-width="1.2"/>
+<line x1="540.0" y1="230" x2="545.0" y2="166" stroke="#2c3e50" stroke-width="1.2"/>
+<polygon points="545.0,166 548.0829893839817,179.65632368019504 539.83356055872,179.01183705322148" fill="white" stroke="#2c3e50" stroke-width="1.2"/>
+<line x1="760" y1="263.0" x2="645" y2="103.0" stroke="#2c3e50" stroke-width="1.2"/>
+<polygon points="645,103.0 656.1655006892885,111.44580335773324 649.4464260794498,116.27513823355481" fill="white" stroke="#2c3e50" stroke-width="1.2"/>
+<line x1="300" y1="103.0" x2="445" y2="278.0" stroke="#2c3e50" stroke-width="1.2"/>
+<text x="292.77038951786113" y="109.90888791894527" font-size="9.5" fill="#555">*</text>
+<text x="455.1214546749944" y="268.3275569134766" font-size="9.5" fill="#555">1</text>
+<line x1="195.0" y1="166" x2="187.5" y2="230" stroke="#2c3e50" stroke-width="1.2"/>
+<text x="185.01051344650315" y="165.54156963723383" font-size="9.5" fill="#555">*</text>
+<text x="201.48528117489556" y="230.64180250787263" font-size="9.5" fill="#555">1</text>
+<line x1="187.5" y1="341" x2="215.0" y2="430" stroke="#2c3e50" stroke-width="1.2"/>
+<polygon points="187.5,341 184.51830640387988,349.9805068508885 192.04634469111386,355.7136246366958 195.02803828723398,346.7331177858072" fill="#2c3e50"/>
+<text x="178.17846031908329" y="344.62062121425254" font-size="9.5" fill="#555">1</text>
+<text x="228.0501555532834" y="424.9311303000465" font-size="9.5" fill="#555">0..1</text>
+<line x1="340" y1="493.0" x2="400" y2="478.0" stroke="#2c3e50" stroke-width="1.2"/>
+<polygon points="340,493.0 348.80404318881887,496.4682594380196 354.9401945022381,489.2649513744405 346.13615131341925,485.79669193642087" fill="white" stroke="#2c3e50" stroke-width="1.2"/>
+<text x="343.10553235725814" y="502.50555988766695" font-size="9.5" fill="#555">1</text>
+<text x="395.65225469983864" y="464.6922161572663" font-size="9.5" fill="#555">*</text>
+<line x1="500.0" y1="430" x2="540.0" y2="326" stroke="#2c3e50" stroke-width="1.2"/>
+<text x="509.5640073848403" y="432.9205757553469" font-size="9.5" fill="#555">*</text>
+<text x="526.6103896612235" y="321.9111939425144" font-size="9.5" fill="#555">1</text>
+<line x1="700" y1="470.5" x2="300" y2="103.0" stroke="#2c3e50" stroke-width="1.2"/>
+<polygon points="700,470.5 698.050869065904,461.2403623936058 688.6596018379863,460.08100918864994 690.6087327720825,469.3406467950441" fill="white" stroke="#2c3e50" stroke-width="1.2"/>
+<text x="706.2277292649461" y="462.67597365785787" font-size="9.5" fill="#555">1</text>
+<text x="291.2811790290755" y="113.95363687899899" font-size="9.5" fill="#555">*</text>
+<line x1="700" y1="630.5" x2="285" y2="285.5" stroke="#2c3e50" stroke-width="1.2"/>
+<polygon points="700,630.5 697.5948524444541,621.3482097250837 688.1577056798968,620.6552011073841 690.5628532354426,629.8069913823003" fill="white" stroke="#2c3e50" stroke-width="1.2"/>
+<text x="705.832757648039" y="622.3772579617938" font-size="9.5" fill="#555">1</text>
+<text x="276.83413929274536" y="296.87183885348867" font-size="9.5" fill="#555">*</text>
+<rect x="700" y="40" width="300" height="68" fill="#fff6cf" stroke="#d9c56a" stroke-width="1"/>
+<text x="707" y="55" font-size="10" fill="#5a4d10">Usuario não é abstract no código (tem</text>
+<text x="707" y="69" font-size="10" fill="#5a4d10">construtor público instanciável). O README</text>
+<text x="707" y="83" font-size="10" fill="#5a4d10">(Seção 5) foi ajustado para não chamá-la</text>
+<text x="707" y="97" font-size="10" fill="#5a4d10">mais de &#x27;classe abstrata&#x27;.</text>
+<rect x="700" y="120" width="300" height="68" fill="#fff6cf" stroke="#d9c56a" stroke-width="1"/>
+<text x="707" y="135" font-size="10" fill="#5a4d10">Agenda e ControleHospitalar não são usadas</text>
+<text x="707" y="149" font-size="10" fill="#5a4d10">por nenhum Controller: a checagem de conflito</text>
+<text x="707" y="163" font-size="10" fill="#5a4d10">foi reimplementada (duplicada) em</text>
+<text x="707" y="177" font-size="10" fill="#5a4d10">AgendamentoController.</text>
+<text x="540.0" y="746" text-anchor="middle" font-size="10.5" fill="#666">Fonte: docs/uml/classes-dominio.puml — atributos/métodos extraídos do código real de src/main/java/com/poo/model/**</text>
+</svg>

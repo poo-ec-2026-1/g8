@@ -1,0 +1,115 @@
+@startuml classes-dominio
+
+' Diagrama de Classes — com.poo.model
+' Gerado a partir do código real em src/main/java/com/poo/model/*.java
+' (substitui o diagrama antigo, codificado em URL do plantuml.com,
+' que não refletia mais os construtores/validações atuais).
+
+skinparam classAttributeIconSize 0
+skinparam shadowing false
+
+package "com.poo.model" {
+
+  class Usuario {
+    # nome : String
+    # CPF : String
+    # id : int
+    + getNome() : String
+    + getCPF() : String
+    + getId() : int
+  }
+
+  class Cliente {
+    - prontuario : Prontuario
+    - aniverssario : String
+    + getProntuario() : Prontuario
+    + setProntuario(Prontuario) : void
+    + getAniverssario() : String
+  }
+
+  class Medico {
+    - especialidade : String
+    - senha : String
+    + getEspecialidade() : String
+    + getSenha() : String
+  }
+
+  class Secretaria {
+    - senha : String
+  }
+
+  class Consulta {
+    - id : int
+    - data : String
+    - horario : String
+    - medico : Medico
+    - cliente : Cliente
+    + getData() : String
+    + getHorario() : String
+    + getMedico() : Medico
+    + getCliente() : Cliente
+  }
+
+  class Prontuario {
+    - id : int
+    - doença : String
+    - historico : ForeignCollection<ProntuarioMedico>
+    + getHistorico() : List<Medico>
+    + verificarSenha(senha : String) : boolean
+    + exibirProntuario() : void
+  }
+
+  class ProntuarioMedico {
+    - id : int
+    - prontuario : Prontuario
+    - medico : Medico
+  }
+
+  class Agenda {
+    - consultas : List<Consulta>
+    + novaConsulta(Consulta) : void
+    + exibirAgenda(Medico, senha : String) : void
+  }
+
+  class ControleHospitalar {
+    - listaClientes : List<Cliente>
+    + cadastrarCliente(Cliente) : void
+    + verProntuario(senha : String, CPF : String) : void
+  }
+}
+
+Usuario <|-- Cliente
+Usuario <|-- Medico
+Usuario <|-- Secretaria
+
+Cliente "1" *-- "0..1" Prontuario : possui >
+Prontuario "1" o-- "*" ProntuarioMedico : histórico >
+ProntuarioMedico "*" --> "1" Medico
+
+Consulta "*" --> "1" Medico
+Consulta "*" --> "1" Cliente
+
+Agenda o-- "*" Consulta : gerencia >
+ControleHospitalar o-- "*" Cliente : gerencia >
+
+note right of Usuario
+  Não é abstract no código (tem construtor
+  público instanciável). O README (Seção 5)
+  descreve como "classe abstrata mãe" — texto
+  a corrigir ou o modificador a adicionar.
+end note
+
+note right of Agenda
+  Nenhum Controller referencia esta classe hoje:
+  AgendamentoController reimplementa a checagem
+  de conflito de horário inline (stream/anyMatch),
+  duplicando a regra que já existe em novaConsulta().
+end note
+
+note right of ControleHospitalar
+  Idem: nenhum Controller usa esta classe.
+  Candidata a remoção, ou a herdar a
+  responsabilidade hoje espalhada nos Controllers.
+end note
+
+@enduml
