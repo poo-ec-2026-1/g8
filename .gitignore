@@ -8,6 +8,7 @@ package.bluej
 .settings/
 .classpath
 .project
+.vscode/
 
 # Banco local (recriado pelo seed no primeiro run)
 hospital.db
