@@ -56,6 +56,7 @@ public class LoginController {
         MascaraCpf.aplicar(campoCPF);
         campoCPF.setPromptText("000.000.000-00");
         campoCPF.setMaxWidth(300);
+        campoCPF.setOnAction(e -> tentarLogin());
 
         Label lblSenha = new Label("Senha:");
         campoSenha = new PasswordField();
@@ -79,6 +80,9 @@ public class LoginController {
             "-fx-font-size: 14px; -fx-cursor: hand; -fx-background-radius: 5;"
         );
         btnLogin.setOnAction(e -> tentarLogin());
+        // Enter confirma o login também com o foco fora dos campos de texto
+        // (ex.: logo após tab pro botão).
+        btnLogin.setDefaultButton(true);
 
         VBox form = new VBox(10, lblCPF, campoCPF, lblSenha, campoSenha, labelErro, btnLogin);
         form.setAlignment(Pos.CENTER_LEFT);
