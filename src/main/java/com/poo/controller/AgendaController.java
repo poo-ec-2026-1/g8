@@ -9,6 +9,7 @@ import com.poo.model.Prontuario;
 import com.poo.repository.ClienteRepository;
 import com.poo.repository.ConsultaRepository;
 import com.poo.repository.MedicoRepository;
+import com.poo.util.MascaraCpf;
 
 import javafx.collections.FXCollections;
 import javafx.geometry.Insets;
@@ -178,6 +179,7 @@ public class AgendaController {
         Label lblCPF = new Label("CPF do paciente:");
         TextField fCPF = campo("000.000.000-00");
         fCPF.setId("fCPF");
+        MascaraCpf.aplicar(fCPF);
 
         Label lblSenha = new Label("Senha do médico:");
         PasswordField fSenha = new PasswordField();
