@@ -63,32 +63,61 @@ Isabela Campos | Documentação, diagramas UML, README e relatórios
 
 ## Seção 4 — Modelagem
 
-> Os diagramas UML não ficam mais embutidos neste README — todos vivem como arquivos versionados em [`docs/uml/`](docs/uml/). Os links abaixo apontam para cada um.
+> Cada diagrama tem fonte **PlantUML (`.puml`)** versionada em [`docs/uml/`](docs/uml/) e uma imagem **`.svg`** renderizada a partir dela (gerada localmente, sem depender de URL externa do plantuml.com como antes — o diagrama antigo tinha ficado desatualizado assim que o código foi reorganizado em pacotes). Editem o `.puml` e regenerem o `.svg` quando o código mudar.
 
-### 4.1 Diagrama de Pacotes e Classes de Domínio
+### 4.1 Diagrama de Pacotes
 
-Fonte **PlantUML (`.puml`)**, gerada a partir do código real em `com.poo.*` (substitui o diagrama antigo, que estava codificado numa URL e ficou desatualizado assim que o código foi reorganizado em pacotes):
+![Diagrama de Pacotes](docs/uml/pacotes.svg)
 
-- [`docs/uml/pacotes.puml`](docs/uml/pacotes.puml) — pacotes (`application`, `controller`, `model`, `repository`, `util`) e dependências entre camadas.
-- [`docs/uml/classes-dominio.puml`](docs/uml/classes-dominio.puml) — classes de `com.poo.model` (herança `Usuario`/`Cliente`/`Medico`/`Secretaria`, relacionamentos com `Consulta`, `Prontuario` e `ProntuarioMedico`), com notas sobre `Agenda` e `ControleHospitalar` não estarem mais em uso pelos Controllers.
+Fonte: [`docs/uml/pacotes.puml`](docs/uml/pacotes.puml).
 
-Para visualizar: abra o `.puml` no VS Code com a extensão **PlantUML** (`Alt+D`) ou renderize com `plantuml.jar`.
+### 4.1.1 Diagrama de Classes de Domínio
+
+![Diagrama de Classes](docs/uml/classes-dominio.svg)
+
+Fonte: [`docs/uml/classes-dominio.puml`](docs/uml/classes-dominio.puml) — classes de `com.poo.model` (herança `Usuario`/`Cliente`/`Medico`/`Secretaria`, relacionamentos com `Consulta`, `Prontuario` e `ProntuarioMedico`), com notas sobre `Agenda` e `ControleHospitalar` não estarem mais em uso pelos Controllers.
+
+Para editar: abra o `.puml` no VS Code com a extensão **PlantUML** (`Alt+D`) ou renderize com `plantuml.jar`.
 
 ### 4.2 Diagramas de Sequência
 
-Fonte `.puml`, revisada contra o código real dos Controllers (substitui as imagens antigas, que tinham fluxos desatualizados/incorretos):
+Revisados contra o código real dos Controllers (substituem as imagens antigas, que tinham fluxos desatualizados/incorretos).
 
-- [`docs/uml/sequencia-login.puml`](docs/uml/sequencia-login.puml)
-- [`docs/uml/sequencia-cadastro-paciente.puml`](docs/uml/sequencia-cadastro-paciente.puml)
-- [`docs/uml/sequencia-agendar-consulta.puml`](docs/uml/sequencia-agendar-consulta.puml)
-- [`docs/uml/sequencia-cancelar-consulta.puml`](docs/uml/sequencia-cancelar-consulta.puml)
-- [`docs/uml/sequencia-acessar-prontuario.puml`](docs/uml/sequencia-acessar-prontuario.puml)
-- [`docs/uml/sequencia-atualizar-prontuario.puml`](docs/uml/sequencia-atualizar-prontuario.puml) — fluxo que não estava documentado antes
-- [`docs/uml/sequencia-registrar-atendimento.puml`](docs/uml/sequencia-registrar-atendimento.puml)
+#### Fazer Login (Médico ou Secretária)
+
+![Sequência - Login](docs/uml/sequencia-login.svg)
+
+#### Cadastrar Paciente (Secretaria)
+
+![Sequência - Cadastrar Paciente](docs/uml/sequencia-cadastro-paciente.svg)
+
+#### Agendar Consulta (Secretaria)
+
+![Sequência - Agendar Consulta](docs/uml/sequencia-agendar-consulta.svg)
+
+#### Cancelar Consulta (Secretaria)
+
+![Sequência - Cancelar Consulta](docs/uml/sequencia-cancelar-consulta.svg)
+
+#### Acessar Prontuário (Médico)
+
+![Sequência - Acessar Prontuário](docs/uml/sequencia-acessar-prontuario.svg)
+
+#### Atualizar Prontuário (Médico) — fluxo que não estava documentado antes
+
+![Sequência - Atualizar Prontuário](docs/uml/sequencia-atualizar-prontuario.svg)
+
+#### Registrar Atendimento (Médico)
+
+![Sequência - Registrar Atendimento](docs/uml/sequencia-registrar-atendimento.svg)
+
+Fontes: [`docs/uml/sequencia-login.puml`](docs/uml/sequencia-login.puml) · [`sequencia-cadastro-paciente.puml`](docs/uml/sequencia-cadastro-paciente.puml) · [`sequencia-agendar-consulta.puml`](docs/uml/sequencia-agendar-consulta.puml) · [`sequencia-cancelar-consulta.puml`](docs/uml/sequencia-cancelar-consulta.puml) · [`sequencia-acessar-prontuario.puml`](docs/uml/sequencia-acessar-prontuario.puml) · [`sequencia-atualizar-prontuario.puml`](docs/uml/sequencia-atualizar-prontuario.puml) · [`sequencia-registrar-atendimento.puml`](docs/uml/sequencia-registrar-atendimento.puml)
 
 ### 4.3 Diagrama de Casos de Uso
 
-[`docs/uml/casos-de-uso.puml`](docs/uml/casos-de-uso.puml) — reconstruído a partir do `DashboardController` (fonte real de quais telas cada perfil acessa). Inclui **Visualizar Agenda** e **Atualizar Prontuário**, que existem no app mas não constavam no diagrama antigo.
+![Diagrama de Casos de Uso](docs/uml/casos-de-uso.svg)
+
+Fonte: [`docs/uml/casos-de-uso.puml`](docs/uml/casos-de-uso.puml) — reconstruído a partir do `DashboardController` (fonte real de quais telas cada perfil acessa). Inclui **Visualizar Agenda** e **Atualizar Prontuário**, que existem no app mas não constavam no diagrama antigo.
 
 ### 4.4 Casos de Uso Detalhados
 
@@ -311,16 +340,16 @@ g8/
 │       └── repository/
 ├── docs/
 │   └── uml/
-│       ├── pacotes.puml
-│       ├── classes-dominio.puml
-│       ├── casos-de-uso.puml
-│       ├── sequencia-login.puml
-│       ├── sequencia-cadastro-paciente.puml
-│       ├── sequencia-agendar-consulta.puml
-│       ├── sequencia-cancelar-consulta.puml
-│       ├── sequencia-acessar-prontuario.puml
-│       ├── sequencia-atualizar-prontuario.puml
-│       └── sequencia-registrar-atendimento.puml
+│       ├── pacotes.puml            + pacotes.svg
+│       ├── classes-dominio.puml    + classes-dominio.svg
+│       ├── casos-de-uso.puml       + casos-de-uso.svg
+│       ├── sequencia-login.puml    + sequencia-login.svg
+│       ├── sequencia-cadastro-paciente.puml    + .svg
+│       ├── sequencia-agendar-consulta.puml     + .svg
+│       ├── sequencia-cancelar-consulta.puml    + .svg
+│       ├── sequencia-acessar-prontuario.puml   + .svg
+│       ├── sequencia-atualizar-prontuario.puml + .svg
+│       └── sequencia-registrar-atendimento.puml + .svg
 ├── ESTADO_ATUAL.md
 ├── pom.xml
 └── README.md

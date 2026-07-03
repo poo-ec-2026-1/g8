@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="520" viewBox="0 0 760 520" font-family="Segoe UI, Helvetica, Arial, sans-serif">
+<rect x="0" y="0" width="760" height="520" fill="white"/>
+<text x="380.0" y="28" text-anchor="middle" font-size="18" font-weight="bold" fill="#2c3e50">Diagrama de Casos de Uso</text>
+<rect x="190" y="55" width="380" height="430" rx="8" fill="#f7f9fb" stroke="#2c3e50" stroke-width="1.4"/>
+<text x="380.0" y="75" text-anchor="middle" font-size="12.5" font-weight="600" fill="#2c3e50">Sistema de Agendamento de Clínica</text>
+<circle cx="60" cy="130" r="11" fill="none" stroke="#2c3e50" stroke-width="2"/>
+<line x1="60" y1="141" x2="60" y2="170" stroke="#2c3e50" stroke-width="2"/>
+<line x1="45" y1="150" x2="75" y2="150" stroke="#2c3e50" stroke-width="2"/>
+<line x1="60" y1="170" x2="47" y2="190" stroke="#2c3e50" stroke-width="2"/>
+<line x1="60" y1="170" x2="73" y2="190" stroke="#2c3e50" stroke-width="2"/>
+<text x="60" y="206" text-anchor="middle" font-size="13" font-weight="700" fill="#2c3e50">Secretaria</text>
+<circle cx="700" cy="130" r="11" fill="none" stroke="#2c3e50" stroke-width="2"/>
+<line x1="700" y1="141" x2="700" y2="170" stroke="#2c3e50" stroke-width="2"/>
+<line x1="685" y1="150" x2="715" y2="150" stroke="#2c3e50" stroke-width="2"/>
+<line x1="700" y1="170" x2="687" y2="190" stroke="#2c3e50" stroke-width="2"/>
+<line x1="700" y1="170" x2="713" y2="190" stroke="#2c3e50" stroke-width="2"/>
+<text x="700" y="206" text-anchor="middle" font-size="13" font-weight="700" fill="#2c3e50">Médico</text>
+<ellipse cx="380" cy="100" rx="78" ry="28" fill="#eaf1f8" stroke="#2c3e50" stroke-width="1.3"/>
+<text x="380" y="104" text-anchor="middle" font-size="11.5" fill="#2c3e50">Fazer Login</text>
+<ellipse cx="280" cy="160" rx="78" ry="28" fill="#eaf1f8" stroke="#2c3e50" stroke-width="1.3"/>
+<text x="280" y="157" text-anchor="middle" font-size="11.5" fill="#2c3e50">Cadastrar</text>
+<text x="280" y="171" text-anchor="middle" font-size="11.5" fill="#2c3e50">Paciente</text>
+<ellipse cx="280" cy="220" rx="78" ry="28" fill="#eaf1f8" stroke="#2c3e50" stroke-width="1.3"/>
+<text x="280" y="217" text-anchor="middle" font-size="11.5" fill="#2c3e50">Agendar</text>
+<text x="280" y="231" text-anchor="middle" font-size="11.5" fill="#2c3e50">Consulta</text>
+<ellipse cx="280" cy="280" rx="78" ry="28" fill="#eaf1f8" stroke="#2c3e50" stroke-width="1.3"/>
+<text x="280" y="277" text-anchor="middle" font-size="11.5" fill="#2c3e50">Cancelar</text>
+<text x="280" y="291" text-anchor="middle" font-size="11.5" fill="#2c3e50">Consulta</text>
+<ellipse cx="380" cy="340" rx="78" ry="28" fill="#eaf1f8" stroke="#2c3e50" stroke-width="1.3"/>
+<text x="380" y="337" text-anchor="middle" font-size="11.5" fill="#2c3e50">Visualizar</text>
+<text x="380" y="351" text-anchor="middle" font-size="11.5" fill="#2c3e50">Agenda</text>
+<ellipse cx="480" cy="220" rx="78" ry="28" fill="#eaf1f8" stroke="#2c3e50" stroke-width="1.3"/>
+<text x="480" y="217" text-anchor="middle" font-size="11.5" fill="#2c3e50">Acessar</text>
+<text x="480" y="231" text-anchor="middle" font-size="11.5" fill="#2c3e50">Prontuário</text>
+<ellipse cx="480" cy="280" rx="78" ry="28" fill="#eaf1f8" stroke="#2c3e50" stroke-width="1.3"/>
+<text x="480" y="277" text-anchor="middle" font-size="11.5" fill="#2c3e50">Atualizar</text>
+<text x="480" y="291" text-anchor="middle" font-size="11.5" fill="#2c3e50">Prontuário</text>
+<ellipse cx="480" cy="400" rx="78" ry="28" fill="#eaf1f8" stroke="#2c3e50" stroke-width="1.3"/>
+<text x="480" y="397" text-anchor="middle" font-size="11.5" fill="#2c3e50">Registrar</text>
+<text x="480" y="411" text-anchor="middle" font-size="11.5" fill="#2c3e50">Atendimento</text>
+<line x1="112" y1="140" x2="302" y2="100" stroke="#7f8c8d" stroke-width="1"/>
+<line x1="112" y1="140" x2="202" y2="160" stroke="#7f8c8d" stroke-width="1"/>
+<line x1="112" y1="140" x2="202" y2="220" stroke="#7f8c8d" stroke-width="1"/>
+<line x1="112" y1="140" x2="202" y2="280" stroke="#7f8c8d" stroke-width="1"/>
+<line x1="112" y1="140" x2="302" y2="340" stroke="#7f8c8d" stroke-width="1"/>
+<line x1="648" y1="140" x2="458" y2="100" stroke="#7f8c8d" stroke-width="1"/>
+<line x1="648" y1="140" x2="458" y2="340" stroke="#7f8c8d" stroke-width="1"/>
+<line x1="648" y1="140" x2="558" y2="220" stroke="#7f8c8d" stroke-width="1"/>
+<line x1="648" y1="140" x2="558" y2="280" stroke="#7f8c8d" stroke-width="1"/>
+<line x1="648" y1="140" x2="558" y2="400" stroke="#7f8c8d" stroke-width="1"/>
+<text x="380.0" y="506" text-anchor="middle" font-size="10.5" font-style="italic" fill="#666">"Visualizar Agenda" e "Atualizar Prontuário" não constavam no diagrama antigo, mas já são telas reais (DashboardController).</text>
+</svg>

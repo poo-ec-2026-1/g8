@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="620" viewBox="0 0 900 620" font-family="Segoe UI, Helvetica, Arial, sans-serif">
+<rect x="0" y="0" width="900" height="620" fill="white"/>
+<text x="450.0" y="28" text-anchor="middle" font-size="18" font-weight="bold" fill="#2c3e50">Diagrama de Pacotes — com.poo</text>
+<path d="M 60 84 V 70 h 85.5 v 14" fill="#eaf1f8" stroke="#2c3e50" stroke-width="1.4"/>
+<rect x="60" y="84" width="190" height="81" fill="#eaf1f8" stroke="#2c3e50" stroke-width="1.4"/>
+<line x1="60" y1="84" x2="250" y2="84" stroke="#2c3e50" stroke-width="1"/>
+<text x="70" y="81" font-size="11" font-weight="700" fill="#2c3e50">com.poo.application</text>
+<text x="155.0" y="104" text-anchor="middle" font-size="11" fill="#2c3e50">MainApp</text>
+<text x="155.0" y="120" text-anchor="middle" font-size="11" fill="#2c3e50">DatabaseSeeder</text>
+<path d="M 330 84 V 70 h 103.5 v 14" fill="#eaf1f8" stroke="#2c3e50" stroke-width="1.4"/>
+<rect x="330" y="84" width="230" height="151" fill="#eaf1f8" stroke="#2c3e50" stroke-width="1.4"/>
+<line x1="330" y1="84" x2="560" y2="84" stroke="#2c3e50" stroke-width="1"/>
+<text x="340" y="81" font-size="11" font-weight="700" fill="#2c3e50">com.poo.controller</text>
+<text x="445.0" y="104" text-anchor="middle" font-size="11" fill="#2c3e50">LoginController</text>
+<text x="445.0" y="120" text-anchor="middle" font-size="11" fill="#2c3e50">DashboardController</text>
+<text x="445.0" y="136" text-anchor="middle" font-size="11" fill="#2c3e50">CadastroController</text>
+<text x="445.0" y="152" text-anchor="middle" font-size="11" fill="#2c3e50">AgendamentoController</text>
+<text x="445.0" y="168" text-anchor="middle" font-size="11" fill="#2c3e50">AgendaController</text>
+<text x="445.0" y="184" text-anchor="middle" font-size="11" fill="#2c3e50">CancelamentoController</text>
+<text x="445.0" y="200" text-anchor="middle" font-size="11" fill="#2c3e50">RegistroAtendimentoController</text>
+<text x="445.0" y="216" text-anchor="middle" font-size="11" fill="#2c3e50">AtualizarProntuarioController</text>
+<path d="M 630 84 V 70 h 94.5 v 14" fill="#eaf1f8" stroke="#2c3e50" stroke-width="1.4"/>
+<rect x="630" y="84" width="210" height="171" fill="#eaf1f8" stroke="#2c3e50" stroke-width="1.4"/>
+<line x1="630" y1="84" x2="840" y2="84" stroke="#2c3e50" stroke-width="1"/>
+<text x="640" y="81" font-size="11" font-weight="700" fill="#2c3e50">com.poo.model</text>
+<text x="735.0" y="104" text-anchor="middle" font-size="11" fill="#2c3e50">Usuario, Cliente, Medico,</text>
+<text x="735.0" y="120" text-anchor="middle" font-size="11" fill="#2c3e50">Secretaria, Consulta,</text>
+<text x="735.0" y="136" text-anchor="middle" font-size="11" fill="#2c3e50">Prontuario, ProntuarioMedico,</text>
+<text x="735.0" y="152" text-anchor="middle" font-size="11" fill="#2c3e50">Agenda, ControleHospitalar</text>
+<path d="M 330 324 V 310 h 103.5 v 14" fill="#eaf1f8" stroke="#2c3e50" stroke-width="1.4"/>
+<rect x="330" y="324" width="230" height="131" fill="#eaf1f8" stroke="#2c3e50" stroke-width="1.4"/>
+<line x1="330" y1="324" x2="560" y2="324" stroke="#2c3e50" stroke-width="1"/>
+<text x="340" y="321" font-size="11" font-weight="700" fill="#2c3e50">com.poo.repository</text>
+<text x="445.0" y="344" text-anchor="middle" font-size="11" fill="#2c3e50">Database</text>
+<text x="445.0" y="360" text-anchor="middle" font-size="11" fill="#2c3e50">ClienteRepository</text>
+<text x="445.0" y="376" text-anchor="middle" font-size="11" fill="#2c3e50">MedicoRepository</text>
+<text x="445.0" y="392" text-anchor="middle" font-size="11" fill="#2c3e50">SecretariaRepository</text>
+<text x="445.0" y="408" text-anchor="middle" font-size="11" fill="#2c3e50">ConsultaRepository</text>
+<text x="445.0" y="424" text-anchor="middle" font-size="11" fill="#2c3e50">ProntuarioRepository</text>
+<path d="M 60 354 V 340 h 85.5 v 14" fill="#eaf1f8" stroke="#2c3e50" stroke-width="1.4"/>
+<rect x="60" y="354" width="190" height="66" fill="#eaf1f8" stroke="#2c3e50" stroke-width="1.4"/>
+<line x1="60" y1="354" x2="250" y2="354" stroke="#2c3e50" stroke-width="1"/>
+<text x="70" y="351" font-size="11" font-weight="700" fill="#2c3e50">com.poo.util</text>
+<text x="155.0" y="374" text-anchor="middle" font-size="11" fill="#2c3e50">ValidadorUtils</text>
+<text x="155.0" y="390" text-anchor="middle" font-size="11" fill="#2c3e50">MascaraCpf</text>
+<line x1="250" y1="110" x2="330" y2="110" stroke="#555" stroke-width="1.2" stroke-dasharray="5,3"/>
+<polygon points="330,110 322.6315120479769,113.1153467384692 322.6315120479769,106.8846532615308" fill="#555"/>
+<text x="290.0" y="104.0" text-anchor="middle" font-size="10" fill="#444">constrói telas / navega</text>
+<line x1="155" y1="165" x2="155" y2="340" stroke="#555" stroke-width="1.2" stroke-dasharray="5,3"/>
+<polygon points="155,340 151.8846532615308,332.6315120479769 158.1153467384692,332.6315120479769" fill="#555"/>
+<text x="155.0" y="246.5" text-anchor="middle" font-size="10" fill="#444">cria e injeta (DI)</text>
+<path d="M 160 168 Q 250.0 236.5 340 355" fill="none" stroke="#555" stroke-width="1.2" stroke-dasharray="5,3"/>
+<polygon points="340,355 332.64550939115276,351.85175161647345 337.13449220257274,347.53080559478576" fill="#555"/>
+<text x="250.0" y="230.5" text-anchor="middle" font-size="10" fill="#444">cria e injeta (DI)</text>
+<line x1="445" y1="235" x2="445" y2="310" stroke="#555" stroke-width="1.2" stroke-dasharray="5,3"/>
+<polygon points="445,310 441.8846532615308,302.6315120479769 448.1153467384692,302.6315120479769" fill="#555"/>
+<text x="445.0" y="266.5" text-anchor="middle" font-size="10" fill="#444">persiste / consulta</text>
+<line x1="560" y1="150" x2="630" y2="150" stroke="#555" stroke-width="1.2" stroke-dasharray="5,3"/>
+<polygon points="630,150 622.6315120479769,153.1153467384692 622.6315120479769,146.8846532615308" fill="#555"/>
+<text x="595.0" y="144.0" text-anchor="middle" font-size="10" fill="#444">instância entidades</text>
+<path d="M 330 150 Q 290.0 210.0 250 320" fill="none" stroke="#555" stroke-width="1.2" stroke-dasharray="5,3"/>
+<polygon points="250,320 250.31865633939606,312.0063488856867 255.95630432501164,314.659359702447" fill="#555"/>
+<text x="290.0" y="204.0" text-anchor="middle" font-size="10" fill="#444">valida CPF/data/horário</text>
+<path d="M 560 360 Q 595.0 285.0 630 260" fill="none" stroke="#555" stroke-width="1.2" stroke-dasharray="5,3"/>
+<polygon points="630,260 628.3266411162588,267.82303458040445 623.2222581329811,264.2499664921101" fill="#555"/>
+<text x="595.0" y="279.0" text-anchor="middle" font-size="10" fill="#444">mapeia via ORMLite</text>
+<path d="M 630 300 Q 440.0 315.0 250 380" fill="none" stroke="#555" stroke-width="1.2" stroke-dasharray="5,3"/>
+<polygon points="250,380 256.56863822090054,375.43349237130553 257.8522263813587,381.530536133482" fill="#555"/>
+<text x="440.0" y="309.0" text-anchor="middle" font-size="10" fill="#444">valida invariantes</text>
+<text x="450.0" y="574" text-anchor="middle" font-size="10.5" font-style="italic" fill="#666">View ainda construída em código dentro do Controller (sem FXML) — não há pacote "view" próprio (backlog).</text>
+<text x="450.0" y="592" text-anchor="middle" font-size="10.5" fill="#666">Fonte: docs/uml/pacotes.puml — gerado a partir da estrutura real de src/main/java/com/poo/**</text>
+</svg>
