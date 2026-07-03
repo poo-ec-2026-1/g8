@@ -1,0 +1,32 @@
+@startuml sequencia-acessar-prontuario
+
+' Acessar Prontuário (Médico) — aba "Acessar Prontuário" de com.poo.controller.AgendaController
+
+actor Medico
+participant "AgendaController" as AgC
+participant "ClienteRepository" as ClienteRepo
+participant "Prontuario" as ProntuarioModel
+
+Medico -> AgC : informa CPF do paciente + senha
+AgC -> ClienteRepo : loadAll()
+ClienteRepo --> AgC : List<Cliente>
+AgC -> AgC : busca cliente pelo CPF informado
+
+alt paciente não encontrado
+  AgC --> Medico : "Paciente não encontrado."
+else paciente sem prontuário
+  AgC --> Medico : "Este paciente não possui prontuário."
+else paciente com prontuário
+  AgC -> ProntuarioModel : verificarSenha(senha)
+  alt senha não confere com nenhum médico do histórico
+    ProntuarioModel --> AgC : false
+    AgC --> Medico : "Senha incorreta! Acesso negado."
+  else senha confere
+    ProntuarioModel --> AgC : true
+    AgC -> ProntuarioModel : getHistorico()
+    ProntuarioModel --> AgC : List<Medico>
+    AgC --> Medico : exibe doença + histórico de médicos
+  end
+end
+
+@enduml

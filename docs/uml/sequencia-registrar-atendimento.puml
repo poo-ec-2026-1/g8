@@ -1,0 +1,27 @@
+@startuml sequencia-registrar-atendimento
+
+' Registrar Atendimento (Médico) — com.poo.controller.RegistroAtendimentoController
+
+actor Medico
+participant "RegistroAtendimentoController" as RAC
+participant "ConsultaRepository" as ConsultaRepo
+participant "ProntuarioRepository" as ProntuarioRepo
+
+Medico -> RAC : seleciona uma de suas consultas agendadas
+RAC -> ConsultaRepo : loadAll()
+ConsultaRepo --> RAC : List<Consulta>
+Medico -> RAC : escreve observações (campo de texto livre na UI)
+Medico -> RAC : confirma registro
+RAC -> ProntuarioRepo : adicionarMedicoAoHistorico(prontuario, medico)
+ProntuarioRepo --> RAC : OK
+RAC --> Medico : confirma registro
+
+note right of RAC
+  As observações digitadas na UI NÃO são
+  persistidas: ProntuarioMedico só guarda o
+  vínculo médico↔prontuário (sem campo de
+  data/anotações). Documentação anterior descrevia
+  um comportamento que o modelo não implementa.
+end note
+
+@enduml

@@ -1,0 +1,32 @@
+@startuml sequencia-agendar-consulta
+
+' Agendar Consulta (Secretaria) — com.poo.controller.AgendamentoController
+
+actor Secretaria
+participant "AgendamentoController" as AC
+participant "ConsultaRepository" as ConsultaRepo
+participant "Consulta" as ConsultaModel
+
+Secretaria -> AC : seleciona médico, paciente, data e horário
+AC -> ConsultaRepo : loadAll()
+ConsultaRepo --> AC : List<Consulta>
+AC -> AC : verifica conflito\n(stream().anyMatch: mesma data + horário + médico)
+
+alt conflito encontrado
+  AC --> Secretaria : "Conflito de horário."
+else sem conflito
+  AC -> ConsultaModel : new Consulta(data, horario, medico, cliente)
+  ConsultaModel -> ConsultaModel : valida horário (ValidadorUtils)
+  AC -> ConsultaRepo : create(nova)
+  ConsultaRepo --> AC : OK
+  AC --> Secretaria : confirma agendamento
+end
+
+note right of AC
+  A checagem de conflito é feita aqui, inline no
+  Controller. A classe de domínio Agenda já tem
+  novaConsulta() com a mesma regra, mas não é
+  usada — regra de negócio duplicada em 2 lugares.
+end note
+
+@enduml

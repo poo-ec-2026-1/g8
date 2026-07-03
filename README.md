@@ -76,11 +76,19 @@ Para visualizar: abra o `.puml` no VS Code com a extensão **PlantUML** (`Alt+D`
 
 ### 4.2 Diagramas de Sequência
 
-Ver [`docs/uml/diagramas-sequencia.md`](docs/uml/diagramas-sequencia.md) (Login, Agendar Consulta, Acessar Prontuário, Cadastrar Paciente).
+Fonte `.puml`, revisada contra o código real dos Controllers (substitui as imagens antigas, que tinham fluxos desatualizados/incorretos):
+
+- [`docs/uml/sequencia-login.puml`](docs/uml/sequencia-login.puml)
+- [`docs/uml/sequencia-cadastro-paciente.puml`](docs/uml/sequencia-cadastro-paciente.puml)
+- [`docs/uml/sequencia-agendar-consulta.puml`](docs/uml/sequencia-agendar-consulta.puml)
+- [`docs/uml/sequencia-cancelar-consulta.puml`](docs/uml/sequencia-cancelar-consulta.puml)
+- [`docs/uml/sequencia-acessar-prontuario.puml`](docs/uml/sequencia-acessar-prontuario.puml)
+- [`docs/uml/sequencia-atualizar-prontuario.puml`](docs/uml/sequencia-atualizar-prontuario.puml) — fluxo que não estava documentado antes
+- [`docs/uml/sequencia-registrar-atendimento.puml`](docs/uml/sequencia-registrar-atendimento.puml)
 
 ### 4.3 Diagrama de Casos de Uso
 
-Ver [`docs/uml/diagrama-casos-de-uso.md`](docs/uml/diagrama-casos-de-uso.md).
+[`docs/uml/casos-de-uso.puml`](docs/uml/casos-de-uso.puml) — reconstruído a partir do `DashboardController` (fonte real de quais telas cada perfil acessa). Inclui **Visualizar Agenda** e **Atualizar Prontuário**, que existem no app mas não constavam no diagrama antigo.
 
 ### 4.4 Casos de Uso Detalhados
 
@@ -95,6 +103,8 @@ Campo | Descrição
 **Pós-condições** | O usuário é autenticado e redirecionado ao seu dashboard.
 **Fluxo Principal** | 1. O usuário informa CPF e senha. 2. O sistema consulta o repositório correspondente. 3. As credenciais são validadas. 4. O sistema exibe o dashboard do usuário.
 **Alternativas** | 3a. Se as credenciais forem inválidas, o sistema exibe mensagem de erro e solicita nova tentativa.
+
+> **Nota de implementação:** o login de Secretária hoje valida só o CPF — o `Controller` não checa a senha dela (o model `Secretaria` tem o campo, mas não expõe getter para isso). Ver `docs/uml/sequencia-login.puml`.
 
 ---
 
@@ -134,9 +144,27 @@ Campo | Descrição
 **Ator** | Secretaria
 **Descrição** | A secretaria cancela uma consulta previamente agendada.
 **Pré-condições** | A consulta existe e está com status "Agendada".
-**Pós-condições** | O status da consulta é alterado para "Cancelada" e o horário fica disponível.
-**Fluxo Principal** | 1. A secretaria localiza a consulta. 2. Confirma o cancelamento. 3. O sistema atualiza o status para "Cancelada". 4. O sistema confirma a operação.
+**Pós-condições** | O registro da consulta é removido; o horário fica disponível.
+**Fluxo Principal** | 1. A secretaria localiza a consulta. 2. Confirma o cancelamento. 3. O sistema **exclui** o registro da consulta (`ConsultaRepository.delete`). 4. O sistema confirma a operação.
 **Alternativas** | 1a. Se a consulta não for encontrada, o sistema informa o erro.
+
+> **Nota de implementação:** `Consulta` não tem campo de status — não existe transição "Agendada → Cancelada" no modelo atual. Cancelar hoje é um `DELETE` definitivo do registro. Se o grupo quiser manter histórico de cancelamentos, é preciso adicionar um campo de status à entidade (mudança de domínio, exige re-atualizar o UML).
+
+---
+
+#### Visualizar Agenda
+
+Campo | Descrição
+--- | ---
+**Nome** | visualizarAgenda
+**Atores** | Médico, Secretaria
+**Descrição** | Lista as consultas agendadas, filtráveis por médico.
+**Pré-condições** | O usuário está autenticado.
+**Pós-condições** | A tabela de consultas é exibida.
+**Fluxo Principal** | 1. O usuário abre a tela de agenda. 2. O sistema carrega médicos e consultas (`MedicoRepository`/`ConsultaRepository`). 3. O usuário filtra por médico, se quiser.
+**Alternativas** | —
+
+> Caso de uso que não constava na documentação anterior — existe como tela própria (`AgendaController`), acessível pelos dois perfis no Dashboard.
 
 ---
 
@@ -146,11 +174,27 @@ Campo | Descrição
 --- | ---
 **Nome** | acessarProntuario
 **Ator** | Médico
-**Descrição** | O médico consulta o prontuário eletrônico de um paciente, incluindo histórico de atendimentos.
+**Descrição** | O médico consulta o prontuário eletrônico de um paciente (aba dentro da tela de Agenda), incluindo histórico de médicos que o atenderam.
 **Pré-condições** | O médico está autenticado; o paciente possui prontuário cadastrado.
-**Pós-condições** | O prontuário e o histórico de atendimentos são exibidos.
-**Fluxo Principal** | 1. O médico busca o paciente por nome ou CPF. 2. O sistema carrega o prontuário vinculado. 3. O histórico de atendimentos (`ProntuarioMedico`) é exibido em ordem cronológica.
-**Alternativas** | 1a. Se o paciente não for encontrado, o sistema informa que não há registro.
+**Pós-condições** | A doença e o histórico de médicos do prontuário são exibidos.
+**Fluxo Principal** | 1. O médico informa o CPF do paciente e uma senha. 2. O sistema busca o paciente (`ClienteRepository`). 3. A senha é validada contra a senha de algum médico do histórico (`Prontuario.verificarSenha`). 4. Se válida, exibe doença + histórico (`Prontuario.getHistorico`).
+**Alternativas** | 2a. Paciente não encontrado. 2b. Paciente sem prontuário. 3a. Senha não confere com nenhum médico do histórico.
+
+---
+
+#### Atualizar Prontuário
+
+Campo | Descrição
+--- | ---
+**Nome** | atualizarProntuario
+**Ator** | Médico
+**Descrição** | O médico busca um paciente por CPF e cria (se não existir) ou edita o prontuário — e o próprio médico é adicionado ao histórico de atendimentos do paciente.
+**Pré-condições** | O médico está autenticado.
+**Pós-condições** | O `Prontuario` é criado/atualizado e vinculado ao `Cliente`; o médico logado passa a constar no histórico (`ProntuarioMedico`).
+**Fluxo Principal** | 1. O médico busca o paciente por CPF. 2. Se o paciente não tem prontuário, informa a doença e o sistema cria um `Prontuario` novo. 3. Se já existe, o médico edita a doença. 4. O sistema adiciona o médico ao histórico (`ProntuarioRepository.adicionarMedicoAoHistorico`).
+**Alternativas** | 1a. Paciente não encontrado.
+
+> Caso de uso que não constava na documentação anterior — existe como tela própria (`AtualizarProntuarioController`), com botão dedicado no Dashboard do Médico.
 
 ---
 
@@ -166,7 +210,7 @@ Campo | Descrição
 **Fluxo Principal** | 1. O médico acessa o prontuário do paciente. 2. Insere as anotações do atendimento. 3. O sistema cria um `ProntuarioMedico` com data, médico e anotações. 4. O sistema confirma o registro.
 **Alternativas** | 2a. Se o campo de anotações estiver vazio, o sistema solicita preenchimento antes de salvar.
 
-> **Nota de implementação:** hoje `ProntuarioMedico` só persiste o vínculo médico↔prontuário — não há campos de data/anotações no modelo. O fluxo acima descreve o comportamento pretendido; ver `ESTADO_ATUAL.md` para o detalhe do que já foi implementado.
+> **Nota de implementação:** hoje `ProntuarioMedico` só persiste o vínculo médico↔prontuário — não há campos de data/anotações no modelo. As observações digitadas na tela não são salvas; o fluxo acima descreve o comportamento pretendido, não o implementado. Ver `docs/uml/sequencia-registrar-atendimento.puml`.
 
 ---
 
@@ -269,8 +313,14 @@ g8/
 │   └── uml/
 │       ├── pacotes.puml
 │       ├── classes-dominio.puml
-│       ├── diagramas-sequencia.md
-│       └── diagrama-casos-de-uso.md
+│       ├── casos-de-uso.puml
+│       ├── sequencia-login.puml
+│       ├── sequencia-cadastro-paciente.puml
+│       ├── sequencia-agendar-consulta.puml
+│       ├── sequencia-cancelar-consulta.puml
+│       ├── sequencia-acessar-prontuario.puml
+│       ├── sequencia-atualizar-prontuario.puml
+│       └── sequencia-registrar-atendimento.puml
 ├── ESTADO_ATUAL.md
 ├── pom.xml
 └── README.md

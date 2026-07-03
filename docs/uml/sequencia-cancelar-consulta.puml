@@ -1,0 +1,25 @@
+@startuml sequencia-cancelar-consulta
+
+' Cancelar Consulta (Secretaria) — com.poo.controller.CancelamentoController
+
+actor Secretaria
+participant "CancelamentoController" as CanC
+participant "ConsultaRepository" as ConsultaRepo
+
+Secretaria -> CanC : localiza e seleciona a consulta
+CanC -> ConsultaRepo : loadAll()
+ConsultaRepo --> CanC : List<Consulta>
+Secretaria -> CanC : confirma cancelamento
+CanC -> ConsultaRepo : delete(selecionada)
+ConsultaRepo --> CanC : OK
+CanC --> Secretaria : confirma cancelamento
+
+note right of ConsultaRepo
+  Consulta não tem campo de status: "cancelar"
+  EXCLUI o registro (DELETE), não muda para
+  "Cancelada". A documentação antiga descrevia
+  uma transição de status que não existe no
+  modelo atual.
+end note
+
+@enduml
