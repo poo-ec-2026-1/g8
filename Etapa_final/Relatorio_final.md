@@ -91,4 +91,4 @@ rígidas de banco de dados e as entradas de dados flexíveis vindas de uma inter
 
 ## 5. Video Apresentação
 
-* [Link da apresentação gravada.](https://drive.google.com/drive/u/1/home) 
+* [Link da apresentação gravada.](https://drive.google.com/file/d/1TzvAb3oq2xh9lLsfSxFTAKhuJ5ttrygh/view?usp=sharing) 
