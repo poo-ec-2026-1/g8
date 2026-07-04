@@ -44,13 +44,13 @@ public class LoginController {
 
     private void construirView() {
         Label titulo = new Label("Sistema Hospitalar");
-        titulo.setFont(Font.font("SansSerif", FontWeight.BOLD, 26));
+        titulo.getStyleClass().add("titulo-principal");
 
         Label subtitulo = new Label("Faça login para continuar");
-        subtitulo.setFont(Font.font("SansSerif", 14));
-        subtitulo.setStyle("-fx-text-fill: #666;");
+        subtitulo.getStyleClass().add("subtitulo");
 
         Label lblCPF = new Label("CPF:");
+        lblCPF.getStyleClass().add("label-campo");
         campoCPF = new TextField();
         campoCPF.setId("campoCPF");
         MascaraCpf.aplicar(campoCPF);
@@ -59,6 +59,7 @@ public class LoginController {
         campoCPF.setOnAction(e -> tentarLogin());
 
         Label lblSenha = new Label("Senha:");
+        lblSenha.getStyleClass().add("label-campo");
         campoSenha = new PasswordField();
         campoSenha.setId("campoSenha");
         campoSenha.setPromptText("Sua senha (médicos) ou deixe em branco (secretárias)");
@@ -67,7 +68,7 @@ public class LoginController {
 
         labelErro = new Label();
         labelErro.setId("labelErro");
-        labelErro.setStyle("-fx-text-fill: #c0392b;");
+        labelErro.getStyleClass().add("status-erro");
         labelErro.setWrapText(true);
         labelErro.setMaxWidth(300);
 
@@ -75,10 +76,7 @@ public class LoginController {
         btnLogin.setId("btnLogin");
         btnLogin.setPrefWidth(300);
         btnLogin.setPrefHeight(38);
-        btnLogin.setStyle(
-            "-fx-background-color: #2980b9; -fx-text-fill: white;" +
-            "-fx-font-size: 14px; -fx-cursor: hand; -fx-background-radius: 5;"
-        );
+        btnLogin.getStyleClass().addAll("botao", "botao-azul");
         btnLogin.setOnAction(e -> tentarLogin());
         // Enter confirma o login também com o foco fora dos campos de texto
         // (ex.: logo após tab pro botão).
@@ -91,7 +89,7 @@ public class LoginController {
         view = new VBox(18, titulo, subtitulo, form);
         view.setAlignment(Pos.CENTER);
         view.setPadding(new Insets(40));
-        view.setStyle("-fx-background-color: #f4f6f8;");
+        view.getStyleClass().add("app-bg");
     }
 
     private void tentarLogin() {

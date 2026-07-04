@@ -56,18 +56,17 @@ public class CadastroController {
 
     private void construirView() {
         Label titulo = new Label("Cadastro");
-        titulo.setFont(Font.font("SansSerif", FontWeight.BOLD, 22));
+        titulo.getStyleClass().add("titulo-tela");
 
         Button btnVoltar = new Button("← Voltar");
         btnVoltar.setId("btnVoltar");
-        btnVoltar.setStyle("-fx-background-color: transparent; -fx-text-fill: #2980b9;" +
-                "-fx-font-size: 13px; -fx-cursor: hand;");
+        btnVoltar.getStyleClass().add("btn-voltar");
         btnVoltar.setOnAction(e -> MainApp.irParaDashboard());
 
         HBox cabecalho = new HBox(16, btnVoltar, titulo);
         cabecalho.setAlignment(Pos.CENTER_LEFT);
         cabecalho.setPadding(new Insets(16, 24, 8, 24));
-        cabecalho.setStyle("-fx-background-color: #ecf0f1;");
+        cabecalho.getStyleClass().add("app-header");
 
         TabPane abas = new TabPane();
         abas.setId("tabPaneCadastro");
@@ -77,7 +76,7 @@ public class CadastroController {
         view = new BorderPane();
         view.setTop(cabecalho);
         view.setCenter(abas);
-        view.setStyle("-fx-background-color: #f4f6f8;");
+        view.getStyleClass().add("app-bg");
     }
 
     // -------------------------------------------------------------------------
@@ -85,15 +84,18 @@ public class CadastroController {
     // -------------------------------------------------------------------------
     private Tab criarAbaCliente() {
         Label lblNome  = new Label("Nome completo:");
+        lblNome.getStyleClass().add("label-campo");
         TextField fNome = campo("Ex: Maria Silva");
         fNome.setId("fNomeCliente");
 
         Label lblCPF   = new Label("CPF:");
+        lblCPF.getStyleClass().add("label-campo");
         TextField fCPF  = campo("000.000.000-00");
         fCPF.setId("fCpfCliente");
         MascaraCpf.aplicar(fCPF);
 
         Label lblNasc  = new Label("Data de nascimento:");
+        lblNasc.getStyleClass().add("label-campo");
         TextField fNasc = campo("DD/MM/AAAA");
         fNasc.setId("fNascCliente");
         MascaraData.aplicar(fNasc);
@@ -104,15 +106,15 @@ public class CadastroController {
         );
         lblAviso.setWrapText(true);
         lblAviso.setMaxWidth(380);
-        lblAviso.setStyle("-fx-text-fill: #7f8c8d; -fx-font-size: 12px;");
+        lblAviso.getStyleClass().add("texto-aviso");
 
         Label lblStatus = new Label();
         lblStatus.setId("lblStatusCliente");
         lblStatus.setWrapText(true);
         lblStatus.setMaxWidth(380);
-        lblStatus.setFont(Font.font("SansSerif", 13));
+        lblStatus.getStyleClass().add("status-erro");
 
-        Button btnSalvar = botaoAcao("Cadastrar Cliente", "#27ae60");
+        Button btnSalvar = botaoAcao("Cadastrar Cliente", "botao-verde");
         btnSalvar.setId("btnSalvarCliente");
 
         // Extraído numa variável para reaproveitar em fNome/fCPF/fNasc —
@@ -159,7 +161,14 @@ public class CadastroController {
         conteudo.setPadding(new Insets(24));
         conteudo.setMaxWidth(420);
 
-        ScrollPane scroll = new ScrollPane(conteudo);
+        // O VBox tem maxWidth, então nem o ScrollPane nem o Tab conseguem
+        // esticá-lo — ele fica no tamanho fixo. Por isso o alinhamento tem
+        // que estar no StackPane (que sim se estica até preencher o espaço
+        // disponível) e não no próprio VBox.
+        StackPane wrapper = new StackPane(conteudo);
+        wrapper.setAlignment(Pos.TOP_CENTER);
+
+        ScrollPane scroll = new ScrollPane(wrapper);
         scroll.setFitToWidth(true);
         scroll.setStyle("-fx-background-color: transparent;");
 
@@ -173,19 +182,23 @@ public class CadastroController {
     // -------------------------------------------------------------------------
     private Tab criarAbaMedico() {
         Label lblNome  = new Label("Nome completo:");
+        lblNome.getStyleClass().add("label-campo");
         TextField fNome = campo("Ex: Dr. João Souza");
         fNome.setId("fNomeMedico");
 
         Label lblCPF   = new Label("CPF:");
+        lblCPF.getStyleClass().add("label-campo");
         TextField fCPF  = campo("000.000.000-00");
         fCPF.setId("fCpfMedico");
         MascaraCpf.aplicar(fCPF);
 
         Label lblEsp   = new Label("Especialidade:");
+        lblEsp.getStyleClass().add("label-campo");
         TextField fEsp  = campo("Ex: Cardiologia");
         fEsp.setId("fEspMedico");
 
         Label lblSenha = new Label("Senha de acesso:");
+        lblSenha.getStyleClass().add("label-campo");
         PasswordField fSenha = new PasswordField();
         fSenha.setId("fSenhaMedico");
         fSenha.setPromptText("Crie uma senha");
@@ -195,9 +208,9 @@ public class CadastroController {
         lblStatus.setId("lblStatusMedico");
         lblStatus.setWrapText(true);
         lblStatus.setMaxWidth(380);
-        lblStatus.setFont(Font.font("SansSerif", 13));
+        lblStatus.getStyleClass().add("status-erro");
 
-        Button btnSalvar = botaoAcao("Cadastrar Médico", "#2980b9");
+        Button btnSalvar = botaoAcao("Cadastrar Médico", "botao-azul");
         btnSalvar.setId("btnSalvarMedico");
         btnSalvar.setOnAction(e -> {
             if (fNome.getText().isBlank() || fCPF.getText().isBlank() || fSenha.getText().isBlank()) {
@@ -231,7 +244,13 @@ public class CadastroController {
         conteudo.setPadding(new Insets(24));
         conteudo.setMaxWidth(420);
 
-        Tab aba = new Tab("🩺  Novo Médico", conteudo);
+        // Mesma questão da aba Cliente: o VBox tem maxWidth fixo, então o
+        // alinhamento precisa estar no StackPane que envolve ele (que se
+        // estica até preencher a aba), não no próprio VBox.
+        StackPane wrapper = new StackPane(conteudo);
+        wrapper.setAlignment(Pos.TOP_CENTER);
+
+        Tab aba = new Tab("🩺  Novo Médico", wrapper);
         aba.setId("abaMedico");
         return aba;
     }
@@ -241,21 +260,25 @@ public class CadastroController {
     // -------------------------------------------------------------------------
     private Tab criarAbaSecretaria() {
         Label lblNome  = new Label("Nome completo:");
+        lblNome.getStyleClass().add("label-campo");
         TextField fNome = campo("Ex: Ana Paula Ferreira");
         fNome.setId("fNomeSecretaria");
 
         Label lblCPF   = new Label("CPF:");
+        lblCPF.getStyleClass().add("label-campo");
         TextField fCPF  = campo("000.000.000-00");
         fCPF.setId("fCpfSecretaria");
         MascaraCpf.aplicar(fCPF);
 
         Label lblSenha = new Label("Senha de acesso:");
+        lblSenha.getStyleClass().add("label-campo");
         PasswordField fSenha = new PasswordField();
         fSenha.setId("fSenhaSecretaria");
         fSenha.setPromptText("Crie uma senha");
         fSenha.setMaxWidth(350);
 
         Label lblConfirma = new Label("Confirmar senha:");
+        lblConfirma.getStyleClass().add("label-campo");
         PasswordField fConfirma = new PasswordField();
         fConfirma.setId("fConfirmaSecretaria");
         fConfirma.setPromptText("Repita a senha");
@@ -265,9 +288,9 @@ public class CadastroController {
         lblStatus.setId("lblStatusSecretaria");
         lblStatus.setWrapText(true);
         lblStatus.setMaxWidth(380);
-        lblStatus.setFont(Font.font("SansSerif", 13));
+        lblStatus.getStyleClass().add("status-erro");
 
-        Button btnSalvar = botaoAcao("Cadastrar Secretária", "#e67e22");
+        Button btnSalvar = botaoAcao("Cadastrar Secretária", "botao-laranja");
         btnSalvar.setId("btnSalvarSecretaria");
         btnSalvar.setOnAction(e -> {
             String nome    = fNome.getText().trim();
@@ -305,7 +328,10 @@ public class CadastroController {
         conteudo.setPadding(new Insets(24));
         conteudo.setMaxWidth(420);
 
-        Tab aba = new Tab("🗂  Nova Secretária", conteudo);
+        StackPane wrapper = new StackPane(conteudo);
+        wrapper.setAlignment(Pos.TOP_CENTER);
+
+        Tab aba = new Tab("🗂  Nova Secretária", wrapper);
         aba.setId("abaSecretaria");
         return aba;
     }
@@ -321,18 +347,18 @@ public class CadastroController {
         return tf;
     }
 
-    private Button botaoAcao(String texto, String cor) {
+    private Button botaoAcao(String texto, String classeCor) {
         Button btn = new Button(texto);
         btn.setPrefWidth(220);
         btn.setPrefHeight(36);
-        btn.setStyle("-fx-background-color: " + cor + "; -fx-text-fill: white;" +
-                "-fx-font-size: 13px; -fx-background-radius: 5; -fx-cursor: hand;");
+        btn.getStyleClass().addAll("botao", classeCor);
         return btn;
     }
 
     private void estilo(Label label, String mensagem, boolean sucesso) {
         label.setText(mensagem);
-        label.setStyle("-fx-text-fill: " + (sucesso ? "#27ae60" : "#c0392b") + ";");
+        label.getStyleClass().removeAll("status-erro", "status-sucesso");
+        label.getStyleClass().add(sucesso ? "status-sucesso" : "status-erro");
     }
 
     public BorderPane getView() {

@@ -52,21 +52,21 @@ public class RegistroAtendimentoController {
     private void construirView() {
         // ----- Cabeçalho -----
         Label titulo = new Label("Registrar Atendimento");
-        titulo.setFont(Font.font("SansSerif", FontWeight.BOLD, 22));
+        titulo.getStyleClass().add("titulo-tela");
 
         Button btnVoltar = new Button("← Voltar");
         btnVoltar.setId("btnVoltar");
-        btnVoltar.setStyle("-fx-background-color: transparent; -fx-text-fill: #2980b9;" +
-                "-fx-font-size: 13px; -fx-cursor: hand;");
+        btnVoltar.getStyleClass().add("btn-voltar");
         btnVoltar.setOnAction(e -> MainApp.irParaDashboard());
 
         HBox cabecalho = new HBox(16, btnVoltar, titulo);
         cabecalho.setAlignment(Pos.CENTER_LEFT);
         cabecalho.setPadding(new Insets(16, 24, 8, 24));
-        cabecalho.setStyle("-fx-background-color: #ecf0f1;");
+        cabecalho.getStyleClass().add("app-header");
 
         // ----- Formulário -----
         Label lblConsulta = new Label("Selecione a consulta realizada:");
+        lblConsulta.getStyleClass().add("label-campo");
         ComboBox<Consulta> cbConsulta = new ComboBox<>();
         cbConsulta.setId("cbConsulta");
         cbConsulta.setPromptText("Escolha uma consulta");
@@ -77,7 +77,7 @@ public class RegistroAtendimentoController {
         // Painel de informações do paciente (preenchido ao selecionar consulta)
         Label lblInfoPaciente = new Label();
         lblInfoPaciente.setId("lblInfoPaciente");
-        lblInfoPaciente.setStyle("-fx-text-fill: #2c3e50; -fx-font-size: 13px;");
+        lblInfoPaciente.getStyleClass().add("texto-info");
         lblInfoPaciente.setWrapText(true);
 
         cbConsulta.setOnAction(e -> {
@@ -95,6 +95,7 @@ public class RegistroAtendimentoController {
         });
 
         Label lblObs = new Label("Observações / diagnóstico do atendimento:");
+        lblObs.getStyleClass().add("label-campo");
         TextArea fObs = new TextArea();
         fObs.setId("fObs");
         fObs.setPromptText("Descreva o atendimento, evolução do quadro, prescrições, etc.");
@@ -104,7 +105,7 @@ public class RegistroAtendimentoController {
 
         Label lblStatus = new Label();
         lblStatus.setId("lblStatus");
-        lblStatus.setFont(Font.font("SansSerif", 13));
+        lblStatus.getStyleClass().add("status-erro");
         lblStatus.setWrapText(true);
         lblStatus.setMaxWidth(460);
 
@@ -112,8 +113,7 @@ public class RegistroAtendimentoController {
         btnRegistrar.setId("btnRegistrar");
         btnRegistrar.setPrefWidth(240);
         btnRegistrar.setPrefHeight(38);
-        btnRegistrar.setStyle("-fx-background-color: #27ae60; -fx-text-fill: white;" +
-                "-fx-font-size: 14px; -fx-background-radius: 5; -fx-cursor: hand;");
+        btnRegistrar.getStyleClass().addAll("botao", "botao-verde");
 
         btnRegistrar.setOnAction(e -> {
             Consulta consultaSelecionada = cbConsulta.getValue();
@@ -200,14 +200,19 @@ public class RegistroAtendimentoController {
         form.setPadding(new Insets(24));
         form.setMaxWidth(500);
 
-        ScrollPane scroll = new ScrollPane(form);
+        // O VBox tem maxWidth, então o ScrollPane não consegue esticá-lo —
+        // o alinhamento precisa estar no StackPane que o envolve.
+        StackPane wrapper = new StackPane(form);
+        wrapper.setAlignment(Pos.TOP_CENTER);
+
+        ScrollPane scroll = new ScrollPane(wrapper);
         scroll.setFitToWidth(true);
         scroll.setStyle("-fx-background-color: transparent;");
 
         view = new BorderPane();
         view.setTop(cabecalho);
         view.setCenter(scroll);
-        view.setStyle("-fx-background-color: #f4f6f8;");
+        view.getStyleClass().add("app-bg");
 
         carregarConsultas(cbConsulta, lblStatus);
     }
@@ -239,7 +244,8 @@ public class RegistroAtendimentoController {
 
     private void estilo(Label label, String msg, boolean ok) {
         label.setText(msg);
-        label.setStyle("-fx-text-fill: " + (ok ? "#27ae60" : "#c0392b") + ";");
+        label.getStyleClass().removeAll("status-erro", "status-sucesso");
+        label.getStyleClass().add(ok ? "status-sucesso" : "status-erro");
     }
 
     public BorderPane getView() {

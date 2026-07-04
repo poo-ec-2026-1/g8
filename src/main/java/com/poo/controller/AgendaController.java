@@ -49,18 +49,17 @@ public class AgendaController {
 
     private void construirView() {
         Label titulo = new Label("Agenda & Prontuários");
-        titulo.setFont(Font.font("SansSerif", FontWeight.BOLD, 22));
+        titulo.getStyleClass().add("titulo-tela");
 
         Button btnVoltar = new Button("← Voltar");
         btnVoltar.setId("btnVoltar");
-        btnVoltar.setStyle("-fx-background-color: transparent; -fx-text-fill: #2980b9;" +
-                "-fx-font-size: 13px; -fx-cursor: hand;");
+        btnVoltar.getStyleClass().add("btn-voltar");
         btnVoltar.setOnAction(e -> MainApp.irParaDashboard());
 
         HBox cabecalho = new HBox(16, btnVoltar, titulo);
         cabecalho.setAlignment(Pos.CENTER_LEFT);
         cabecalho.setPadding(new Insets(16, 24, 8, 24));
-        cabecalho.setStyle("-fx-background-color: #ecf0f1;");
+        cabecalho.getStyleClass().add("app-header");
 
         TabPane abas = new TabPane();
         abas.setId("tabPaneAbas"); // (Para o robô mudar de aba)
@@ -75,7 +74,7 @@ public class AgendaController {
         view = new BorderPane();
         view.setTop(cabecalho);
         view.setCenter(abas);
-        view.setStyle("-fx-background-color: #f4f6f8;");
+        view.getStyleClass().add("app-bg");
     }
 
     // -------------------------------------------------------------------------
@@ -83,6 +82,7 @@ public class AgendaController {
     // -------------------------------------------------------------------------
     private Tab criarAbaAgenda() {
         Label lblMedico = new Label("Filtrar por médico:");
+        lblMedico.getStyleClass().add("label-campo");
         ComboBox<Medico> cbMedico = new ComboBox<>();
         cbMedico.setId("cbMedico");
         cbMedico.setPromptText("Todos os médicos");
@@ -92,12 +92,11 @@ public class AgendaController {
 
         Button btnFiltrar = new Button("🔍  Buscar");
         btnFiltrar.setId("btnFiltrar");
-        btnFiltrar.setStyle("-fx-background-color: #2980b9; -fx-text-fill: white;" +
-                "-fx-background-radius: 5; -fx-cursor: hand;");
+        btnFiltrar.getStyleClass().addAll("botao", "botao-azul");
 
         Label lblErroFiltro = new Label();
         lblErroFiltro.setId("lblErroFiltro");
-        lblErroFiltro.setStyle("-fx-text-fill: #c0392b;");
+        lblErroFiltro.getStyleClass().add("status-erro");
 
         HBox filtro = new HBox(10, lblMedico, cbMedico, btnFiltrar, lblErroFiltro);
         filtro.setAlignment(Pos.CENTER_LEFT);
@@ -173,15 +172,17 @@ public class AgendaController {
     // -------------------------------------------------------------------------
     private Tab criarAbaProntuario() {
         Label instrucao = new Label("Informe a senha de um médico do histórico para acessar o prontuário:");
-        instrucao.setFont(Font.font("SansSerif", 13));
+        instrucao.getStyleClass().add("texto-instrucao");
         instrucao.setWrapText(true);
 
         Label lblCPF = new Label("CPF do paciente:");
+        lblCPF.getStyleClass().add("label-campo");
         TextField fCPF = campo("000.000.000-00");
         fCPF.setId("fCPF");
         MascaraCpf.aplicar(fCPF);
 
         Label lblSenha = new Label("Senha do médico:");
+        lblSenha.getStyleClass().add("label-campo");
         PasswordField fSenha = new PasswordField();
         fSenha.setId("fSenha");
         fSenha.setPromptText("Senha de acesso");
@@ -192,20 +193,19 @@ public class AgendaController {
         areaProntuario.setEditable(false);
         areaProntuario.setPromptText("O prontuário aparecerá aqui...");
         areaProntuario.setPrefHeight(220);
-        areaProntuario.setFont(Font.font("Monospaced", 13));
+        areaProntuario.setStyle("-fx-font-family: 'Monospaced'; -fx-font-size: 13px;");
 
         Label lblStatus = new Label();
         lblStatus.setId("lblStatus");
         lblStatus.setWrapText(true);
         lblStatus.setMaxWidth(420);
-        lblStatus.setFont(Font.font("SansSerif", 13));
+        lblStatus.getStyleClass().add("status-erro");
 
         Button btnConsultar = new Button("🔓  Acessar Prontuário");
         btnConsultar.setId("btnConsultar");
         btnConsultar.setPrefWidth(220);
         btnConsultar.setPrefHeight(36);
-        btnConsultar.setStyle("-fx-background-color: #8e44ad; -fx-text-fill: white;" +
-                "-fx-background-radius: 5; -fx-cursor: hand;");
+        btnConsultar.getStyleClass().addAll("botao", "botao-roxo");
 
         btnConsultar.setOnAction(e -> {
             String cpf   = fCPF.getText().trim();
@@ -282,7 +282,12 @@ public class AgendaController {
         conteudo.setPadding(new Insets(20));
         conteudo.setMaxWidth(520);
 
-        ScrollPane scroll = new ScrollPane(conteudo);
+        // O VBox tem maxWidth, então o ScrollPane não consegue esticá-lo —
+        // o alinhamento precisa estar no StackPane que o envolve.
+        StackPane wrapper = new StackPane(conteudo);
+        wrapper.setAlignment(Pos.TOP_CENTER);
+
+        ScrollPane scroll = new ScrollPane(wrapper);
         scroll.setFitToWidth(true);
         scroll.setStyle("-fx-background-color: transparent;");
 
@@ -312,7 +317,8 @@ public class AgendaController {
 
     private void estilo(Label label, String msg, boolean ok) {
         label.setText(msg);
-        label.setStyle("-fx-text-fill: " + (ok ? "#27ae60" : "#c0392b") + ";");
+        label.getStyleClass().removeAll("status-erro", "status-sucesso");
+        label.getStyleClass().add(ok ? "status-sucesso" : "status-erro");
     }
 
     public BorderPane getView() {

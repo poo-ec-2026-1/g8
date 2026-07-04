@@ -50,22 +50,21 @@ public class CancelamentoController {
     private void construirView() {
         // ----- Cabeçalho -----
         Label titulo = new Label("Cancelar Consulta");
-        titulo.setFont(Font.font("SansSerif", FontWeight.BOLD, 22));
+        titulo.getStyleClass().add("titulo-tela");
 
         Button btnVoltar = new Button("← Voltar");
         btnVoltar.setId("btnVoltar");
-        btnVoltar.setStyle("-fx-background-color: transparent; -fx-text-fill: #2980b9;" +
-                "-fx-font-size: 13px; -fx-cursor: hand;");
+        btnVoltar.getStyleClass().add("btn-voltar");
         btnVoltar.setOnAction(e -> MainApp.irParaDashboard());
 
         HBox cabecalho = new HBox(16, btnVoltar, titulo);
         cabecalho.setAlignment(Pos.CENTER_LEFT);
         cabecalho.setPadding(new Insets(16, 24, 8, 24));
-        cabecalho.setStyle("-fx-background-color: #ecf0f1;");
+        cabecalho.getStyleClass().add("app-header");
 
         // ----- Instrução -----
         Label instrucao = new Label("Selecione a consulta que deseja cancelar e clique no botão abaixo.");
-        instrucao.setFont(Font.font("SansSerif", 13));
+        instrucao.getStyleClass().add("texto-instrucao");
         instrucao.setPadding(new Insets(10, 14, 4, 14));
 
         // ----- Tabela -----
@@ -102,14 +101,13 @@ public class CancelamentoController {
         // ----- Rodapé com status e botão -----
         Label lblStatus = new Label();
         lblStatus.setId("lblStatus");
-        lblStatus.setFont(Font.font("SansSerif", 13));
+        lblStatus.getStyleClass().add("status-erro");
         lblStatus.setWrapText(true);
 
         Button btnCancelar = new Button("❌  Cancelar Consulta Selecionada");
         btnCancelar.setId("btnCancelar");
         btnCancelar.setPrefHeight(38);
-        btnCancelar.setStyle("-fx-background-color: #e74c3c; -fx-text-fill: white;" +
-                "-fx-font-size: 13px; -fx-background-radius: 5; -fx-cursor: hand;");
+        btnCancelar.getStyleClass().addAll("botao", "botao-vermelho");
 
         // Extraído numa variável para poder ser disparado tanto pelo clique
         // no botão quanto pelo Enter com uma linha selecionada na tabela.
@@ -157,8 +155,7 @@ public class CancelamentoController {
 
         Button btnAtualizar = new Button("🔄  Atualizar lista");
         btnAtualizar.setId("btnAtualizar");
-        btnAtualizar.setStyle("-fx-background-color: #7f8c8d; -fx-text-fill: white;" +
-                "-fx-background-radius: 5; -fx-cursor: hand;");
+        btnAtualizar.getStyleClass().addAll("botao", "botao-cinza");
         btnAtualizar.setOnAction(e -> carregarConsultas(tabela, lblStatus));
 
         HBox rodape = new HBox(12, btnCancelar, btnAtualizar, lblStatus);
@@ -171,7 +168,7 @@ public class CancelamentoController {
         view = new BorderPane();
         view.setTop(cabecalho);
         view.setCenter(centro);
-        view.setStyle("-fx-background-color: #f4f6f8;");
+        view.getStyleClass().add("app-bg");
 
         carregarConsultas(tabela, lblStatus);
     }
@@ -188,7 +185,8 @@ public class CancelamentoController {
 
     private void estilo(Label label, String msg, boolean ok) {
         label.setText(msg);
-        label.setStyle("-fx-text-fill: " + (ok ? "#27ae60" : "#c0392b") + ";");
+        label.getStyleClass().removeAll("status-erro", "status-sucesso");
+        label.getStyleClass().add(ok ? "status-sucesso" : "status-erro");
     }
 
     public BorderPane getView() {

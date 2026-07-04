@@ -38,34 +38,33 @@ public class DashboardController {
         // ----- Cabeçalho -----
         Label titulo = new Label("Bem-vindo(a), " + nomeUsuario + "!");
         titulo.setId("lblTitulo");
-        titulo.setFont(Font.font("SansSerif", FontWeight.BOLD, 24));
+        titulo.getStyleClass().add("titulo-principal");
 
         Label lblTipo = new Label("Perfil: " + tipoUsuario);
         lblTipo.setId("lblTipo");
-        lblTipo.setFont(Font.font("SansSerif", 14));
-        lblTipo.setStyle("-fx-text-fill: #555;");
+        lblTipo.getStyleClass().add("subtitulo");
 
         Separator sep = new Separator();
         sep.setMaxWidth(500);
 
         Label instrucao = new Label("O que deseja fazer?");
-        instrucao.setFont(Font.font("SansSerif", 15));
+        instrucao.getStyleClass().add("texto-instrucao");
 
         // ----- Botões por perfil -----
         VBox botoes = new VBox(14);
         botoes.setAlignment(Pos.CENTER);
 
         if ("Secretária".equals(tipoUsuario)) {
-            Button btnCadastro    = criarBotao("👤  Cadastrar Paciente",   "#27ae60");
+            Button btnCadastro    = criarBotao("👤  Cadastros",   "botao-verde");
             btnCadastro.setId("btnCadastro");
 
-            Button btnAgendar     = criarBotao("📅  Agendar Consulta",     "#2980b9");
+            Button btnAgendar     = criarBotao("📅  Agendar Consulta",     "botao-azul");
             btnAgendar.setId("btnAgendar");
 
-            Button btnCancelar    = criarBotao("❌  Cancelar Consulta",    "#e74c3c");
+            Button btnCancelar    = criarBotao("❌  Cancelar Consulta",    "botao-vermelho");
             btnCancelar.setId("btnCancelar");
 
-            Button btnAgenda      = criarBotao("🗓  Visualizar Agenda",    "#8e44ad");
+            Button btnAgenda      = criarBotao("🗓  Visualizar Agenda",    "botao-roxo");
             btnAgenda.setId("btnAgendaSecretaria");
 
             btnCadastro.setOnAction(e -> MainApp.irParaCadastro());
@@ -76,16 +75,16 @@ public class DashboardController {
             botoes.getChildren().addAll(btnCadastro, btnAgendar, btnCancelar, btnAgenda);
 
         } else if ("Médico".equals(tipoUsuario)) {
-            Button btnAgenda      = criarBotao("🗓  Visualizar Agenda",          "#2980b9");
+            Button btnAgenda      = criarBotao("🗓  Visualizar Agenda",          "botao-azul");
             btnAgenda.setId("btnAgendaMedico");
 
-            Button btnProntuario  = criarBotao("📋  Acessar Prontuário",         "#8e44ad");
+            Button btnProntuario  = criarBotao("📋  Acessar Prontuário",         "botao-roxo");
             btnProntuario.setId("btnProntuario");
 
-            Button btnAtendimento = criarBotao("✏️  Registrar Atendimento",      "#27ae60");
+            Button btnAtendimento = criarBotao("✏️  Registrar Atendimento",      "botao-verde");
             btnAtendimento.setId("btnAtendimento");
 
-            Button btnAtualizarProntuario = criarBotao("📝  Atualizar Prontuário", "#16a085");
+            Button btnAtualizarProntuario = criarBotao("📝  Atualizar Prontuário", "botao-teal");
             btnAtualizarProntuario.setId("btnAtualizarProntuario");
 
             btnAgenda.setOnAction(e      -> MainApp.irParaAgenda(tipoUsuario));
@@ -97,7 +96,7 @@ public class DashboardController {
         }
 
         // Botão Sair sempre visível
-        Button btnSair = criarBotao("🚪  Sair", "#7f8c8d");
+        Button btnSair = criarBotao("🚪  Sair", "botao-cinza");
         btnSair.setId("btnSair");
 
         btnSair.setOnAction(e -> MainApp.irParaLogin());
@@ -106,26 +105,14 @@ public class DashboardController {
         view = new VBox(18, titulo, lblTipo, sep, instrucao, botoes);
         view.setAlignment(Pos.CENTER);
         view.setPadding(new Insets(40));
-        view.setStyle("-fx-background-color: #f4f6f8;");
+        view.getStyleClass().add("app-bg");
     }
 
-    private Button criarBotao(String texto, String cor) {
+    private Button criarBotao(String texto, String classeCor) {
         Button btn = new Button(texto);
         btn.setPrefWidth(320);
         btn.setPrefHeight(42);
-        btn.setFont(Font.font("SansSerif", 14));
-        btn.setStyle(
-                "-fx-background-color: " + cor + "; -fx-text-fill: white;" +
-                        "-fx-background-radius: 6; -fx-cursor: hand;"
-        );
-        btn.setOnMouseEntered(e -> btn.setStyle(
-                "-fx-background-color: derive(" + cor + ", -15%);" +
-                        "-fx-text-fill: white; -fx-background-radius: 6; -fx-cursor: hand;"
-        ));
-        btn.setOnMouseExited(e -> btn.setStyle(
-                "-fx-background-color: " + cor + ";" +
-                        "-fx-text-fill: white; -fx-background-radius: 6; -fx-cursor: hand;"
-        ));
+        btn.getStyleClass().addAll("botao", classeCor);
         return btn;
     }
 

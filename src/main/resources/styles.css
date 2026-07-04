@@ -1,0 +1,106 @@
+/* ==========================================================================
+   styles.css — Folha de estilo única do Sistema Hospitalar (G8)
+   Centraliza tipografia, cores e botões que antes estavam espalhados
+   como Font.font(...) / setStyle(...) inline em cada Controller.
+   ========================================================================== */
+
+/* ----- Fundo padrão das telas ----- */
+.app-bg {
+    -fx-background-color: #f4f6f8;
+}
+
+.app-header {
+    -fx-background-color: #ecf0f1;
+}
+
+/* ----- Tipografia ----- */
+.titulo-principal {
+    -fx-font-family: "SansSerif";
+    -fx-font-size: 26px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2c3e50;
+}
+
+.titulo-tela {
+    -fx-font-family: "SansSerif";
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2c3e50;
+}
+
+.subtitulo {
+    -fx-font-family: "SansSerif";
+    -fx-font-size: 14px;
+    -fx-text-fill: #666666;
+}
+
+.label-campo {
+    -fx-font-family: "SansSerif";
+    -fx-font-size: 13px;
+    -fx-text-fill: #2c3e50;
+}
+
+.texto-aviso {
+    -fx-font-family: "SansSerif";
+    -fx-font-size: 12px;
+    -fx-text-fill: #7f8c8d;
+}
+
+.texto-info {
+    -fx-font-family: "SansSerif";
+    -fx-font-size: 13px;
+    -fx-text-fill: #2c3e50;
+}
+
+.texto-instrucao {
+    -fx-font-family: "SansSerif";
+    -fx-font-size: 13px;
+    -fx-text-fill: #2c3e50;
+}
+
+/* ----- Mensagens de status (erro / sucesso) -----
+   O helper estilo(...) de cada Controller alterna entre as duas classes
+   abaixo em vez de usar setStyle(...) com cor fixa no código Java. */
+.status-erro {
+    -fx-font-family: "SansSerif";
+    -fx-font-size: 13px;
+    -fx-text-fill: #c0392b;
+}
+
+.status-sucesso {
+    -fx-font-family: "SansSerif";
+    -fx-font-size: 13px;
+    -fx-text-fill: #27ae60;
+}
+
+/* ----- Botão "Voltar" (link discreto no cabeçalho) ----- */
+.btn-voltar {
+    -fx-background-color: transparent;
+    -fx-text-fill: #2980b9;
+    -fx-font-size: 13px;
+    -fx-cursor: hand;
+}
+
+/* ----- Botões de ação (cor definida por classe secundária) ----- */
+.botao {
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-background-radius: 5;
+    -fx-cursor: hand;
+}
+
+.botao-azul      { -fx-background-color: #2980b9; }
+.botao-verde     { -fx-background-color: #27ae60; }
+.botao-vermelho  { -fx-background-color: #e74c3c; }
+.botao-roxo      { -fx-background-color: #8e44ad; }
+.botao-laranja   { -fx-background-color: #e67e22; }
+.botao-cinza     { -fx-background-color: #7f8c8d; }
+.botao-teal      { -fx-background-color: #16a085; }
+
+.botao-azul:hover      { -fx-background-color: derive(#2980b9, -15%); }
+.botao-verde:hover     { -fx-background-color: derive(#27ae60, -15%); }
+.botao-vermelho:hover  { -fx-background-color: derive(#e74c3c, -15%); }
+.botao-roxo:hover      { -fx-background-color: derive(#8e44ad, -15%); }
+.botao-laranja:hover   { -fx-background-color: derive(#e67e22, -15%); }
+.botao-cinza:hover     { -fx-background-color: derive(#7f8c8d, -15%); }
+.botao-teal:hover      { -fx-background-color: derive(#16a085, -15%); }

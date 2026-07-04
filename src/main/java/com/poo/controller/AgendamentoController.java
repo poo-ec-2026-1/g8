@@ -47,20 +47,20 @@ public class AgendamentoController {
 
     private void construirView() {
         Label titulo = new Label("Agendar Consulta");
-        titulo.setFont(Font.font("SansSerif", FontWeight.BOLD, 22));
+        titulo.getStyleClass().add("titulo-tela");
 
         Button btnVoltar = new Button("← Voltar");
         btnVoltar.setId("btnVoltar");
-        btnVoltar.setStyle("-fx-background-color: transparent; -fx-text-fill: #2980b9;" +
-                "-fx-font-size: 13px; -fx-cursor: hand;");
+        btnVoltar.getStyleClass().add("btn-voltar");
         btnVoltar.setOnAction(e -> MainApp.irParaDashboard());
 
         HBox cabecalho = new HBox(16, btnVoltar, titulo);
         cabecalho.setAlignment(Pos.CENTER_LEFT);
         cabecalho.setPadding(new Insets(16, 24, 8, 24));
-        cabecalho.setStyle("-fx-background-color: #ecf0f1;");
+        cabecalho.getStyleClass().add("app-header");
 
         Label lblMedico = new Label("Médico:");
+        lblMedico.getStyleClass().add("label-campo");
         ComboBox<Medico> cbMedico = new ComboBox<>();
         cbMedico.setId("cbMedico");
         cbMedico.setPromptText("Selecione o médico");
@@ -69,6 +69,7 @@ public class AgendamentoController {
         cbMedico.setButtonCell(celulaMedico());
 
         Label lblCliente = new Label("Paciente:");
+        lblCliente.getStyleClass().add("label-campo");
         ComboBox<Cliente> cbCliente = new ComboBox<>();
         cbCliente.setId("cbCliente");
         cbCliente.setPromptText("Selecione o paciente");
@@ -77,6 +78,7 @@ public class AgendamentoController {
         cbCliente.setButtonCell(celulaCliente());
 
         Label lblData = new Label("Data (DD/MM/AAAA):");
+        lblData.getStyleClass().add("label-campo");
         TextField fData = new TextField();
         fData.setId("fData");
         fData.setPromptText("Ex: 15/07/2026");
@@ -84,6 +86,7 @@ public class AgendamentoController {
         MascaraData.aplicar(fData);
 
         Label lblHorario = new Label("Horário (HH:MM):");
+        lblHorario.getStyleClass().add("label-campo");
         TextField fHorario = new TextField();
         fHorario.setId("fHorario");
         fHorario.setPromptText("Ex: 14:30");
@@ -93,14 +96,13 @@ public class AgendamentoController {
         lblStatus.setId("lblStatus");
         lblStatus.setWrapText(true);
         lblStatus.setMaxWidth(400);
-        lblStatus.setFont(Font.font("SansSerif", 13));
+        lblStatus.getStyleClass().add("status-erro");
 
         Button btnSalvar = new Button("✔  Confirmar Agendamento");
         btnSalvar.setId("btnSalvar");
         btnSalvar.setPrefWidth(260);
         btnSalvar.setPrefHeight(38);
-        btnSalvar.setStyle("-fx-background-color: #2980b9; -fx-text-fill: white;" +
-                "-fx-font-size: 14px; -fx-background-radius: 5; -fx-cursor: hand;");
+        btnSalvar.getStyleClass().addAll("botao", "botao-azul");
 
         // Extraído numa variável (em vez de lambda direta no setOnAction) para
         // poder ser reaproveitado pelos campos de texto — assim Enter em
@@ -167,7 +169,7 @@ public class AgendamentoController {
         view = new BorderPane();
         view.setTop(cabecalho);
         view.setCenter(centro);
-        view.setStyle("-fx-background-color: #f4f6f8;");
+        view.getStyleClass().add("app-bg");
 
         // Carrega os combos de médico/cliente após montar a tela,
         // para já exibir um erro amigável se o banco falhar.
@@ -203,7 +205,8 @@ public class AgendamentoController {
 
     private void estilo(Label label, String msg, boolean ok) {
         label.setText(msg);
-        label.setStyle("-fx-text-fill: " + (ok ? "#27ae60" : "#c0392b") + ";");
+        label.getStyleClass().removeAll("status-erro", "status-sucesso");
+        label.getStyleClass().add(ok ? "status-sucesso" : "status-erro");
     }
 
     public BorderPane getView() {
