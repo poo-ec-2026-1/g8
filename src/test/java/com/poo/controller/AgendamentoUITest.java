@@ -14,6 +14,8 @@ import org.testfx.framework.junit5.ApplicationTest;
 import org.testfx.api.FxAssert;
 import org.testfx.matcher.control.LabeledMatchers;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 public class AgendamentoUITest extends ApplicationTest {
 
     @Override
@@ -102,6 +104,18 @@ public class AgendamentoUITest extends ApplicationTest {
 
         // Verifica se o controller detectou o conflito e impediu o salvamento
         FxAssert.verifyThat("#lblStatus", LabeledMatchers.hasText("⚠ Horário já ocupado para este médico."));
+    }
+
+    @Test
+    public void deveFormatarHorarioComMascaraAoDigitarSoOsDigitos() {
+        // O usuário digita só os números; a MascaraHorario insere o ':' sozinho.
+        clickOn("#fHorario").write("1430");
+
+        interact(() -> {
+            TextInputControl campo = lookup("#fHorario").queryTextInputControl();
+            assertEquals("14:30", campo.getText(),
+                    "A máscara deve transformar 1430 em 14:30 automaticamente.");
+        });
     }
 
     @Test

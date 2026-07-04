@@ -5,6 +5,7 @@ import com.poo.model.Cliente;
 import com.poo.model.Consulta;
 import com.poo.model.Medico;
 
+import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -74,6 +75,22 @@ public class CadastroUITest extends ApplicationTest {
         FxAssert.verifyThat("#lblStatusMedico", LabeledMatchers.hasText("✔ Médico cadastrado com sucesso!"));
     }
 
+    @Test
+    public void deveCadastrarMedicoAoPressionarEnter() {
+        clickOn("🩺  Novo Médico");
+
+        clickOn("#fNomeMedico").write("Dra. Enter Silva");
+        clickOn("#fCpfMedico").write("529.982.247-25");
+        clickOn("#fEspMedico").write("Neurologia");
+        clickOn("#fSenhaMedico").write("med123");
+
+        // Enter no último campo (com foco em #fSenhaMedico) deve confirmar
+        // o cadastro sem precisar clicar no botão.
+        push(KeyCode.ENTER);
+
+        FxAssert.verifyThat("#lblStatusMedico", LabeledMatchers.hasText("✔ Médico cadastrado com sucesso!"));
+    }
+
     // Teste da aba: SECRETÁRIA
     @Test
     public void deveExibirErroQuandoSenhasDaSecretariaNaoForemAMesma() {
@@ -88,6 +105,25 @@ public class CadastroUITest extends ApplicationTest {
         clickOn("#btnSalvarSecretaria");
 
         // Verifica se o controller barrou o fluxo antes de enviar ao repositório
+        FxAssert.verifyThat("#lblStatusSecretaria", LabeledMatchers.hasText("As senhas não coincidem."));
+    }
+
+    @Test
+    public void deveDispararCadastroDaSecretariaAoPressionarEnter() {
+        // Prova que Enter aciona o mesmo handler do botão na aba Secretária,
+        // usando a via de validação (senhas diferentes) para NÃO persistir —
+        // o SecretariaRepository não expõe delete, então o @AfterEach não
+        // limpa secretárias e criar uma de verdade sujaria o banco permanentemente.
+        clickOn("🗂  Nova Secretária");
+
+        clickOn("#fNomeSecretaria").write("Sec Enter Teste");
+        clickOn("#fCpfSecretaria").write("529.982.247-25");
+        clickOn("#fSenhaSecretaria").write("sec123");
+        clickOn("#fConfirmaSecretaria").write("sec999"); // diferente de propósito
+
+        // Enter com foco em #fConfirmaSecretaria deve disparar o handler.
+        push(KeyCode.ENTER);
+
         FxAssert.verifyThat("#lblStatusSecretaria", LabeledMatchers.hasText("As senhas não coincidem."));
     }
 
