@@ -1,50 +1,67 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1050" height="740" viewBox="0 0 1050 740" font-family="Segoe UI, Helvetica, Arial, sans-serif">
-<rect x="0" y="0" width="1050" height="740" fill="white"/>
-<text x="525.0" y="30" text-anchor="middle" font-size="18" font-weight="bold" fill="#2c3e50">Cadastrar Paciente (Secretaria)</text>
-<line x1="110" y1="112" x2="110" y2="720" stroke="#34495e" stroke-width="1.5" stroke-dasharray="5,4"/>
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="762" viewBox="0 0 1080 762" font-family="Segoe UI, Helvetica, Arial, sans-serif">
+<rect x="0" y="0" width="1080" height="762" fill="white"/>
+<text x="540.0" y="30" text-anchor="middle" font-size="18" font-weight="bold" fill="#2c3e50">Cadastrar Paciente (Secretaria)</text>
+<line x1="110" y1="112" x2="110" y2="742" stroke="#34495e" stroke-width="1.5" stroke-dasharray="5,4"/>
 <circle cx="110" cy="60" r="9" fill="none" stroke="#2c3e50" stroke-width="2"/>
 <line x1="110" y1="69" x2="110" y2="92" stroke="#2c3e50" stroke-width="2"/>
 <line x1="97" y1="77" x2="123" y2="77" stroke="#2c3e50" stroke-width="2"/>
 <line x1="110" y1="92" x2="99" y2="108" stroke="#2c3e50" stroke-width="2"/>
 <line x1="110" y1="92" x2="121" y2="108" stroke="#2c3e50" stroke-width="2"/>
 <text x="110" y="104" text-anchor="middle" font-size="12.5" font-weight="600" fill="#2c3e50">Secretaria</text>
-<line x1="300" y1="112" x2="300" y2="720" stroke="#34495e" stroke-width="1.5" stroke-dasharray="5,4"/>
+<line x1="300" y1="112" x2="300" y2="742" stroke="#34495e" stroke-width="1.5" stroke-dasharray="5,4"/>
 <rect x="242.5" y="36" width="115" height="56" rx="5" fill="#eaf1f8" stroke="#2c3e50" stroke-width="1.3"/>
 <text x="300" y="54" text-anchor="middle" font-size="12" font-weight="600" fill="#2c3e50">Cadastro</text>
 <text x="300" y="69" text-anchor="middle" font-size="12" font-weight="600" fill="#2c3e50">Controller</text>
-<line x1="490" y1="112" x2="490" y2="720" stroke="#34495e" stroke-width="1.5" stroke-dasharray="5,4"/>
+<line x1="490" y1="112" x2="490" y2="742" stroke="#34495e" stroke-width="1.5" stroke-dasharray="5,4"/>
 <rect x="432.5" y="51" width="115" height="41" rx="5" fill="#eaf1f8" stroke="#2c3e50" stroke-width="1.3"/>
 <text x="490" y="69" text-anchor="middle" font-size="12" font-weight="600" fill="#2c3e50">Cliente</text>
-<line x1="680" y1="112" x2="680" y2="720" stroke="#34495e" stroke-width="1.5" stroke-dasharray="5,4"/>
-<rect x="605.4" y="51" width="149.2" height="41" rx="5" fill="#eaf1f8" stroke="#2c3e50" stroke-width="1.3"/>
-<text x="680" y="69" text-anchor="middle" font-size="12" font-weight="600" fill="#2c3e50">ClienteRepository</text>
+<line x1="680" y1="112" x2="680" y2="742" stroke="#34495e" stroke-width="1.5" stroke-dasharray="5,4"/>
+<rect x="622.5" y="36" width="115" height="56" rx="5" fill="#eaf1f8" stroke="#2c3e50" stroke-width="1.3"/>
+<text x="680" y="54" text-anchor="middle" font-size="12" font-weight="600" fill="#2c3e50">Cliente</text>
+<text x="680" y="69" text-anchor="middle" font-size="12" font-weight="600" fill="#2c3e50">Repository</text>
+<line x1="870" y1="112" x2="870" y2="742" stroke="#34495e" stroke-width="1.5" stroke-dasharray="5,4"/>
+<rect x="812.5" y="36" width="115" height="56" rx="5" fill="#eaf1f8" stroke="#2c3e50" stroke-width="1.3"/>
+<text x="870" y="54" text-anchor="middle" font-size="12" font-weight="600" fill="#2c3e50">Cadastro</text>
+<text x="870" y="69" text-anchor="middle" font-size="12" font-weight="600" fill="#2c3e50">Validator</text>
 <line x1="110" y1="154" x2="300" y2="154" stroke="#1b1b1b" stroke-width="1.4"/>
 <polygon points="291,150 291,158 300,154" fill="#1b1b1b"/>
 <text x="205.0" y="146" text-anchor="middle" font-size="11.5" fill="#1b1b1b">preenche nome, CPF e data de aniversário</text>
 <line x1="300" y1="196" x2="490" y2="196" stroke="#1b1b1b" stroke-width="1.4"/>
 <polygon points="481,192 481,200 490,196" fill="#1b1b1b"/>
 <text x="395.0" y="188" text-anchor="middle" font-size="11.5" fill="#1b1b1b">new Cliente(nome, CPF, aniversario)</text>
-<line x1="490" y1="280" x2="300" y2="280" stroke="#1b1b1b" stroke-width="1.4" stroke-dasharray="6,4"/>
-<polygon points="309,276 309,284 300,280" fill="#1b1b1b"/>
-<text x="395.0" y="272" text-anchor="middle" font-size="11.5" fill="#1b1b1b">IllegalArgumentException</text>
-<line x1="300" y1="322" x2="110" y2="322" stroke="#1b1b1b" stroke-width="1.4" stroke-dasharray="6,4"/>
-<polygon points="119,318 119,326 110,322" fill="#1b1b1b"/>
-<text x="205.0" y="314" text-anchor="middle" font-size="11.5" fill="#1b1b1b">exibe mensagem de erro</text>
-<line x1="300" y1="406" x2="680" y2="406" stroke="#1b1b1b" stroke-width="1.4"/>
-<polygon points="671,402 671,410 680,406" fill="#1b1b1b"/>
-<text x="490.0" y="398" text-anchor="middle" font-size="11.5" fill="#1b1b1b">create(cliente)</text>
-<line x1="680" y1="448" x2="300" y2="448" stroke="#1b1b1b" stroke-width="1.4" stroke-dasharray="6,4"/>
-<polygon points="309,444 309,452 300,448" fill="#1b1b1b"/>
-<text x="490.0" y="440" text-anchor="middle" font-size="11.5" fill="#1b1b1b">OK</text>
-<line x1="300" y1="490" x2="110" y2="490" stroke="#1b1b1b" stroke-width="1.4" stroke-dasharray="6,4"/>
-<polygon points="119,486 119,494 110,490" fill="#1b1b1b"/>
-<text x="205.0" y="482" text-anchor="middle" font-size="11.5" fill="#1b1b1b">confirma cadastro</text>
-<rect x="24.5" y="216" width="779.0" height="328" fill="none" stroke="#8e8e8e" stroke-width="1.2" stroke-dasharray="4,3"/>
-<path d="M 24.5 216 h 135 v 14 l -8,8 h -127 z" fill="#e8e8e8" stroke="#8e8e8e" stroke-width="1"/>
-<text x="30.5" y="229" font-size="11" font-weight="bold" fill="#333">alt [dados inválidos]</text>
-<line x1="24.5" y1="344" x2="803.5" y2="344" stroke="#8e8e8e" stroke-width="1" stroke-dasharray="4,3"/>
-<text x="30.5" y="356" font-size="10.5" font-style="italic" fill="#555">[dados válidos]</text>
-<rect x="324" y="560" width="372" height="46" fill="#fff6cf" stroke="#d9c56a" stroke-width="1"/>
-<text x="332" y="576" font-size="11" fill="#5a4d10">O Prontuario NÃO é criado aqui — fica para a</text>
-<text x="332" y="592" font-size="11" fill="#5a4d10">tela &#x27;Atualizar Prontuário&#x27; (Médico).</text>
+<path d="M 494 244 H 560 V 258 H 494" fill="none" stroke="#1b1b1b" stroke-width="1.4"/>
+<polygon points="503,254 503,262 494,258" fill="#1b1b1b"/>
+<text x="502" y="240" font-size="11.5" fill="#1b1b1b">valida CPF e data (ValidadorUtils)</text>
+<path d="M 24.5 264 h 128 v 14 l -8,8 h -120 z" fill="#e8e8e8" stroke="#8e8e8e" stroke-width="1"/>
+<text x="30.5" y="277" font-size="11" font-weight="bold" fill="#333">alt [dados inválidos]</text>
+<line x1="490" y1="302" x2="300" y2="302" stroke="#1b1b1b" stroke-width="1.4" stroke-dasharray="6,4"/>
+<polygon points="309,298 309,306 300,302" fill="#1b1b1b"/>
+<text x="395.0" y="294" text-anchor="middle" font-size="11.5" fill="#1b1b1b">IllegalArgumentException</text>
+<line x1="300" y1="344" x2="110" y2="344" stroke="#1b1b1b" stroke-width="1.4" stroke-dasharray="6,4"/>
+<polygon points="119,340 119,348 110,344" fill="#1b1b1b"/>
+<text x="205.0" y="336" text-anchor="middle" font-size="11.5" fill="#1b1b1b">exibe mensagem de erro</text>
+<line x1="24.5" y1="372" x2="1030" y2="372" stroke="#8e8e8e" stroke-width="1" stroke-dasharray="4,3"/>
+<text x="30.5" y="384" font-size="10.5" font-style="italic" fill="#555">[dados válidos]</text>
+<line x1="300" y1="408" x2="680" y2="408" stroke="#1b1b1b" stroke-width="1.4"/>
+<polygon points="671,404 671,412 680,408" fill="#1b1b1b"/>
+<text x="490.0" y="400" text-anchor="middle" font-size="11.5" fill="#1b1b1b">create(cliente)</text>
+<line x1="680" y1="450" x2="870" y2="450" stroke="#1b1b1b" stroke-width="1.4"/>
+<polygon points="861,446 861,454 870,450" fill="#1b1b1b"/>
+<text x="775.0" y="442" text-anchor="middle" font-size="11.5" fill="#1b1b1b">garantirCpfDisponivel(CPF)</text>
+<path d="M 874 498 H 940 V 512 H 874" fill="none" stroke="#1b1b1b" stroke-width="1.4"/>
+<polygon points="883,508 883,516 874,512" fill="#1b1b1b"/>
+<text x="882" y="494" font-size="11.5" fill="#1b1b1b">existeComCpf nas 3 tabelas</text>
+<line x1="870" y1="532" x2="680" y2="532" stroke="#1b1b1b" stroke-width="1.4" stroke-dasharray="6,4"/>
+<polygon points="689,528 689,536 680,532" fill="#1b1b1b"/>
+<text x="775.0" y="524" text-anchor="middle" font-size="11.5" fill="#1b1b1b">OK (CPF livre)</text>
+<line x1="680" y1="574" x2="300" y2="574" stroke="#1b1b1b" stroke-width="1.4" stroke-dasharray="6,4"/>
+<polygon points="309,570 309,578 300,574" fill="#1b1b1b"/>
+<text x="490.0" y="566" text-anchor="middle" font-size="11.5" fill="#1b1b1b">OK</text>
+<line x1="300" y1="616" x2="110" y2="616" stroke="#1b1b1b" stroke-width="1.4" stroke-dasharray="6,4"/>
+<polygon points="119,612 119,620 110,616" fill="#1b1b1b"/>
+<text x="205.0" y="608" text-anchor="middle" font-size="11.5" fill="#1b1b1b">confirma cadastro</text>
+<rect x="24.5" y="264" width="1005.5" height="386" fill="none" stroke="#8e8e8e" stroke-width="1.2" stroke-dasharray="4,3"/>
+<rect x="302" y="676" width="477" height="46" fill="#fff6cf" stroke="#d9c56a" stroke-width="1"/>
+<text x="310" y="692" font-size="11" fill="#5a4d10">Unicidade GLOBAL de CPF: se o CPF já existir em qualquer tabela,</text>
+<text x="310" y="708" font-size="11" fill="#5a4d10">garantirCpfDisponivel lança IllegalArgumentException e aborta o cadastro.</text>
 </svg>

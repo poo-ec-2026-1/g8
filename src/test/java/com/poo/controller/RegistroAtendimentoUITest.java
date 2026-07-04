@@ -80,7 +80,9 @@ public class RegistroAtendimentoUITest extends ApplicationTest {
                 MainApp.getProntuarioRepo().create(p);
 
                 Medico m = new Medico("Dr. Perez", "529.982.247-25", "Cardiologia", "123");
-                Cliente c = new Cliente("Paciente Com Pasta", "111.444.777-35", 0, p, "02/02/1980");
+                // CPF distinto do médico e do da secretária do seed (111.444.777-35):
+                // a unicidade global de CPF agora impede reaproveitar o CPF do admin.
+                Cliente c = new Cliente("Paciente Com Pasta", "718.905.727-72", 0, p, "02/02/1980");
 
                 MainApp.getMedicoRepo().create(m);
                 MainApp.getClienteRepo().create(c);

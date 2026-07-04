@@ -8,6 +8,7 @@ import com.poo.repository.ClienteRepository;
 import com.poo.repository.ConsultaRepository;
 import com.poo.repository.MedicoRepository;
 import com.poo.util.MascaraData;
+import com.poo.util.MascaraHorario;
 
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
@@ -91,6 +92,7 @@ public class AgendamentoController {
         fHorario.setId("fHorario");
         fHorario.setPromptText("Ex: 14:30");
         fHorario.setMaxWidth(380);
+        MascaraHorario.aplicar(fHorario);
 
         Label lblStatus = new Label();
         lblStatus.setId("lblStatus");

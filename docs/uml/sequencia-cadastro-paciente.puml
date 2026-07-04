@@ -6,6 +6,7 @@ actor Secretaria
 participant "CadastroController" as CC
 participant "Cliente" as ClienteModel
 participant "ClienteRepository" as ClienteRepo
+participant "CadastroValidator" as Validator
 
 Secretaria -> CC : preenche nome, CPF e data de aniversário
 CC -> ClienteModel : new Cliente(nome, CPF, aniversario)
@@ -16,14 +17,17 @@ alt dados inválidos
   CC --> Secretaria : exibe mensagem de erro
 else dados válidos
   CC -> ClienteRepo : create(cliente)
+  ClienteRepo -> Validator : garantirCpfDisponivel(CPF)
+  Validator -> Validator : existeComCpf em\nCliente/Medico/Secretaria
+  Validator --> ClienteRepo : OK (CPF livre)
   ClienteRepo --> CC : OK
   CC --> Secretaria : confirma cadastro
 end
 
 note right of CC
-  O Prontuario NÃO é criado neste fluxo — fica a
-  cargo da tela "Atualizar Prontuário" (Médico),
-  ver sequencia-atualizar-prontuario.puml.
+  Unicidade GLOBAL de CPF: se o CPF já existir em
+  qualquer tabela, garantirCpfDisponivel lança
+  IllegalArgumentException e o cadastro é abortado.
 end note
 
 @enduml

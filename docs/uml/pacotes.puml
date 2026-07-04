@@ -42,11 +42,14 @@ package "com.poo.repository" as repository {
   class SecretariaRepository
   class ConsultaRepository
   class ProntuarioRepository
+  class CadastroValidator
 }
 
 package "com.poo.util" as util {
   class ValidadorUtils
   class MascaraCpf
+  class MascaraData
+  class MascaraHorario
 }
 
 application ..> controller : constrói telas e navega\n(primaryStage.setScene)
@@ -56,6 +59,7 @@ controller ..> repository : persiste / consulta
 controller ..> util : valida CPF, datas e horário
 controller ..> model : instancia entidades
 repository ..> model : mapeia via ORMLite\n(@DatabaseTable/@DatabaseField)
+repository ..> util : valida CPF/data/horário\ne unicidade de CPF
 model ..> util : valida invariantes no construtor
 
 note bottom of controller

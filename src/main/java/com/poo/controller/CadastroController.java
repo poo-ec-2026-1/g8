@@ -212,7 +212,10 @@ public class CadastroController {
 
         Button btnSalvar = botaoAcao("Cadastrar Médico", "botao-azul");
         btnSalvar.setId("btnSalvarMedico");
-        btnSalvar.setOnAction(e -> {
+
+        // Extraído numa variável para reaproveitar nos campos — assim Enter
+        // em Nome/CPF/Especialidade/Senha confirma o cadastro, igual à aba Cliente.
+        EventHandler<ActionEvent> acaoCadastrarMedico = e -> {
             if (fNome.getText().isBlank() || fCPF.getText().isBlank() || fSenha.getText().isBlank()) {
                 estilo(lblStatus, "Preencha Nome, CPF e Senha.", false);
                 return;
@@ -232,7 +235,13 @@ public class CadastroController {
             } catch (SQLException ex) {
                 estilo(lblStatus, "Erro ao cadastrar médico: " + ex.getMessage(), false);
             }
-        });
+        };
+
+        btnSalvar.setOnAction(acaoCadastrarMedico);
+        fNome.setOnAction(acaoCadastrarMedico);
+        fCPF.setOnAction(acaoCadastrarMedico);
+        fEsp.setOnAction(acaoCadastrarMedico);
+        fSenha.setOnAction(acaoCadastrarMedico);
 
         VBox conteudo = new VBox(10,
                 lblNome, fNome,
@@ -292,7 +301,10 @@ public class CadastroController {
 
         Button btnSalvar = botaoAcao("Cadastrar Secretária", "botao-laranja");
         btnSalvar.setId("btnSalvarSecretaria");
-        btnSalvar.setOnAction(e -> {
+
+        // Extraído numa variável para reaproveitar nos campos — assim Enter
+        // em Nome/CPF/Senha/Confirmar confirma o cadastro, igual à aba Cliente.
+        EventHandler<ActionEvent> acaoCadastrarSecretaria = e -> {
             String nome    = fNome.getText().trim();
             String cpf     = fCPF.getText().trim();
             String senha   = fSenha.getText();
@@ -316,7 +328,13 @@ public class CadastroController {
             } catch (SQLException ex) {
                 estilo(lblStatus, "Erro ao cadastrar secretária: " + ex.getMessage(), false);
             }
-        });
+        };
+
+        btnSalvar.setOnAction(acaoCadastrarSecretaria);
+        fNome.setOnAction(acaoCadastrarSecretaria);
+        fCPF.setOnAction(acaoCadastrarSecretaria);
+        fSenha.setOnAction(acaoCadastrarSecretaria);
+        fConfirma.setOnAction(acaoCadastrarSecretaria);
 
         VBox conteudo = new VBox(10,
                 lblNome,     fNome,

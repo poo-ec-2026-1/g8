@@ -18,15 +18,16 @@ else sem conflito
   AC -> ConsultaModel : new Consulta(data, horario, medico, cliente)
   ConsultaModel -> ConsultaModel : valida horário (ValidadorUtils)
   AC -> ConsultaRepo : create(nova)
+  ConsultaRepo -> ConsultaRepo : valida horário\n(isHorarioValido)
   ConsultaRepo --> AC : OK
   AC --> Secretaria : confirma agendamento
 end
 
 note right of AC
-  A checagem de conflito é feita aqui, inline no
-  Controller. A classe de domínio Agenda já tem
-  novaConsulta() com a mesma regra, mas não é
-  usada — regra de negócio duplicada em 2 lugares.
+  Horário agora é validado nas DUAS camadas: no
+  construtor de Consulta e na persistência
+  (ConsultaRepository), espelhando o padrão de
+  CPF/data já usado no ClienteRepository.
 end note
 
 @enduml

@@ -10,33 +10,48 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.ArrayList;
 
-public class ClienteRepository 
+public class ClienteRepository
 {
     private static Database database;
     private static Dao<Cliente, Integer> dao;
-    
+
     private List<Cliente> loadedClientes;
-    private Cliente loadedCliente; 
-    
-    public ClienteRepository(Database database) 
+    private Cliente loadedCliente;
+
+    public ClienteRepository(Database database)
     {
         ClienteRepository.setDatabase(database);
         this.loadedClientes = new ArrayList<Cliente>();
     }
-    
-    public static void setDatabase(Database database) 
+
+    public static void setDatabase(Database database)
     {
         ClienteRepository.database = database;
-        try 
+        try
         {
             dao = DaoManager.createDao(database.getConnection(), Cliente.class);
             TableUtils.createTableIfNotExists(database.getConnection(), Cliente.class);
-        } catch(SQLException e) 
+        } catch(SQLException e)
         {
             throw new RuntimeException(e);
-        }            
+        }
     }
-    
+
+    /**
+     * Indica se já existe um cliente com o CPF informado (comparação normalizada,
+     * só dígitos). Usado pelo CadastroValidator para garantir CPF único no sistema.
+     */
+    public static boolean existeComCpf(String cpfNormalizado) throws SQLException
+    {
+        if (dao == null) return false;
+        for (Cliente c : dao.queryForAll()) {
+            if (ValidadorUtils.normalizarCpf(c.getCPF()).equals(cpfNormalizado)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public Cliente create(Cliente cliente) throws SQLException, IllegalArgumentException
     {
         if (cliente != null) {
@@ -46,54 +61,55 @@ public class ClienteRepository
             if (!ValidadorUtils.isDataValida(cliente.getAniverssario())) {
                 throw new IllegalArgumentException("Impossível persistir: A data de aniversário informada é inválida.");
             }
+            CadastroValidator.garantirCpfDisponivel(cliente.getCPF());
         }
 
         int nrows = 0;
-        try 
+        try
         {
             nrows = dao.create(cliente);
-            if (nrows == 0) 
+            if (nrows == 0)
             {
                 throw new SQLException("Erro: O cliente não foi salvo no banco.");
             }
             this.loadedCliente = cliente;
             this.loadedClientes.add(cliente);
             return cliente;
-        } catch (SQLException e) 
+        } catch (SQLException e)
         {
             System.err.println("Erro ao criar cliente: " + e.getMessage());
             throw e;
         }
-    }    
+    }
 
-    public Cliente loadFromId(int id) throws SQLException 
+    public Cliente loadFromId(int id) throws SQLException
     {
-        try 
+        try
         {
             this.loadedCliente = dao.queryForId(id);
-            if (this.loadedCliente != null) 
+            if (this.loadedCliente != null)
             {
                 this.loadedClientes.add(this.loadedCliente);
             }
             return this.loadedCliente;
-        } catch (SQLException e) 
+        } catch (SQLException e)
         {
             System.err.println("Erro ao buscar cliente por ID: " + e.getMessage());
             throw e;
         }
-    }    
-    
-    public List<Cliente> loadAll() throws SQLException 
+    }
+
+    public List<Cliente> loadAll() throws SQLException
     {
-        try 
+        try
         {
             this.loadedClientes = dao.queryForAll();
-            if (this.loadedClientes.size() != 0) 
+            if (this.loadedClientes.size() != 0)
             {
                 this.loadedCliente = this.loadedClientes.get(0);
             }
             return this.loadedClientes;
-        } catch (SQLException e) 
+        } catch (SQLException e)
         {
             System.err.println("Erro ao listar todos os clientes: " + e.getMessage());
             throw e;
@@ -113,22 +129,22 @@ public class ClienteRepository
         try
         {
             dao.update(cliente);
-        } catch (SQLException e) 
+        } catch (SQLException e)
         {
             System.err.println("Erro ao atualizar cliente: " + e.getMessage());
             throw e;
         }
     }
 
-    public void delete(Cliente cliente) throws SQLException 
+    public void delete(Cliente cliente) throws SQLException
     {
-        try 
+        try
         {
             dao.delete(cliente);
-        } catch (SQLException e) 
+        } catch (SQLException e)
         {
             System.err.println("Erro ao deletar cliente: " + e.getMessage());
             throw e;
         }
-    }      
+    }
 }
