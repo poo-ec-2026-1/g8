@@ -11,7 +11,7 @@ Ficou sob minha responsabilidade atuar no desenvolvimento da camada de persistê
 estrutural das entidades centrais do sistema e o mapeamento relacional utilizando o banco de dados SQLite.
 
 **Responsabilidades:**
-- Garantir a criação das entidades de dados básicas;
+- Garantir a criação das entidades de dados básicas; 
 - Configurar a estrutura de herança para usuários do sistema;
 - Implementar as funções de manipulação de dados essenciais.
 
