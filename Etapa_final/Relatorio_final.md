@@ -87,7 +87,7 @@ Além disso, ajudei a resolver, via comunicação direta, problemas com extensõ
 ### Conclusões
 
 A experiência foi de extrema importância para compreender a dinâmica de integração de software em equipe utilizando Git, e para vivenciar os desafios reais de acoplamento entre as regras 
-rígidas de banco de dados e as entradas de dados flexíveis vindas de uma interface com o usuário.
+rígidas de banco de dados e as entradas de dados flexíveis vindas de uma interface com o usuário .
 
 ## 5. Video Apresentação
 
