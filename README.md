@@ -16,7 +16,7 @@ Isabela Campos | Documentação
 
 ---
 
-## Seção 1 — Introdução
+## Seção 1—Introdução
 
 ### Justificativa
 
